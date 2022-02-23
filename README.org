@@ -1,0 +1,1401 @@
+#+TITLE: Doom Emacs config
+#+AUTHOR: João Luís Teixeira Pinto
+* Doom Emacs config
+
+This file is a literate configuration of my Doom Emacs config.
+
+Here are the Emacs LISP code that config Emacs and also the explanation of every
+part of the config.
+
+In addition to that, I also document here how I use, or intend to use, such
+configuration.
+
+* Notes about configuring Doom Emacs
+** _
+You can configure Doom by tweaking the files found in your =DOOMDIR=. Doom
+expects this directory to be found in one of:
+
+=~/.config/doom= (respects =$XDG_CONFIG_HOME)= or =~/.doom.d= This directory is
+referred to as your =DOOMDIR=. Only one of these directories should exist (Doom
+will only recognize one).
+
+Change the =DOOMDIR= environment variable to change where Doom looks for this
+directory. Symlinks will work as well.
+
+When you ran =doom install=, it deployed a simple Doom configuration to your
+=DOOMDIR=, comprised of these three files:
+** init.el
+Where you’ll find your =doom!= block, which controls what Doom modules are
+enabled and in what order they will be loaded.
+
+This file is evaluated early when Emacs is starting up; before any other module
+has loaded. You generally shouldn’t add code to this file unless you’re
+targeting Doom’s CLI or something that needs to be configured very early in the
+startup process.
+** config.el
+Here is where 99.99% of your private configuration should go. Anything in here
+is evaluated after all other modules have loaded, when starting up Emacs.
+** packages.el
+Package management is done from this file; where you’ll declare what packages to
+install and where from.
+*** Note:
+do not use =M-x customize= or the customize API in general. Doom is designed to
+be configured programmatically from your config.el, which can conflict with
+Customize’s way of modifying variables.
+
+If you’re concerned about =defcustom= setters, Doom has a =setq!= macro that
+will trigger them.
+** the doom binary CLI utility
+This utility is your new best friend. It won’t spot you a beer, but it’ll
+shoulder much of the work associated with managing and maintaining your Doom
+Emacs configuration, and then some. Not least of which is installation of and
+updating Doom and your installed packages.
+
+It exposes a variety of commands. =bin/doom= help will list them all, but here
+is a summary of the most important ones:
+
+- =doom sync=: This synchronizes your config with Doom Emacs. It ensures that
+  needed packages are installed, orphaned packages are removed and necessary
+  metadata correctly generated. Run this whenever you modify your =doom!= block
+  or =packages.el= file. You’ll need =doom sync -u= if you override the recipe
+  of package installed by another module.
+
+- =doom upgrade=: Updates Doom Emacs (if available) and all its packages.
+
+- =doom env=: (Re)generates an “envvar file”, which is a snapshot of your shell
+  environment that Doom loads at startup. If your app launcher or OS launches
+  Emacs in the wrong environment you will need this. **This is required for GUI
+  Emacs users on MacOS.**
+
+- =doom doctor=: If Doom misbehaves, the doc will diagnose common issues with
+  your installation, system and environment.
+
+- =doom purge=: Over time, the repositories for Doom’s plugins will accumulate.
+  Run this command from time to time to delete old, orphaned packages, and with
+  the =-g= switch to compact existing package repos.
+
+Use =doom help= to see an overview of the available commands that =doom=
+provides, and =doom help COMMAND= to display documentation for a particular
+=COMMAND=.
+
+I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
+directly and from anywhere. Accomplish this by adding this to your .bashrc or
+.zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
+* content about Emacs configs to check out
+** Derik Taylor (distrotube)
+*** youtube
+https://www.youtube.com/playlist?list=PL5--8gKSku15uYCnmxWPO17Dq6hVabAB4
+*** gitlab
+https://gitlab.com/dwt1
+https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/doom
+** David Wilson (system crafters)
+*** youtube
+https://www.youtube.com/c/SystemCrafters/videos
+*** github
+https://github.com/daviwil
+https://github.com/daviwil/dotfiles
+https://github.com/daviwil/emacs-from-scratch
+https://github.com/SystemCrafters
+**** System Crafter Configurations
+https://github.com/SystemCrafters/crafter-configs
+** Jakub Neander(Zaiste Programming)
+*** youtube
+https://www.youtube.com/c/ZaisteProgramming/featured
+*** github
+https://github.com/zaiste
+https://github.com/zaiste/.doom.d
+https://github.com/zaiste/emacs-config
+*** twitter
+https://twitter.com/zaiste
+** Rafael Accácio
+*** youtube
+https://www.youtube.com/channel/UC6TH30TksyUf-MHbt5hMdQQ/videos
+*** github
+https://github.com/Accacio/doom
+https://github.com/Accacio/.emacs.d
+** Lukewh
+*** youtube
+https://www.youtube.com/c/Lukewh/videos
+*** gist
+https://gist.github.com/Lukewh/2da7b54cd773f931b1bf710c84f2f0fb
+** Mike Zamansky
+*** blog
+https://cestlaz.github.io/
+https://cestlaz-nikola.github.io/
+*** youtube
+https://www.youtube.com/playlist?list=PL9KxKa8NpFxIcNQa9js7dQQIHc81b0-Xg
+** Protesilaos Stavrou
+*** youtube
+https://www.youtube.com/c/ProtesilaosStavrou/videos
+*** blog / site
+https://protesilaos.com/
+** Marco Avelar
+*** youtube
+https://www.youtube.com/channel/UCy8M-JO9RfnmBZQ1bEoc8PQ
+https://www.youtube.com/playlist?list=PLSjT1fDWcwAJYSwKnzwPw4VYVsWWdBMSr
+** Xavier Baez
+*** youtube
+https://www.youtube.com/playlist?list=PL6N_e9hIrvFfmFkXm8fQJpzdx2-rAt00s
+** Christopher Maiorana
+*** youtube
+https://www.youtube.com/channel/UCxpeu8gvV77Z1wUrTpu5BUQ
+** Gavin Freeborn
+*** youtube
+https://www.youtube.com/playlist?list=PLknodeJt-I5GJmcd7ENakYf_M0x9q50d1
+** Jake B
+*** youtube
+https://www.youtube.com/c/JakeBox0/videos
+** James Cash
+*** youtube
+https://www.youtube.com/user/jamesnvc000/videos
+** Seorenn
+*** youtube
+https://www.youtube.com/channel/UCsJXkw_Ssp-1myJFm4_SMJA
+*** github
+https://github.com/seorenn/dotemacs
+** thoughtbot Emacs Meetups
+https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
+* configs TODOs
+** change the which key position to the middle of the screen
+** hide synthax markers in org mode
+** show synthax markers when inside the word that is surounded by them
+** configure the agenda
+** configure capture templates
+** configure snippets
+** configure grammar with that proram I found
+look on email for grammar, synthax or spelling
+** add org roam
+* Config files
+** init.el
+#+begin_src emacs-lisp :tangle ./init.el
+
+#+end_src
+*** introduction
+This file controls *what Doom modules are enabled* and *what order they load in*.
+*Remember to run =doom sync= after modifying it!*
+
+NOTE Press =SPC h d h= (or =C-h d h= for non-vim users) to access Doom's
+documentation. There you'll find a "Module Index" link where you'll find a
+comprehensive list of Doom's modules and what flags they support.
+
+NOTE Move your cursor over a module's name (or its flags) and press =K= (or =C-c
+c k= for non-vim users) to view its documentation. This works on flags as well
+(those symbols that start with a plus).
+
+Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+directory (for easy access to its source code).
+
+*** doom block start
+#+begin_src emacs-lisp :tangle ./init.el
+;;; init.el -*- lexical-binding: t; -*-
+(doom!
+#+end_src
+*** input
++ [[file:../modules/input/chinese/README.org][chinese]] - TODO
++ [[file:../modules/input/japanese/README.org][japanese]] - TODO
++ [[file:../modules/input/layout/README.org][layout]] =+azerty +bepo= - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+#+end_src
+*** completion
+Modules that provide new interfaces or frameworks for completion, including code
+completion.
+
++ [[file:../modules/completion/company/README.org][company]] =+childframe +tng= - The ultimate code completion backend
++ helm =+fuzzy +childframe= - *Another* search engine for love and life
++ ido - The /other/ *other* search engine for love and life
++ [[file:../modules/completion/ivy/README.org][ivy]] =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
+  life
++ [[file:../modules/completion/vertico/README.org][vertico]] =+icons= - The search engine of the future
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ;;(ivy              ; a search engine for love and life
+       ;;+fuzzy
+       ;;+childframe
+       ;;+icons
+       ;;)
+       vertico           ; the search engine of the future
+#+end_src
+*** ui
+Aesthetic modules that affect the Emacs interface or user experience.
+
++ [[file:../modules/ui/deft/README.org][deft]] - TODO
++ [[file:../modules/ui/doom/README.org][doom]] - TODO
++ [[file:../modules/ui/doom-dashboard/README.org][doom-dashboard]] - TODO
++ [[file:../modules/ui/doom-quit/README.org][doom-quit]] - TODO
++ [[file:../modules/ui/emoji/README.org][emoji]] =+ascii +github +unicode= - Adds emoji support to Emacs
++ [[file:../modules/ui/hl-todo/README.org][hl-todo]] - TODO
++ [[file:../modules/ui/hydra/README.org][hydra]] - TODO
++ indent-guides - TODO
++ [[file:../modules/ui/ligatures/README.org][ligatures]] =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
++ [[file:../modules/ui/minimap/README.org][minimap]] - TODO
++ [[file:../modules/ui/modeline/README.org][modeline]] =+light= - TODO
++ [[file:../modules/ui/nav-flash/README.org][nav-flash]] - TODO
++ [[file:../modules/ui/neotree/README.org][neotree]] - TODO
++ [[file:../modules/ui/ophints/README.org][ophints]] - TODO
++ [[file:../modules/ui/popup/README.org][popup]] =+all +defaults= - Makes temporary/disposable windows less intrusive
++ [[file:../modules/ui/tabs/README.org][tabs]] - TODO
++ [[file:../modules/ui/treemacs/README.org][treemacs]] - =+lsp= - A tree layout file explorer for Emacs
++ [[file:../modules/ui/unicode/README.org][unicode]] - TODO
++ vc-gutter - TODO
++ vi-tilde-fringe - TODO
++ [[file:../modules/ui/window-select/README.org][window-select]] =+switch-window +numbers= - TODO
++ [[file:../modules/ui/workspaces/README.org][workspaces]] - Isolated workspaces
++ [[file:../modules/ui/zen/README.org][zen]] - Distraction-free coding (or writing)
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       (emoji            ; 🙂
+       +unicode
+       )
+       ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ;;ophints           ; highlight the region an operation acts on
+       ;;(popup            ; tame sudden yet inevitable temporary windows
+       ;; +defaults
+       ;; +all
+       ;; )
+       ;;tabs              ; a tab bar for Emacs
+       ;;(treemacs          ; a project drawer, like neotree but cooler
+       ;; +lsp
+       ;; )
+       unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;(window-select     ; visually switch windows
+       ;; +numbers
+       ;; )
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+#+end_src
+*** Editor
+Modules that affect and augment your ability to manipulate or insert text.
+
++ [[file:../modules/editor/evil/README.org][evil]] =+everywhere= - transforms Emacs into Vim
++ [[file:../modules/editor/file-templates/README.org][file-templates]] - Auto-inserted templates in blank new files
++ [[file:../modules/editor/fold/README.org][fold]] - universal code folding
++ format =+onsave= - TODO
++ god - TODO
++ [[file:../modules/editor/lispy/README.org][lispy]] - TODO
++ multiple-cursors - TODO
++ [[file:../modules/editor/objed/README.org][objed]] =+manual= - TODO
++ [[file:../modules/editor/parinfer/README.org][parinfer]] - TODO
++ rotate-text - TODO
++ [[file:../modules/editor/snippets/README.org][snippets]] - Snippet expansion for lazy typists
++ [[file:../modules/editor/word-wrap/README.org][word-wrap]] - soft wrapping with language-aware indent
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :editor
+       (evil               ; come to the dark side, we have cookies
+        +everywhere
+        )
+       ;;file-templates    ; auto-snippets for empty files
+       ;;fold                ; (nigh) universal code folding
+       ;;(format             ; automated prettiness
+       ;; +onsave
+       ;; )
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       ;;snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+#+end_src
+*** emacs
+Modules that reconfigure or augment packages or features built into Emacs.
+
++ [[file:../modules/emacs/dired/README.org][dired]] =+ranger +icons= - TODO
++ electric - TODO
++ [[file:../modules/emacs/ibuffer/README.org][ibuffer]] =+icons= - TODO
++ [[file:../modules/emacs/undo/README.org][undo]] =+tree= - A smarter, more intuitive & persistent undo history
++ [[file:../modules/emacs/vc/README.org][vc]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :emacs
+       (dired             ; making dired pretty [functional]
+       ;; +ranger
+       ;; +icons
+        )
+       ;;electric          ; smarter, keyword-based electric-indent
+       ;;(ibuffer          ; interactive buffer management
+       ;; +icons
+       ;; )
+       ;;(undo             ; persistent, smarter undo for your inevitable mistakes
+       ;; +tree
+       ;; )
+       vc                ; version-control and Emacs, sitting in a tree
+#+end_src
+
+*** term
+Modules that offer terminal emulation.
+
++ [[file:../modules/term/eshell/README.org][eshell]] - TODO
++ shell - TODO
++ term - TODO
++ [[file:../modules/term/vterm/README.org][vterm]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
+#+end_src
+*** checkers
++ syntax =+childframe= - Live error/warning highlights
++ [[file:../modules/checkers/spell/README.org][spell]] =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
++ [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       :checkers
+       ;;syntax              ; tasing you for every semicolon you forget
+       ;;(spell +flyspell) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+#+end_src
+*** tools
+Small modules that give Emacs access to external tools & services.
+
++ ansible - TODO
++ debugger =+lsp= - A (nigh-)universal debugger in Emacs
++ [[file:../modules/tools/direnv/README.org][direnv]] - TODO
++ [[file:../modules/tools/docker/README.org][docker]] =+lsp= - TODO
++ [[file:../modules/tools/editorconfig/README.org][editorconfig]] - TODO
++ [[file:../modules/tools/ein/README.org][ein]] - TODO
++ [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
++ gist - TODO
++ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup
+  backend
++ [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
++ [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
++ make - TODO
++ [[file:../modules/tools/pass/README.org][pass]] =+auth= - TODO
++ [[file:../modules/tools/pdf/README.org][pdf]] - TODO
++ prodigy - TODO
++ [[file:../modules/tools/rgb/README.org][rgb]] - TODO
++ [[file:../modules/tools/taskrunner/README.org][taskrunner]] - TODO
++ [[file:../modules/tools/terraform/README.org][terraform]] - TODO
++ tmux - TODO
++ [[file:../modules/tools/upload/README.org][upload]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :tools
+       ;;ansible
+       ;;biblio            ; Writes a PhD for you (citation needed)
+       ;;(debugger          ; FIXME stepping through code, to help you add bugs
+       ;; +lsp
+       ;; )
+       ;;direnv
+       ;;docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       ;;(eval      ; run code, run (also, repls)
+       ;; +overlay
+       ;; )
+       ;;gist              ; interacting with github gists
+       ;;(lookup              ; navigate your code and its documentation
+       ;; +dictionary
+       ;; +docsets
+       ;; +offline
+       ;; )   ; Universal jump-to & documentation lookup
+       (lsp
+        +peek          ; M-x vscode
+        ;;+eglot
+        )        ; Installation and configuration of language server protocol client (lsp-mode or eglot)
+       (magit             ; a git porcelain for Emacs
+        +forge
+        )
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+#+end_src
+*** os
+Modules to improve integration into your OS, system, or devices.
+
++ [[file:../modules/os/macos/README.org][macos]] - Improve Emacs' compatibility with macOS
++ [[file:../modules/os/tty/README.org][tty]] =+osc= - Improves the terminal Emacs experience.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :os
+       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+#+end_src
+*** lang
+Modules that bring support for a language or group of languages to Emacs.
+
++ [[file:../modules/lang/agda/README.org][agda]] =+local= - TODO
++ [[file:../modules/lang/beancount/README.org][beancount]] =+lsp= - TODO
++ [[file:../modules/lang/cc/README.org][cc]] =+lsp= - TODO
++ [[file:../modules/lang/clojure/README.org][clojure]] =+lsp= - TODO
++ common-lisp - TODO
++ [[file:../modules/lang/coq/README.org][coq]] - TODO
++ [[file:../modules/lang/crystal/README.org][crystal]] - TODO
++ [[file:../modules/lang/csharp/README.org][csharp]] =+lsp +unity= - TODO
++ [[file:../modules/lang/dart/README.org][dart]] =+lsp +flutter=
++ data - TODO
++ [[file:../modules/lang/elixir/README.org][elixir]] =+lsp= - TODO
++ elm =+lsp= - TODO
++ [[file:../modules/lang/emacs-lisp/README.org][emacs-lisp]] - TODO
++ [[file:../modules/lang/erlang/README.org][erlang]] =+lsp= - TODO
++ [[file:../modules/lang/ess/README.org][ess]] =+lsp= - TODO
++ [[file:../modules/lang/factor/README.org][factor]] - TODO
++ [[file:../modules/lang/faust/README.org][faust]] - TODO
++ [[file:../modules/lang/fsharp/README.org][fsharp]] =+lsp= - TODO
++ [[file:../modules/lang/fstar/README.org][fstar]] - F* support
++ [[file:../modules/lang/gdscript/README.org][gdscript]] =+lsp= - TODO
++ [[file:../modules/lang/go/README.org][go]] =+lsp= - TODO
++ [[file:../modules/lang/haskell/README.org][haskell]] =+lsp= - TODO
++ hy - TODO
++ [[file:../modules/lang/idris/README.org][idris]] - TODO
++ java =+meghanada +eclim +lsp= - TODO
++ [[file:../modules/lang/javascript/README.org][javascript]] =+lsp= - JavaScript, TypeScript, and CoffeeScript support
++ [[file:../modules/lang/json/README.org][json]] =+lsp= - TODO
++ [[file:../modules/lang/julia/README.org][julia]] =+lsp= - TODO
++ [[file:../modules/lang/kotlin/README.org][kotlin]] =+lsp= - TODO
++ [[file:../modules/lang/latex/README.org][latex]] =+latexmk +cdlatex +fold +lsp= - TODO
++ lean - TODO
++ [[file:../modules/lang/ledger/README.org][ledger]] - TODO
++ [[file:../modules/lang/lua/README.org][lua]] =+fennel +moonscript= - TODO
++ [[file:../modules/lang/markdown/README.org][markdown]] =+grip= - TODO
++ [[file:../modules/lang/nim/README.org][nim]] - TODO
++ [[file:../modules/lang/nix/README.org][nix]] - TODO
++ [[file:../modules/lang/ocaml/README.org][ocaml]] =+lsp= - TODO
++ [[file:../modules/lang/org/README.org][org]] =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
++ [[file:../modules/lang/php/README.org][php]] =+hack +lsp= - TODO
++ plantuml - TODO
++ purescript =+lsp= - TODO
++ [[file:../modules/lang/python/README.org][python]] =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
++ qt - TODO
++ [[file:../modules/lang/racket/README.org][racket]] =+lsp +xp= - TODO
++ [[file:../modules/lang/raku/README.org][raku]] - TODO
++ [[file:../modules/lang/rest/README.org][rest]] - TODO
++ rst - TODO
++ [[file:../modules/lang/ruby/README.org][ruby]] =+lsp +rvm +rbenv +rails +chruby=
++ [[file:../modules/lang/rust/README.org][rust]] =+lsp= - TODO
++ [[file:../modules/lang/scala/README.org][scala]] =+lsp= - TODO
++ [[file:../modules/lang/scheme/README.org][scheme]] =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
++ [[file:../modules/lang/sh/README.org][sh]] =+fish +lsp +powershell= - TODO
++ [[file:../modules/lang/sml/README.org][sml]] - TODO
++ [[file:../modules/lang/solidity/README.org][solidity]] - TODO
++ swift =+lsp= - TODO
++ terra - TODO
++ web =+lsp= - HTML and CSS (SCSS/SASS/LESS/Stylus) support.
++ [[file:../modules/lang/yaml/README.org][yaml]] =+lsp= - TODO
++ [[file:../modules/lang/zig/README.org][zig]] =+lsp= - Zig support.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
+       ;;(cc                ; C > C++ == 1
+       ;; +lsp
+       ;; )
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;(csharp            ; unity, .NET, and mono shenanigans
+       ;; +lsp
+       ;; +unity
+       ;; )
+       data              ; config/data formats
+       ;;(dart              ; paint ui and not much else
+       ;; +lsp
+       ;; +flutter
+       ;; )
+       ;;dhall
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;factor
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
+       ;;(fsharp            ; ML stands for Microsoft's Language
+       ;; +lsp
+       ;; )
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       (gdscript          ; the language you waited for
+        +lsp
+        )
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +lsp)    ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       ;;(json              ; At least it ain't XML
+       ;; +lsp
+       ;; )
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;(javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;; +slp
+       ;; )
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       (org              ; organize your plain life in plain text
+        +roam
+        +dragndrop
+        ;;+ipython
+        ;;+journal
+        ;;+noter
+        ;;+pandoc
+        ;;+pomodoro
+        ;;+present
+        +pretty
+        )
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;(python            ; beautiful is better than ugly
+       ;; +lsp
+       ;; )
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;(rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; +lsp
+       ;; )
+       ;;scala             ; java, but good
+       ;;(scheme +guile)   ; a fully conniving family of lisps
+       ;;(sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; +lsp
+       ;; +fish
+       ;; )
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       ;;(web               ; HTML and CSS (SCSS/SASS/LESS/Stylus) support.
+       ;; +lsp
+       ;; )
+       ;;(yaml              ; JSON, but readable
+       ;; +lsp
+       ;; )
+       ;;zig               ; C, but simpler
+#+end_src
+*** email
++ [[file:../modules/email/mu4e/README.org][mu4e]] =+org +gmail= - TODO
++ [[file:../modules/email/notmuch/README.org][notmuch]] - TODO
++ wanderlust =+gmail= - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :email
+       ;;(mu4e +org +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+#+end_src
+*** app
+Application modules are complex and opinionated modules that transform Emacs
+toward a specific purpose. They may have additional dependencies and *should be
+loaded last*, before =:config= modules.
+
++ [[file:../modules/app/calendar/README.org][calendar]] - TODO
++ [[file:../modules/app/emms/README.org][emms]] - TODO
++ [[file:../modules/app/everywhere/README.org][everywhere]] - TODO
++ [[file:../modules/app/irc/README.org][irc]] - how neckbeards socialize
++ [[file:../modules/app/rss/README.org][rss]] =+org= - an RSS client in Emacs
++ [[file:../modules/app/twitter/README.org][twitter]] - A twitter client for Emacs
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :app
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+#+end_src
+*** config
+Modules that configure Emacs one way or another, or focus on making it easier
+for you to customize it yourself. It is best to load these last.
+
++ [[file:../modules/config/literate/README.org][literate]] - For users with literate configs. This will tangle+compile a
+  config.org in your ~doom-private-dir~ when it changes.
++ [[file:../modules/config/default/README.org][default]] =+bindings +smartparens= - The default module sets reasonable defaults
+  for Emacs. It also provides a Spacemacs-inspired keybinding scheme and a
+  smartparens config. Use it as a reference for your own modules.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :config
+       ;;literate
+       (default
+        +bindings
+        +smartparens
+        )
+#+end_src
+
+*** benchmark startup time
+#+begin_src emacs-lisp :tangle no
+;;(when doom-debug-p
+;;  (require 'benchmark-init)
+;;  (add-hook 'doom-first-input-hook #'benchmark-init/deactivate))
+#+end_src
+*** doom block end
+#+begin_src emacs-lisp :tangle ./init.el
+)
+#+end_src
+** config.el
+** packages.el
+* Doom Emacs Config
+** init.el
+#+begin_src emacs-lisp :tangle ./init.el
+
+#+end_src
+*** introduction
+This file controls what Doom modules are enabled and what order they load in.
+*Remember to run =doom sync= after modifying it!*
+
+NOTE Press =SPC h d h= (or =C-h d h= for non-vim users) to access Doom's
+documentation. There you'll find a "Module Index" link where you'll find a
+comprehensive list of Doom's modules and what flags they support.
+
+NOTE Move your cursor over a module's name (or its flags) and press =K= (or =C-c
+c k= for non-vim users) to view its documentation. This works on flags as well
+(those symbols that start with a plus).
+
+Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+directory (for easy access to its source code).
+
+*** doom block start
+#+begin_src emacs-lisp :tangle ./init.el
+;;; init.el -*- lexical-binding: t; -*-
+(doom!
+#+end_src
+*** app
+Application modules are complex and opinionated modules that transform Emacs
+toward a specific purpose. They may have additional dependencies and *should be
+loaded last*, before =:config= modules.
+
++ [[file:../modules/app/calendar/README.org][calendar]] - TODO
++ [[file:../modules/app/emms/README.org][emms]] - TODO
++ [[file:../modules/app/everywhere/README.org][everywhere]] - TODO
++ [[file:../modules/app/irc/README.org][irc]] - how neckbeards socialize
++ [[file:../modules/app/rss/README.org][rss]] =+org= - an RSS client in Emacs
++ [[file:../modules/app/twitter/README.org][twitter]] - A twitter client for Emacs
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :app
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+#+end_src
+*** checkers
++ syntax =+childframe= - Live error/warning highlights
++ [[file:../modules/checkers/spell/README.org][spell]] =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
++ [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       :checkers
+       ;;syntax              ; tasing you for every semicolon you forget
+       ;;(spell +flyspell) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+#+end_src
+*** completion
+Modules that provide new interfaces or frameworks for completion, including code
+completion.
+
++ [[file:../modules/completion/company/README.org][company]] =+childframe +tng= - The ultimate code completion backend
++ helm =+fuzzy +childframe= - *Another* search engine for love and life
++ ido - The /other/ *other* search engine for love and life
++ [[file:../modules/completion/ivy/README.org][ivy]] =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
+  life
++ [[file:../modules/completion/vertico/README.org][vertico]] =+icons= - The search engine of the future
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       (ivy              ; a search engine for love and life
+       ;;+fuzzy
+       ;;+childframe
+       ;;+icons
+       )
+       ;;vertico           ; the search engine of the future
+#+end_src
+*** config
+Modules that configure Emacs one way or another, or focus on making it easier
+for you to customize it yourself. It is best to load these last.
+
++ [[file:../modules/config/literate/README.org][literate]] - For users with literate configs. This will tangle+compile a
+  config.org in your ~doom-private-dir~ when it changes.
++ [[file:../modules/config/default/README.org][default]] =+bindings +smartparens= - The default module sets reasonable defaults
+  for Emacs. It also provides a Spacemacs-inspired keybinding scheme and a
+  smartparens config. Use it as a reference for your own modules.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :config
+       ;;literate
+       (default
+        +bindings
+        +smartparens
+        )
+#+end_src
+
+*** Editor
+Modules that affect and augment your ability to manipulate or insert text.
+
++ [[file:../modules/editor/evil/README.org][evil]] =+everywhere= - transforms Emacs into Vim
++ [[file:../modules/editor/file-templates/README.org][file-templates]] - Auto-inserted templates in blank new files
++ [[file:../modules/editor/fold/README.org][fold]] - universal code folding
++ format =+onsave= - TODO
++ god - TODO
++ [[file:../modules/editor/lispy/README.org][lispy]] - TODO
++ multiple-cursors - TODO
++ [[file:../modules/editor/objed/README.org][objed]] =+manual= - TODO
++ [[file:../modules/editor/parinfer/README.org][parinfer]] - TODO
++ rotate-text - TODO
++ [[file:../modules/editor/snippets/README.org][snippets]] - Snippet expansion for lazy typists
++ [[file:../modules/editor/word-wrap/README.org][word-wrap]] - soft wrapping with language-aware indent
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :editor
+       (evil               ; come to the dark side, we have cookies
+        +everywhere
+        )
+       ;;file-templates    ; auto-snippets for empty files
+       ;;fold                ; (nigh) universal code folding
+       ;;(format             ; automated prettiness
+       ;; +onsave
+       ;; )
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       ;;snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+#+end_src
+*** emacs
+Modules that reconfigure or augment packages or features built into Emacs.
+
++ [[file:../modules/emacs/dired/README.org][dired]] =+ranger +icons= - TODO
++ electric - TODO
++ [[file:../modules/emacs/ibuffer/README.org][ibuffer]] =+icons= - TODO
++ [[file:../modules/emacs/undo/README.org][undo]] =+tree= - A smarter, more intuitive & persistent undo history
++ [[file:../modules/emacs/vc/README.org][vc]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :emacs
+       (dired             ; making dired pretty [functional]
+       ;; +ranger
+       ;; +icons
+        )
+       ;;electric          ; smarter, keyword-based electric-indent
+       ;;(ibuffer          ; interactive buffer management
+       ;; +icons
+       ;; )
+       ;;(undo             ; persistent, smarter undo for your inevitable mistakes
+       ;; +tree
+       ;; )
+       vc                ; version-control and Emacs, sitting in a tree
+#+end_src
+
+*** email
++ [[file:../modules/email/mu4e/README.org][mu4e]] =+org +gmail= - TODO
++ [[file:../modules/email/notmuch/README.org][notmuch]] - TODO
++ wanderlust =+gmail= - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :email
+       ;;(mu4e +org +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+#+end_src
+*** input
++ [[file:../modules/input/chinese/README.org][chinese]] - TODO
++ [[file:../modules/input/japanese/README.org][japanese]] - TODO
++ [[file:../modules/input/layout/README.org][layout]] =+azerty +bepo= - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+#+end_src
+*** lang
+Modules that bring support for a language or group of languages to Emacs.
+
++ [[file:../modules/lang/agda/README.org][agda]] =+local= - TODO
++ [[file:../modules/lang/beancount/README.org][beancount]] =+lsp= - TODO
++ [[file:../modules/lang/cc/README.org][cc]] =+lsp= - TODO
++ [[file:../modules/lang/clojure/README.org][clojure]] =+lsp= - TODO
++ common-lisp - TODO
++ [[file:../modules/lang/coq/README.org][coq]] - TODO
++ [[file:../modules/lang/crystal/README.org][crystal]] - TODO
++ [[file:../modules/lang/csharp/README.org][csharp]] =+lsp +unity= - TODO
++ [[file:../modules/lang/dart/README.org][dart]] =+lsp +flutter=
++ data - TODO
++ [[file:../modules/lang/elixir/README.org][elixir]] =+lsp= - TODO
++ elm =+lsp= - TODO
++ [[file:../modules/lang/emacs-lisp/README.org][emacs-lisp]] - TODO
++ [[file:../modules/lang/erlang/README.org][erlang]] =+lsp= - TODO
++ [[file:../modules/lang/ess/README.org][ess]] =+lsp= - TODO
++ [[file:../modules/lang/factor/README.org][factor]] - TODO
++ [[file:../modules/lang/faust/README.org][faust]] - TODO
++ [[file:../modules/lang/fsharp/README.org][fsharp]] =+lsp= - TODO
++ [[file:../modules/lang/fstar/README.org][fstar]] - F* support
++ [[file:../modules/lang/gdscript/README.org][gdscript]] =+lsp= - TODO
++ [[file:../modules/lang/go/README.org][go]] =+lsp= - TODO
++ [[file:../modules/lang/haskell/README.org][haskell]] =+lsp= - TODO
++ hy - TODO
++ [[file:../modules/lang/idris/README.org][idris]] - TODO
++ java =+meghanada +eclim +lsp= - TODO
++ [[file:../modules/lang/javascript/README.org][javascript]] =+lsp= - JavaScript, TypeScript, and CoffeeScript support
++ [[file:../modules/lang/json/README.org][json]] =+lsp= - TODO
++ [[file:../modules/lang/julia/README.org][julia]] =+lsp= - TODO
++ [[file:../modules/lang/kotlin/README.org][kotlin]] =+lsp= - TODO
++ [[file:../modules/lang/latex/README.org][latex]] =+latexmk +cdlatex +fold +lsp= - TODO
++ lean - TODO
++ [[file:../modules/lang/ledger/README.org][ledger]] - TODO
++ [[file:../modules/lang/lua/README.org][lua]] =+fennel +moonscript= - TODO
++ [[file:../modules/lang/markdown/README.org][markdown]] =+grip= - TODO
++ [[file:../modules/lang/nim/README.org][nim]] - TODO
++ [[file:../modules/lang/nix/README.org][nix]] - TODO
++ [[file:../modules/lang/ocaml/README.org][ocaml]] =+lsp= - TODO
++ [[file:../modules/lang/org/README.org][org]] =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
++ [[file:../modules/lang/php/README.org][php]] =+hack +lsp= - TODO
++ plantuml - TODO
++ purescript =+lsp= - TODO
++ [[file:../modules/lang/python/README.org][python]] =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
++ qt - TODO
++ [[file:../modules/lang/racket/README.org][racket]] =+lsp +xp= - TODO
++ [[file:../modules/lang/raku/README.org][raku]] - TODO
++ [[file:../modules/lang/rest/README.org][rest]] - TODO
++ rst - TODO
++ [[file:../modules/lang/ruby/README.org][ruby]] =+lsp +rvm +rbenv +rails +chruby=
++ [[file:../modules/lang/rust/README.org][rust]] =+lsp= - TODO
++ [[file:../modules/lang/scala/README.org][scala]] =+lsp= - TODO
++ [[file:../modules/lang/scheme/README.org][scheme]] =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
++ [[file:../modules/lang/sh/README.org][sh]] =+fish +lsp +powershell= - TODO
++ [[file:../modules/lang/sml/README.org][sml]] - TODO
++ [[file:../modules/lang/solidity/README.org][solidity]] - TODO
++ swift =+lsp= - TODO
++ terra - TODO
++ web =+lsp= - HTML and CSS (SCSS/SASS/LESS/Stylus) support.
++ [[file:../modules/lang/yaml/README.org][yaml]] =+lsp= - TODO
++ [[file:../modules/lang/zig/README.org][zig]] =+lsp= - Zig support.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
+       ;;(cc                ; C > C++ == 1
+       ;; +lsp
+       ;; )
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;(csharp            ; unity, .NET, and mono shenanigans
+       ;; +lsp
+       ;; +unity
+       ;; )
+       data              ; config/data formats
+       ;;(dart              ; paint ui and not much else
+       ;; +lsp
+       ;; +flutter
+       ;; )
+       ;;dhall
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;factor
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
+       ;;(fsharp            ; ML stands for Microsoft's Language
+       ;; +lsp
+       ;; )
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       (gdscript          ; the language you waited for
+        +lsp
+        )
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +lsp)    ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       ;;(json              ; At least it ain't XML
+       ;; +lsp
+       ;; )
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;(javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;; +slp
+       ;; )
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       (org              ; organize your plain life in plain text
+        +roam
+        +dragndrop
+        ;;+ipython
+        ;;+journal
+        ;;+noter
+        ;;+pandoc
+        ;;+pomodoro
+        ;;+present
+        +pretty
+        )
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;(python            ; beautiful is better than ugly
+       ;; +lsp
+       ;; )
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;(rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; +lsp
+       ;; )
+       ;;scala             ; java, but good
+       ;;(scheme +guile)   ; a fully conniving family of lisps
+       ;;(sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; +lsp
+       ;; +fish
+       ;; )
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       ;;(web               ; HTML and CSS (SCSS/SASS/LESS/Stylus) support.
+       ;; +lsp
+       ;; )
+       ;;(yaml              ; JSON, but readable
+       ;; +lsp
+       ;; )
+       ;;zig               ; C, but simpler
+#+end_src
+*** os
+Modules to improve integration into your OS, system, or devices.
+
++ [[file:../modules/os/macos/README.org][macos]] - Improve Emacs' compatibility with macOS
++ [[file:../modules/os/tty/README.org][tty]] =+osc= - Improves the terminal Emacs experience.
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :os
+       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+#+end_src
+*** term
+Modules that offer terminal emulation.
+
++ [[file:../modules/term/eshell/README.org][eshell]] - TODO
++ shell - TODO
++ term - TODO
++ [[file:../modules/term/vterm/README.org][vterm]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
+#+end_src
+*** tools
+Small modules that give Emacs access to external tools & services.
+
++ ansible - TODO
++ debugger =+lsp= - A (nigh-)universal debugger in Emacs
++ [[file:../modules/tools/direnv/README.org][direnv]] - TODO
++ [[file:../modules/tools/docker/README.org][docker]] =+lsp= - TODO
++ [[file:../modules/tools/editorconfig/README.org][editorconfig]] - TODO
++ [[file:../modules/tools/ein/README.org][ein]] - TODO
++ [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
++ gist - TODO
++ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup
+  backend
++ [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
++ [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
++ make - TODO
++ [[file:../modules/tools/pass/README.org][pass]] =+auth= - TODO
++ [[file:../modules/tools/pdf/README.org][pdf]] - TODO
++ prodigy - TODO
++ [[file:../modules/tools/rgb/README.org][rgb]] - TODO
++ [[file:../modules/tools/taskrunner/README.org][taskrunner]] - TODO
++ [[file:../modules/tools/terraform/README.org][terraform]] - TODO
++ tmux - TODO
++ [[file:../modules/tools/upload/README.org][upload]] - TODO
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :tools
+       ;;ansible
+       ;;biblio            ; Writes a PhD for you (citation needed)
+       ;;(debugger          ; FIXME stepping through code, to help you add bugs
+       ;; +lsp
+       ;; )
+       ;;direnv
+       ;;docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       ;;(eval      ; run code, run (also, repls)
+       ;; +overlay
+       ;; )
+       ;;gist              ; interacting with github gists
+       ;;(lookup              ; navigate your code and its documentation
+       ;; +dictionary
+       ;; +docsets
+       ;; +offline
+       ;; )   ; Universal jump-to & documentation lookup
+       (lsp
+        +peek          ; M-x vscode
+        ;;+eglot
+        )        ; Installation and configuration of language server protocol client (lsp-mode or eglot)
+       (magit             ; a git porcelain for Emacs
+        +forge
+        )
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+#+end_src
+*** ui
+Aesthetic modules that affect the Emacs interface or user experience.
+
++ [[file:../modules/ui/deft/README.org][deft]] - TODO
++ [[file:../modules/ui/doom/README.org][doom]] - TODO
++ [[file:../modules/ui/doom-dashboard/README.org][doom-dashboard]] - TODO
++ [[file:../modules/ui/doom-quit/README.org][doom-quit]] - TODO
++ [[file:../modules/ui/emoji/README.org][emoji]] =+ascii +github +unicode= - Adds emoji support to Emacs
++ [[file:../modules/ui/hl-todo/README.org][hl-todo]] - TODO
++ [[file:../modules/ui/hydra/README.org][hydra]] - TODO
++ indent-guides - TODO
++ [[file:../modules/ui/ligatures/README.org][ligatures]] =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
++ [[file:../modules/ui/minimap/README.org][minimap]] - TODO
++ [[file:../modules/ui/modeline/README.org][modeline]] =+light= - TODO
++ [[file:../modules/ui/nav-flash/README.org][nav-flash]] - TODO
++ [[file:../modules/ui/neotree/README.org][neotree]] - TODO
++ [[file:../modules/ui/ophints/README.org][ophints]] - TODO
++ [[file:../modules/ui/popup/README.org][popup]] =+all +defaults= - Makes temporary/disposable windows less intrusive
++ [[file:../modules/ui/tabs/README.org][tabs]] - TODO
++ [[file:../modules/ui/treemacs/README.org][treemacs]] - =+lsp= - A tree layout file explorer for Emacs
++ [[file:../modules/ui/unicode/README.org][unicode]] - TODO
++ vc-gutter - TODO
++ vi-tilde-fringe - TODO
++ [[file:../modules/ui/window-select/README.org][window-select]] =+switch-window +numbers= - TODO
++ [[file:../modules/ui/workspaces/README.org][workspaces]] - Isolated workspaces
++ [[file:../modules/ui/zen/README.org][zen]] - Distraction-free coding (or writing)
+
+#+begin_src emacs-lisp :tangle ./init.el
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       (emoji            ; 🙂
+       +unicode
+       )
+       ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ;;ophints           ; highlight the region an operation acts on
+       ;;(popup            ; tame sudden yet inevitable temporary windows
+       ;; +defaults
+       ;; +all
+       ;; )
+       ;;tabs              ; a tab bar for Emacs
+       ;;(treemacs          ; a project drawer, like neotree but cooler
+       ;; +lsp
+       ;; )
+       unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;(window-select     ; visually switch windows
+       ;; +numbers
+       ;; )
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+#+end_src
+*** doom block end
+#+begin_src emacs-lisp :tangle ./init.el
+)
+#+end_src
+*** benchmark startup time
+#+begin_src emacs-lisp :tangle no
+;;(when doom-debug-p
+;;  (require 'benchmark-init)
+;;  (add-hook 'doom-first-input-hook #'benchmark-init/deactivate))
+#+end_src
+** config.el
+#+begin_src emacs-lisp :tangle ./config.el
+
+#+end_src
+*** _
+Place your private configuration here! Remember, you do not need to run =doom
+sync= after modifying this file!
+
+#+begin_src emacs-lisp :tangle ./config.el
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+*** Info
+**** _
+Some functionality uses this to identify you, e.g. GPG configuration, email
+clients, file templates and snippets.
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq user-full-name "João Luís Teixeira Pinto"
+      user-mail-address "jolitp@gmail.com")
+#+end_src
+
+**** Additional functions/macros
+
+Here are some additional functions/macros that could help you configure Doom:
+
+- =load!= for loading external *.el files relative to this one
+
+- =use-package!= for configuring packages
+
+- =after!= for running code after a package has loaded
+
+- =add-load-path!= for adding directories to the =load-path=, relative to this
+  file. Emacs searches the =load-path= when you load packages with =require= or
+  =use-package=.
+
+- =map!= for binding new keys
+
+To get information about any of these functions/macros, move the cursor over the
+highlighted symbol at press =K= (non-evil users must press =C-c c k=). This will
+open documentation for it, including demos of how they are used.
+
+You can also try =gd= (or =C-c c d=) to jump to their definition and see how
+they are implemented.
+
+*** Fonts
+
+Doom exposes five (optional) variables for controlling fonts in Doom. Here are
+the three important ones:
+
++ `doom-font'
++ `doom-variable-pitch-font'
++ `doom-big-font' -- used for `doom-big-font-mode'; use this for
+  presentations or streaming.
+
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font
+string. You generally only need these two:
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq doom-font (font-spec :family "Source Code Pro"
+                           :size 32
+                           :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans"
+                                          :size 32))
+#+end_src
+
+*** Theme
+
+There are two ways to load a theme. Both assume the theme is installed and
+available. You can either set `doom-theme' or manually load a theme with the
+`load-theme' function. This is the default:
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq doom-theme 'doom-one)
+#+end_src
+
+*** Org Mode
+
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq org-directory "~/Dropbox/org/")
+#+end_src
+
+*** Line Numbers
+
+This determines the style of line numbers in effect. If set to `nil', line
+numbers are disabled. For relative line numbers, set this to `relative'.
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+*** Remove exit confirmation message
+no need just removed the module in init.el
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq confirm-kill-emacs nil)
+#+end_src
+*** org
+**** roam
+adds the location of the org-roam folder
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq org-roam-directory "~/Dropbox/org/roam")
+(setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+#+end_src
+*** keybindings
+** packages.el
+#+begin_src emacs-lisp :tangle ./packages.el
+
+#+end_src
+*** Example usage
+**** _
+To install a package with Doom you must declare them here and *run =doom sync=
+on the command line*, then restart Emacs for the changes to take effect -- or
+use =M-x doom/reload=.
+
+#+begin_src emacs-lisp :tangle ./packages.el
+
+;; -*- no-byte-compile: t; -*-
+;;; $DOOMDIR/packages.el
+#+end_src
+
+**** packages from MELPA, ELPA or emacsmirror
+
+To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! some-package)
+#+end_src
+
+**** package from git
+
+To install a package directly from a remote git repo, you must specify a
+`:recipe'. You'll find documentation on what `:recipe' accepts here:
+https://github.com/raxod502/straight.el#the-recipe-format
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! another-package
+;  :recipe (:host github :repo "username/repo"))
+#+end_src
+
+**** package without PACKAGENAME.el, or in subdirecotry of the repo
+
+If the package you are trying to install does not contain a PACKAGENAME.el
+file, or is located in a subdirectory of the repo, you'll need to specify
+`:files' in the `:recipe':
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! this-package
+;  :recipe (:host github :repo "username/repo"
+;           :files ("some-file.el" "src/lisp/*.el")))
+#+end_src
+
+**** disable a package included with Doom
+
+If you'd like to disable a package included with Doom, you can do so here
+with the `:disable' property:
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! builtin-package :disable t)
+#+end_src
+
+**** overriding the recipe of a built in package
+
+You can override the recipe of a built in package without having to specify
+all the properties for `:recipe'. These will inherit the rest of its recipe
+from Doom or MELPA/ELPA/Emacsmirror:
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! builtin-package :recipe (:nonrecursive t))
+;(package! builtin-package-2 :recipe (:repo "myfork/package"))
+#+end_src
+
+**** package from a particular branch or tag
+
+Specify a `:branch' to install a package from a particular branch or tag.
+This is required for some packages whose default branch isn't 'master' (which
+our package manager can't deal with; see raxod502/straight.el#279)
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! builtin-package :recipe (:branch "develop"))
+#+end_src
+
+**** specify a particular commit
+Use `:pin' to specify a particular commit to install.
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! builtin-package :pin "1a2b3c4d5e")
+#+end_src
+
+**** unpin (Doom) packages
+***** single package
+
+Doom's packages are pinned to a specific commit and updated from release to
+release. The `unpin!' macro allows you to unpin single packages...
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(unpin! pinned-package)
+#+end_src
+
+***** single package
+
+...or multiple packages
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(unpin! pinned-package another-pinned-package)
+#+end_src
+
+***** all packages
+
+...Or *all* packages (NOT RECOMMENDED; will likely break things)
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(unpin! t)
+#+end_src
+
+*** benchmark startup time
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;;(package! benchmark-init)
+#+end_src
