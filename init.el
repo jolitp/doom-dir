@@ -40,7 +40,7 @@
         +defaults
         +all
         )
-       ;;tabs              ; a tab bar for Emacs
+       tabs              ; a tab bar for Emacs
        ;;(treemacs          ; a project drawer, like neotree but cooler
        ;; +lsp
        ;; )
