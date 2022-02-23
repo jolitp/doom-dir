@@ -714,8 +714,8 @@ open documentation for it, including demos of how they are used.
 
 You can also try =gd= (or =C-c c d=) to jump to their definition and see how
 they are implemented.
-
-*** Fonts
+*** Looks
+**** Fonts
 
 Doom exposes five (optional) variables for controlling fonts in Doom.
 
@@ -737,7 +737,7 @@ string. You generally only need these two:
                                           :size 32))
 #+end_src
 
-*** Theme
+**** Theme
 
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set `doom-theme' or manually load a theme with the
@@ -747,16 +747,7 @@ available. You can either set `doom-theme' or manually load a theme with the
 (setq doom-theme 'doom-one)
 #+end_src
 
-*** Org Mode
-
-If you use `org' and don't want your org files in the default location below,
-change `org-directory'. It must be set before org loads!
-
-#+begin_src emacs-lisp :tangle ./config.el
-(setq org-directory "~/Dropbox/org/")
-#+end_src
-
-*** Line Numbers
+**** Line Numbers
 
 This determines the style of line numbers in effect. If set to `nil', line
 numbers are disabled. For relative line numbers, set this to `relative'.
@@ -765,13 +756,23 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-*** Remove exit confirmation message
+*** Fixes
+**** Remove exit confirmation message
 Removes annoying exit confirmation message
 
 #+begin_src emacs-lisp :tangle ./config.el
 (setq confirm-kill-emacs nil)
 #+end_src
-*** org
+*** Org
+**** org files location
+
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq org-directory "~/Dropbox/org/")
+#+end_src
+
 **** roam
 adds the location of the org-roam folder
 
@@ -779,7 +780,7 @@ adds the location of the org-roam folder
 (setq org-roam-directory "~/Dropbox/org/roam")
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
 #+end_src
-*** keybindings
+*** Keybindings
 ** packages.el
 #+begin_src emacs-lisp :tangle ./packages.el
 

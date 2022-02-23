@@ -16,11 +16,11 @@
 
 (setq doom-theme 'doom-one)
 
-(setq org-directory "~/Dropbox/org/")
-
 (setq display-line-numbers-type 'relative)
 
 (setq confirm-kill-emacs nil)
+
+(setq org-directory "~/Dropbox/org/")
 
 (setq org-roam-directory "~/Dropbox/org/roam")
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
