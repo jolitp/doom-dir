@@ -82,6 +82,158 @@ I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
 directly and from anywhere. Accomplish this by adding this to your .bashrc or
 .zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
 * content about Emacs configs to check out
+** Jakub Neander(Zaiste Programming)
+*** youtube
+**** doomcasts playlist
+https://www.youtube.com/playlist?list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj
+***** DONE 1 Getting Started
+****** discord server
+https://discord.com/invite/qvGgnVx
+
+How do I connect to the Discord server?
+https://github.com/hlissner/doom-emacs/issues/2720
+
+***** DONE 2 Projects with Projectile, File Explorer with Treemacs & EShell
+****** "hotkeys" starting with <SPC>
+calling =SPC f f= is the same as =SPC .=, this opens a pane with the
+location of the current file and you can navigate from there, also it show the
+files on the current directory with additional information
+****** working in the context of projects
+******* discover project in a directory
+There is a coomand: =SPC : projectile-discover-projects-in-directory=, where
+you give it a directory and emacs tries to guess based on the directory
+structure if it is a project or not. If Emacs can't guess right put an empty
+=.projectile= file in the folder.
+******* making Emacs aware of project directories at startup
+Put the following elisp code on =config.el=:
+
+(up-to-date code)
+#+begin_src elisp
+(setq projectile-project-search-path '("~/projects/" "~/work/" ("~/github" .
+1)))
+#+end_src
+
+(code from video)
+#+begin_src elisp
+(setq
+    projectile-project-search-path '("~/code/")
+)
+#+end_src
+
+You can suppress the auto-discovery of projects on startup by setting
+=projectile-auto-discover= to =nil=.
+
+You can manually trigger the project discovery using =M-x
+projectile-discover-projects-in-search-path=. Or restart Emacs.
+
+******* projectile docs
+https://docs.projectile.mx/projectile/usage.html
+******* show all projects that Emacs knows of
+Pressing =SPC p p=
+******* find a file in projcet
+[[attachment:../../../../Dropbox/org/.attach/7d/5b49bc-f111-4655-92f6-e1375ba98ccd/_20220227_034507config.el]]
+ :ATTACH:
+:PROPERTIES:
+:ID:       7d5b49bc-f111-4655-92f6-e1375ba98ccd
+:END:
+Pressing: =SPC SPC=, will show files only from the current project
+******* file explorer (side bar tree view)
+Type: =SPC o p=
+******* using CLI apps inside emacs
+Type: =SPC o e= (~not working currently~)
+****** oppening the config files by using hotkeys
+Pressing =SPC f p= to "find file in private configuration", or the files that
+are inside the =.doom.d= directory
+****** file-related commands often used
+=SPC f r= for recent files (all files)
+
+=SPC f R= for recent files (in the current project)
+***** STOPPED 3 A short intro to Dired
+****** showing and hiding details
+Type to toggle: =(=
+****** navigating
+since I enabled =ranger= I can use the following keybindings:
+
+=h= goes back up a directory
+
+=j= and =k= go up and down
+
+=l= goes into the selected directory or file
+****** creating folders and files
+Press: =SPC .= to create files (works everywhere not only in dired)
+
+Pressing =+= on the dired buffer to create a new folder in the current viewed
+folder
+****** ...,
+stopped at 2:27
+
+I didn't take notes on deleting files and directory (he explained that at this
+point already)
+***** TODO 4 Buffers, Windows and Basic Navigation
+****** switch buffers
+press: =SPC b b=, or =SPC ,= to have a list of buffer names (only on curent
+project, called a =workspace buffer= by Doom Emacs)
+
+To find other buffers (outside of project, including other workspaces), press:
+=SPC b B= or =SPC <=. In this buffer, pressing =SPC= will show only the hidden
+buffers
+****** closing / killing buffers
+pressing =SPC b k=
+****** showing 2 buffers at the same time
+******* splitting windows
+by pressing =C-w v= / =SPC w v= to split window vertically (putting 2 buffers
+side by side), or =C-w s= / =SPC w s= to split the window horizontally (putting
+2 buffers on top of each other)
+******* switching windows
+To switch between them, =C-w w= / =SPC w w= will cycle between the windows in
+order. You can also use the =h=, =j=, =k=, =l= keys to move between windows.
+******* change buffer
+in the second window press: =SPC b b= to change the buffer of the window
+******* closing windows
+to delete a window: =C-w d= / =SPC w d= or =C-w q= / =SPC w q= will delete the
+active window
+******* resizing windows
+By pressing:
+
+=C-w <= / =SPC w <= to grow or shrink the current window to the left
+
+=C-w >= / =SPC w >= to grow or shrink the current window to the right
+
+=C-w += / =SPC w += to grow or shrink the current window to the top
+
+=C-w -= / =SPC w -= to grow or shrink the current window to the bottom
+
+***** TODO 5 Installing Packages with org-super-agenda as an example
+***** TODO 6 Quick, horizontal movements with evil-snipe
+***** TODO 7 Moving around the screen with Avy
+***** TODO 8 Multiple cursor in Emacs with evil-multiedit
+***** TODO 9 Org Mode, Basic Outlines
+***** TODO 10 Org Mode - Links, Hyperlinks and more
+***** TODO 11 Org Mode - Custom Link Types
+***** TODO 12 Org Mode - Linking to words & Bookmarks
+***** TODO 13 Org Mode, Code Snippets 101
+***** TODO 14 Org Mode, Getting Organized with Tasks
+***** TODO 15 Org Mode, Priorities for Tasks
+***** TODO 16 Org Mode, Marking Tasks with Tags
+***** TODO 17 Org Mode - Using Checkboxes
+***** TODO 18 Emacs Magit - Getting Started
+***** TODO 19 Emacs Magit - The Git Commit Flow in More Detail
+***** TODO 20 Emacs Magit with Forge for Issuing Pull Requests
+***** TODO 21 Emacs Magit with Forge for merging Pull Requests
+***** TODO 22 Deft Mode
+***** TODO 23 Journaling with org-journal
+***** TODO 24 Org Roam Setup
+***** TODO 25 Aliases in Org Roam Emacs Doom
+***** NO 26 Getting Started with Emacs & Doom in 2021 (on Apple Silicon M1)
+I don't use a mac
+***** TODO 27 Custom keybindings in Doom Emacs
+
+*** github
+https://github.com/zaiste
+https://github.com/zaiste/.doom.d
+https://github.com/zaiste/emacs-config
+*** twitter
+https://twitter.com/zaiste
 ** Derik Taylor (distrotube)
 *** youtube
 https://www.youtube.com/playlist?list=PL5--8gKSku15uYCnmxWPO17Dq6hVabAB4
@@ -98,15 +250,6 @@ https://github.com/daviwil/emacs-from-scratch
 https://github.com/SystemCrafters
 **** System Crafter Configurations
 https://github.com/SystemCrafters/crafter-configs
-** Jakub Neander(Zaiste Programming)
-*** youtube
-https://www.youtube.com/c/ZaisteProgramming/featured
-*** github
-https://github.com/zaiste
-https://github.com/zaiste/.doom.d
-https://github.com/zaiste/emacs-config
-*** twitter
-https://twitter.com/zaiste
 ** Rafael Accácio
 *** youtube
 https://www.youtube.com/channel/UC6TH30TksyUf-MHbt5hMdQQ/videos
@@ -156,15 +299,43 @@ https://github.com/seorenn/dotemacs
 ** thoughtbot Emacs Meetups
 https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
 * configs TODOs
-** change the which key position to the middle of the screen
-** hide synthax markers in org mode
-** show synthax markers when inside the word that is surounded by them
-** configure the agenda
-** configure capture templates
-** configure snippets
-** configure grammar with that proram I found
+** TODO config the dashboard
+** the tabs are showing on the completion list
+*** TODO either hide that or make it show the name of the key pressed before (category)
+** TODO show all tabs, not just tabs of files of same extension
+or show tabs for the groups of buffers present
+** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
+** TODO get the scrollbar on the right back
+** TODO change fundamental mode to org mode?
+** TODO get the minimap working
+** TODO make a hydra to manipulate windows
+*** TODO splitting
+*** TODO switching
+*** TODO change buffer
+*** TODO closing
+*** TODO resizing
+** TODO change the which key position to the middle of the screen or on the fertical
+I am using vertico now so it may not be which key anymore
+** TODO hide synthax markers in org mode
+** TODO show synthax markers when inside the word that is surounded by them
+the name of the package is =org-reveal=
+** TODO find out if changing the rendering of a word in general can work like org-reveal
+for examble: changing lambda for λ
+
+but when the cursor is at the symbol the rendering changes back to the word lambda
+
+the original idea (as I know of) of having some words change to symbols comes
+from a distrotube video: https://www.youtube.com/watch?v=5iCjhdCUuLg&t=6s
+** TODO configure the agenda
+** TODO configure capture templates
+** TODO configure snippets
+** TODO configure grammar with that proram I found
 look on email for grammar, synthax or spelling
-** add org roam
+** DONE add org roam
+** TODO add adtional language support that does not have a module for it
+*** TODO vue
+*** TODO svelte
+
 * Config files
 ** init.el
 #+begin_src emacs-lisp :tangle ./init.el
