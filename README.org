@@ -997,6 +997,13 @@ https://github.com/AdamNiederer/vue-mode
 ** android-mode
 Emacs minor mode for Android application development
 https://github.com/remvee/android-mode
+** filldent.el
+Fill or indent depending on mode
+https://github.com/duckwork/filldent.el
+** region-occurrences-highlighter
+This emacs package implements a local minor mode that highlights occurrences of
+the current selected region.
+https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter
 ** anki-editor
 Emacs minor mode for making Anki cards with Org
 https://github.com/louietan/anki-editor
@@ -1068,6 +1075,16 @@ https://github.com/ankurdave/color-identifiers-mode
 ** selectric-mode
 keyboard Make your Emacs sound like a proper typewriter.
 https://github.com/rbanffy/selectric-mode
+** typewriter-mode.el
+Typewriter sound effect for Emacs
+https://github.com/tungd/typewriter-mode.el
+** emacs-modern-fringes
+Replaces the ugly looking default emacs fringe bitmaps and replaces them with
+better, modern looking ones.
+https://github.com/SpecialBomb/emacs-modern-fringes
+** tracker-mode
+a music tracker/sequencer for emacs
+https://github.com/defaultxr/tracker-mode
 ** modern-cpp-font-lock
 C++ font-lock for Emacs
 https://github.com/ludwigpacifici/modern-cpp-font-lock
@@ -1115,6 +1132,9 @@ https://github.com/nschum/auto-dictionary-mode
 ** magic-latex-buffer
 Magical syntax highlighting for LaTeX-mode buffers
 https://github.com/zk-phi/magic-latex-buffer
+** yasnippet-latex-mode
+Collection of latex-mode snippets for yasnippet in Emacs
+https://github.com/shanecelis/yasnippet-latex-mode
 ** synosaurus
 An extensible thesaurus mode for emacs
 https://github.com/hpdeifel/synosaurus
