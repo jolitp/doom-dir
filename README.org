@@ -1400,8 +1400,13 @@ directory (for easy access to its source code).
 #+begin_src emacs-lisp :tangle ./init.el
        :input
        ;;chinese
+
        ;;japanese
-       ;;layout            ; auie,ctsrnm is the superior home row
+
+       ;;(layout            ; auie,ctsrnm is the superior home row
+       ;; +azerty
+       ;; +bepo
+       ;; )
 #+end_src
 *** completion
 Modules that provide new interfaces or frameworks for completion, including code
@@ -1416,15 +1421,29 @@ completion.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :completion
-       company           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       (company           ; the ultimate code completion backend
+       ;; +childframe
+       ;; +tng
+        )
+
+       ;;(helm              ; the *other* search engine for love and life
+       ;; +fuzzy
+       ;; +childframe
+       ;; )
+
        ;;ido               ; the other *other* search engine...
+
        ;;(ivy              ; a search engine for love and life
-       ;;+fuzzy
-       ;;+childframe
-       ;;+icons
+       ;; +fuzzy
+       ;; +childframe
+       ;; +prescient
+       ;; +icons
        ;;)
-       vertico           ; the search engine of the future
+
+       (vertico           ; the search engine of the future
+        +icons
+        )
+
 #+end_src
 *** ui
 Aesthetic modules that affect the Emacs interface or user experience.
@@ -1456,36 +1475,68 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+begin_src emacs-lisp :tangle ./init.el
        :ui
        deft              ; notational velocity for Emacs
+
        doom              ; what makes DOOM look the way it does
+
        doom-dashboard    ; a nifty splash screen for Emacs
-       doom-quit       ; DOOM quit-message prompts when you quit Emacs
+
+       ;; doom-quit       ; DOOM quit-message prompts when you quit Emacs
+
        (emoji            ; 🙂
-       +unicode
+       ;; +ascii
+       ;; +github
+        +unicode
        )
+
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+
        hydra
+
        indent-guides     ; highlighted indent columns
-       ligatures         ; ligatures and symbols to make your code pretty again
+
+       (ligatures         ; ligatures and symbols to make your code pretty again
+       ;; +extra
+       ;; +fira
+       ;; +hasklig
+       ;; +iosevka
+       ;; +pragmata-pro
+        )
+
        minimap           ; show a map of the code on the side
-       modeline          ; snazzy, Atom-inspired modeline, plus API
+
+       (modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;; +light
+        )
+
        ;;nav-flash         ; blink cursor line after big motions
+
        ;;neotree           ; a project drawer, like NERDTree for vim
+
        ophints           ; highlight the region an operation acts on
+
        (popup            ; tame sudden yet inevitable temporary windows
         +defaults
         +all
         )
+
        tabs              ; a tab bar for Emacs
+
        (treemacs          ; a project drawer, like neotree but cooler
         +lsp
         )
+
        unicode           ; extended unicode support for various languages
+
        vc-gutter         ; vcs diff in the fringe
+
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+
        (window-select     ; visually switch windows
         +numbers
         )
+
        workspaces        ; tab emulation, persistence & separate workspaces
+
        ;;zen               ; distraction-free coding or writing
 #+end_src
 *** Editor
@@ -1506,22 +1557,37 @@ Modules that affect and augment your ability to manipulate or insert text.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :editor
+
        (evil               ; come to the dark side, we have cookies
         +everywhere
         )
+
        file-templates    ; auto-snippets for empty files
+
        fold                ; (nigh) universal code folding
+
        ;;(format             ; automated prettiness
        ;; +onsave
        ;; )
+
        ;;god               ; run Emacs commands without modifier keys
+
        ;;lispy             ; vim for lisp, for people who don't like vim
+
        ;;multiple-cursors  ; editing in many places at once
-       ;;objed             ; text object editing for the innocent
+
+       ;;(objed             ; text object editing for the innocent
+       ;; +manual
+       ;; )
+
        ;;parinfer          ; turn lisp into python, sort of
+
        ;;rotate-text       ; cycle region at point between text candidates
+
        snippets          ; my elves. They type so I don't have to
+
        ;;word-wrap         ; soft wrapping with language-aware indent
+
 #+end_src
 *** emacs
 Modules that reconfigure or augment packages or features built into Emacs.
@@ -1534,18 +1600,24 @@ Modules that reconfigure or augment packages or features built into Emacs.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :emacs
+
        (dired             ; making dired pretty [functional]
         +ranger
         +icons
         )
+
        electric          ; smarter, keyword-based electric-indent
+
        (ibuffer          ; interactive buffer management
         +icons
         )
+
        (undo             ; persistent, smarter undo for your inevitable mistakes
         +tree
         )
+
        vc                ; version-control and Emacs, sitting in a tree
+
 #+end_src
 
 *** term
@@ -1569,9 +1641,15 @@ Modules that offer terminal emulation.
 + [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        :checkers
-       syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell) ; tasing you for misspelling mispelling
-       grammar           ; tasing grammar mistake every you make
+       ;; (syntax              ; tasing you for every semicolon you forget
+       ;; +childframe
+       ;; )
+
+       ;; (spell              ; tasing you for misspelling mispelling
+       ;; +flyspell
+       ;; )
+
+       ;; grammar             ; tasing grammar mistake every you make
 #+end_src
 *** tools
 Small modules that give Emacs access to external tools & services.
@@ -1584,8 +1662,7 @@ Small modules that give Emacs access to external tools & services.
 + [[file:../modules/tools/ein/README.org][ein]] - TODO
 + [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
 + gist - TODO
-+ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup
-  backend
++ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
 + [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
 + [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
 + make - TODO
@@ -1601,39 +1678,64 @@ Small modules that give Emacs access to external tools & services.
 #+begin_src emacs-lisp :tangle ./init.el
        :tools
        ;;ansible
+
        ;;biblio            ; Writes a PhD for you (citation needed)
-       (debugger          ; FIXME stepping through code, to help you add bugs
-        +lsp
-        )
+
+       ;; (debugger          ; FIXME stepping through code, to help you add bugs
+       ;; +lsp
+       ;; )
+
        ;;direnv
-       ;;docker
+
+       ;; (docker
+       ;; +lsp
+       ;; )
+
        ;;editorconfig      ; let someone else argue about tabs vs spaces
+
        ;;ein               ; tame Jupyter notebooks with emacs
+
        (eval      ; run code, run (also, repls)
         +overlay
         )
+
        ;;gist              ; interacting with github gists
+
        (lookup              ; navigate your code and its documentation
        ;; +dictionary
        ;; +docsets
        ;; +offline
         )   ; Universal jump-to & documentation lookup
+
        (lsp
         +peek          ; M-x vscode
         +eglot
         )        ; Installation and configuration of language server protocol client (lsp-mode or eglot)
+
        (magit             ; a git porcelain for Emacs
         +forge
         )
+
        ;;make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
+
+       ;; (pass              ; password manager for nerds
+       ;; +auth
+       ;; )
+
        pdf               ; pdf enhancements
+
        ;;prodigy           ; FIXME managing external services & code builders
+
        rgb               ; creating color strings
+
        ;;taskrunner        ; taskrunner for all your projects
+
        ;;terraform         ; infrastructure as code
+
        ;;tmux              ; an API for interacting with tmux
+
        ;;upload            ; map local to remote projects via ssh/ftp
+
 #+end_src
 *** os
 Modules to improve integration into your OS, system, or devices.
@@ -1643,171 +1745,378 @@ Modules to improve integration into your OS, system, or devices.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :os
+
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+
+       ;; (tty               ; improve the terminal Emacs experience
+       ;; +osc
+       ;; )
+
 #+end_src
 *** lang
 Modules that bring support for a language or group of languages to Emacs.
-
-+ [[file:../modules/lang/agda/README.org][agda]] =+local= - TODO
-+ [[file:../modules/lang/beancount/README.org][beancount]] =+lsp= - TODO
-+ [[file:../modules/lang/cc/README.org][cc]] =+lsp= - TODO
-+ [[file:../modules/lang/clojure/README.org][clojure]] =+lsp= - TODO
-+ common-lisp - TODO
-+ [[file:../modules/lang/coq/README.org][coq]] - TODO
-+ [[file:../modules/lang/crystal/README.org][crystal]] - TODO
-+ [[file:../modules/lang/csharp/README.org][csharp]] =+lsp +unity= - TODO
-+ [[file:../modules/lang/dart/README.org][dart]] =+lsp +flutter=
-+ data - TODO
-+ [[file:../modules/lang/elixir/README.org][elixir]] =+lsp= - TODO
-+ elm =+lsp= - TODO
-+ [[file:../modules/lang/emacs-lisp/README.org][emacs-lisp]] - TODO
-+ [[file:../modules/lang/erlang/README.org][erlang]] =+lsp= - TODO
-+ [[file:../modules/lang/ess/README.org][ess]] =+lsp= - TODO
-+ [[file:../modules/lang/factor/README.org][factor]] - TODO
-+ [[file:../modules/lang/faust/README.org][faust]] - TODO
-+ [[file:../modules/lang/fsharp/README.org][fsharp]] =+lsp= - TODO
-+ [[file:../modules/lang/fstar/README.org][fstar]] - F* support
-+ [[file:../modules/lang/gdscript/README.org][gdscript]] =+lsp= - TODO
-+ [[file:../modules/lang/go/README.org][go]] =+lsp= - TODO
-+ [[file:../modules/lang/haskell/README.org][haskell]] =+lsp= - TODO
-+ hy - TODO
-+ [[file:../modules/lang/idris/README.org][idris]] - TODO
-+ java =+meghanada +eclim +lsp= - TODO
-+ [[file:../modules/lang/javascript/README.org][javascript]] =+lsp= - JavaScript, TypeScript, and CoffeeScript support
-+ [[file:../modules/lang/json/README.org][json]] =+lsp= - TODO
-+ [[file:../modules/lang/julia/README.org][julia]] =+lsp= - TODO
-+ [[file:../modules/lang/kotlin/README.org][kotlin]] =+lsp= - TODO
-+ [[file:../modules/lang/latex/README.org][latex]] =+latexmk +cdlatex +fold +lsp= - TODO
-+ lean - TODO
-+ [[file:../modules/lang/ledger/README.org][ledger]] - TODO
-+ [[file:../modules/lang/lua/README.org][lua]] =+fennel +moonscript= - TODO
-+ [[file:../modules/lang/markdown/README.org][markdown]] =+grip= - TODO
-+ [[file:../modules/lang/nim/README.org][nim]] - TODO
-+ [[file:../modules/lang/nix/README.org][nix]] - TODO
-+ [[file:../modules/lang/ocaml/README.org][ocaml]] =+lsp= - TODO
-+ [[file:../modules/lang/org/README.org][org]] =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
-+ [[file:../modules/lang/php/README.org][php]] =+hack +lsp= - TODO
-+ plantuml - TODO
-+ purescript =+lsp= - TODO
-+ [[file:../modules/lang/python/README.org][python]] =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
-+ qt - TODO
-+ [[file:../modules/lang/racket/README.org][racket]] =+lsp +xp= - TODO
-+ [[file:../modules/lang/raku/README.org][raku]] - TODO
-+ [[file:../modules/lang/rest/README.org][rest]] - TODO
-+ rst - TODO
-+ [[file:../modules/lang/ruby/README.org][ruby]] =+lsp +rvm +rbenv +rails +chruby=
-+ [[file:../modules/lang/rust/README.org][rust]] =+lsp= - TODO
-+ [[file:../modules/lang/scala/README.org][scala]] =+lsp= - TODO
-+ [[file:../modules/lang/scheme/README.org][scheme]] =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
-+ [[file:../modules/lang/sh/README.org][sh]] =+fish +lsp +powershell= - TODO
-+ [[file:../modules/lang/sml/README.org][sml]] - TODO
-+ [[file:../modules/lang/solidity/README.org][solidity]] - TODO
-+ swift =+lsp= - TODO
-+ terra - TODO
-+ web =+lsp= - HTML and CSS (SCSS/SASS/LESS/Stylus) support.
-+ [[file:../modules/lang/yaml/README.org][yaml]] =+lsp= - TODO
-+ [[file:../modules/lang/zig/README.org][zig]] =+lsp= - Zig support.
-
+**** languages start
 #+begin_src emacs-lisp :tangle ./init.el
        :lang
+#+end_src
+**** NO Agda
++ [[file:../modules/lang/agda/README.org][agda]] =+local= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;agda              ; types of types of types of types...
+#+end_src
+**** NO Beancount
++ [[file:../modules/lang/beancount/README.org][beancount]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;beancount         ; mind the GAAP
+#+end_src
+**** yes C/C++
++ [[file:../modules/lang/cc/README.org][cc]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (cc                ; C > C++ == 1
         +lsp
         )
+#+end_src
+**** NO Clojure
++ [[file:../modules/lang/clojure/README.org][clojure]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;clojure           ; java with a lisp
+#+end_src
+**** NO common-lisp
++ common-lisp - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
+#+end_src
+**** NO coq
++ [[file:../modules/lang/coq/README.org][coq]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;coq               ; proofs-as-programs
+#+end_src
+**** NO crystal
++ [[file:../modules/lang/crystal/README.org][crystal]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;crystal           ; ruby at the speed of c
-       (csharp            ; unity, .NET, and mono shenanigans
-        +lsp
-        +unity
-        )
+#+end_src
+**** NO C#
++ [[file:../modules/lang/csharp/README.org][csharp]] =+lsp +unity= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+        ;; (csharp            ; unity, .NET, and mono shenanigans
+        ;; +lsp
+        ;; +unity
+        ;; )
+#+end_src
+**** NO dart / flutter
++ [[file:../modules/lang/dart/README.org][dart]] =+lsp +flutter=
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;(dart              ; paint ui and not much else
+       ;; +lsp
+       ;; +flutter
+       ;; )
+#+end_src
+**** yes data
++ data - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        data              ; config/data formats
-       (dart              ; paint ui and not much else
-        +lsp
-        +flutter
-        )
-       ;;dhall
+#+end_src
+**** NO elixir
++ [[file:../modules/lang/elixir/README.org][elixir]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;elixir            ; erlang done right
+#+end_src
+**** NO dhall
+WTF is this?
+
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;dhall
+#+end_src
+**** NO elm
++ elm =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;elm               ; care for a cup of TEA?
+#+end_src
+**** yes emacs-lisp
++ [[file:../modules/lang/emacs-lisp/README.org][emacs-lisp]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        emacs-lisp        ; drown in parentheses
+#+end_src
+**** NO erlang
++ [[file:../modules/lang/erlang/README.org][erlang]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;erlang            ; an elegant language for a more civilized age
+#+end_src
+**** NO ess
++ [[file:../modules/lang/ess/README.org][ess]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ess               ; emacs speaks statistics
+#+end_src
+**** NO factor
++ [[file:../modules/lang/factor/README.org][factor]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;factor
+#+end_src
+**** NO faust
++ [[file:../modules/lang/faust/README.org][faust]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;faust             ; dsp, but you get to keep your soul
+#+end_src
+**** NO fortran
+#+begin_src emacs-lisp :tangle ./init.el
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
-       (fsharp            ; ML stands for Microsoft's Language
-        +lsp
-        )
+#+end_src
+**** NO F#
++ [[file:../modules/lang/fsharp/README.org][fsharp]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+      ;; (fsharp            ; ML stands for Microsoft's Language
+      ;;  +lsp
+      ;; )
+#+end_src
+**** NO F*
++ [[file:../modules/lang/fstar/README.org][fstar]] - F* support
+#+begin_src emacs-lisp :tangle ./init.el
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
+#+end_src
+**** yes gdscript
++ [[file:../modules/lang/gdscript/README.org][gdscript]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (gdscript          ; the language you waited for
         +lsp
        )
-       ;;(go +lsp)         ; the hipster dialect
-       ;;(haskell +lsp)    ; a language that's lazier than I am
+#+end_src
+**** NO go
++ [[file:../modules/lang/go/README.org][go]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;(go          ; the hipster dialect
+       ;; +lsp
+       ;; )
+#+end_src
+**** NO haskell
++ [[file:../modules/lang/haskell/README.org][haskell]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; (haskell     ; a language that's lazier than I am
+       ;; +lsp
+       ;; )
+#+end_src
+**** NO hy
++ hy - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;hy                ; readability of scheme w/ speed of python
+#+end_src
+**** NO idris
++ [[file:../modules/lang/idris/README.org][idris]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;idris             ; a language you can depend on
-       (json              ; At least it ain't XML
-        +lsp
-        )
-       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+#+end_src
+**** NO java
++ java =+meghanada +eclim +lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; (java           ; the poster child for carpal tunnel syndrome
+       ;; +meghanada
+       ;; )
+#+end_src
+**** yes javascript
++ [[file:../modules/lang/javascript/README.org][javascript]] =+lsp= - JavaScript, TypeScript, and CoffeeScript support
+#+begin_src emacs-lisp :tangle ./init.el
        (javascript        ; all(hope(abandon(ye(who(enter(here))))))
         +slp
         )
+#+end_src
+**** yes json
++ [[file:../modules/lang/json/README.org][json]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       (json              ; At least it ain't XML
+        +lsp
+        )
+#+end_src
+**** NO julia
++ [[file:../modules/lang/julia/README.org][julia]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;julia             ; a better, faster MATLAB
+#+end_src
+**** NO kotlin
++ [[file:../modules/lang/kotlin/README.org][kotlin]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;kotlin            ; a better, slicker Java(Script)
+#+end_src
+**** yes latex
++ [[file:../modules/lang/latex/README.org][latex]] =+latexmk +cdlatex +fold +lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        latex             ; writing papers in Emacs has never been so fun
+#+end_src
+**** NO lean
++ lean - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;lean              ; for folks with too much to prove
+#+end_src
+**** NO ledger
++ [[file:../modules/lang/ledger/README.org][ledger]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ledger            ; be audit you can be
+#+end_src
+**** NO lua
++ [[file:../modules/lang/lua/README.org][lua]] =+fennel +moonscript= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;lua               ; one-based indices? one-based indices
+#+end_src
+**** yes markdown
++ [[file:../modules/lang/markdown/README.org][markdown]] =+grip= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        markdown          ; writing docs for people to ignore
+#+end_src
+**** NO nim
++ [[file:../modules/lang/nim/README.org][nim]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;nim               ; python + lisp at the speed of c
+#+end_src
+**** NO nix
++ [[file:../modules/lang/nix/README.org][nix]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;nix               ; I hereby declare "nix geht mehr!"
+#+end_src
+**** NO ocaml
++ [[file:../modules/lang/ocaml/README.org][ocaml]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ocaml             ; an objective camel
+#+end_src
+**** yes org
++ [[file:../modules/lang/org/README.org][org]] =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (org              ; organize your plain life in plain text
         +roam
         +dragndrop
-        ;;+ipython
+       ;; +ipython
         +journal
         +noter
-        ;;+pandoc
-        ;;+pomodoro
+       ;; +pandoc
+       ;; +pomodoro
         +present
         +pretty
         )
+#+end_src
+**** NO php
++ [[file:../modules/lang/php/README.org][php]] =+hack +lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;php               ; perl's insecure younger brother
+#+end_src
+**** NO plantuml
++ plantuml - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;plantuml          ; diagrams for confusing people more
+#+end_src
+**** NO purescript
++ purescript =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;purescript        ; javascript, but functional
+#+end_src
+**** yes python
++ [[file:../modules/lang/python/README.org][python]] =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (python            ; beautiful is better than ugly
         +lsp
         )
+#+end_src
+**** NO qt
++ qt - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;qt                ; the 'cutest' gui framework ever
+#+end_src
+**** NO racket
++ [[file:../modules/lang/racket/README.org][racket]] =+lsp +xp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;racket            ; a DSL for DSLs
+#+end_src
+**** NO raku
++ [[file:../modules/lang/raku/README.org][raku]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;raku              ; the artist formerly known as perl6
+#+end_src
+**** NO rest (emacs REST client)
++ [[file:../modules/lang/rest/README.org][rest]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;rest              ; Emacs as a REST client
-       rst               ; ReST in peace
-       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-        +lsp
-        )
+#+end_src
+**** NO rst
++ rst - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; rst               ; ReST in peace
+#+end_src
+**** NO ruby
++ [[file:../modules/lang/ruby/README.org][ruby]] =+lsp +rvm +rbenv +rails +chruby=
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; (ruby      ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;; +rails
+       ;; )
+#+end_src
+**** NO rust
++ [[file:../modules/lang/rust/README.org][rust]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+      ;; (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+      ;;  +lsp
+      ;;  )
+#+end_src
+**** NO scala
++ [[file:../modules/lang/scala/README.org][scala]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;scala             ; java, but good
-       ;;(scheme +guile)   ; a fully conniving family of lisps
-       (sh                ; she sells {ba,z,fi}sh shells on the C xor
-        +lsp
-        +fish
-        )
+#+end_src
+**** NO scheme
++ [[file:../modules/lang/scheme/README.org][scheme]] =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; (scheme    ; a fully conniving family of lisps
+       ;; +chez
+       ;; +chibi
+       ;; +chicken
+       ;; +gambit
+       ;; +gauche
+       ;; +guile
+       ;; +kawa
+       ;; +mit
+       ;; +racket
+       ;; )
+#+end_src
+**** NO sh
++ [[file:../modules/lang/sh/README.org][sh]] =+fish +lsp +powershell= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+      ;; (sh                ; she sells {ba,z,fi}sh shells on the C xor
+      ;;  +lsp
+      ;;  +fish
+      ;; )
+#+end_src
+**** NO sml
++ [[file:../modules/lang/sml/README.org][sml]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;sml
+#+end_src
+**** NO solidity
++ [[file:../modules/lang/solidity/README.org][solidity]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;solidity          ; do you need a blockchain? No.
+#+end_src
+**** NO swift
++ swift =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;swift             ; who asked for emoji variables?
+#+end_src
+**** NO terra
++ terra - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;terra             ; Earth and Moon in alignment for performance.
+#+end_src
+**** yes web (html / css)
++ web =+lsp= - HTML and CSS (SCSS/SASS/LESS/Stylus) support.
+#+begin_src emacs-lisp :tangle ./init.el
        (web               ; HTML and CSS (SCSS/SASS/LESS/Stylus) support.
         +lsp
         )
-       (yaml              ; JSON, but readable
-        +lsp
-        )
+#+end_src
+**** NO yaml
++ [[file:../modules/lang/yaml/README.org][yaml]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+      ;; (yaml              ; JSON, but readable
+      ;;  +lsp
+      ;;  )
+#+end_src
+**** NO zig
++ [[file:../modules/lang/zig/README.org][zig]] =+lsp= - Zig support.
+#+begin_src emacs-lisp :tangle ./init.el
        ;;zig               ; C, but simpler
 #+end_src
 *** email
@@ -1817,9 +2126,15 @@ Modules that bring support for a language or group of languages to Emacs.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :email
-       ;;(mu4e +org +gmail)
+       ;; (mu4e
+       ;; +org
+       ;; +gmail
+       ;; )
+
        ;;notmuch
-       ;;(wanderlust +gmail)
+       ;; (wanderlust
+       ;; +gmail
+       ;; )
 #+end_src
 *** app
 Application modules are complex and opinionated modules that transform Emacs
@@ -1839,8 +2154,13 @@ loaded last*, before =:config= modules.
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+
+       ;; (rss         ; emacs as an RSS reader
+       ;; +org
+       ;; )
+
        ;;twitter           ; twitter client https://twitter.com/vnought
+
 #+end_src
 *** config
 Modules that configure Emacs one way or another, or focus on making it easier
