@@ -585,7 +585,7 @@ https://www.youtube.com/playlist?list=PL5--8gKSku15uYCnmxWPO17Dq6hVabAB4
 ***** 10 Is The Best RSS Reader An Emacs Package?
 ***** 11 Setting Up The Mu4e Email Client In Doom Emacs
 ***** 12 Doom Emacs And EXWM Are My New Window Manager
-***** 13 Font And Line Settings In Doom Emacs
+***** DONE 13 Font And Line Settings In Doom Emacs
 ***** 14 The Different Shells Available In Emacs
 ***** 15 Why Isn't Emacs More Popular?
 ***** 16 Boost Productivity With Emacs, Org Mode and Org Agenda
@@ -1258,6 +1258,24 @@ https://github.com/jcs-elpa/indent-control
 ** emmet-mode
 Unofficial Emmet's support for emacs
 https://github.com/emacsmirror/emmet-mode
+* configs from the net to check out
+** Colored text in org-mode with export to HTML
+https://kitchingroup.cheme.cmu.edu/blog/2016/01/16/Colored-text-in-org-mode-with-export-to-HTML/
+
+Just for fun, I want to put colored text in org-mode using links. This is a
+simple hack that uses the description in an org-mode link as the text to color,
+and the path in link to specify the color. I use an overlay to do this because I
+could not figure out how to change the face foreground color. We provide a
+simple export to HTML. LaTeX is also doable, but a trickier export as you need
+to define the colors in the LaTeX header also.
+
+Here is the code to make the color link, and put overlays on them with
+font-lock.
+** Hugo Cisneros - Org-mode configuration
+https://hugocisneros.com/org-config/
+TODO faces and export settings
+
+Org “TODO” bullets
 * config emacs by purpose
 ** edit org files to become pdf files
 ** write literate configuration in org mode then tangle to the respective config files
@@ -1303,14 +1321,17 @@ https://github.com/emacsmirror/emmet-mode
 *** TODO + selecting text
 ** TODO + changes to org mode
 *** DONE add org roam
+*** DONE hide synthax markers in org mode
+*** DONE change the ... when a header is folded
+*** DONE change the bullet point symbol used
+*** TODO change the symbols for the TODO/DONE, etc
+*** TODO remove the black line that shows on the folded heading
+when there is a code snippet inside the heading
 *** TODO add headers/bullets on the line the cursor is on
 not after the last item of the current sub-tree
-*** TODO change the bullet point symbol used
-*** TODO change the faces for the org-bullets
 *** TODO change color of headers
-*** TODO hide synthax markers in org mode
 *** TODO start org files folded
-*** TODO change the ... when a header is folded
+*** TODO BUG adding new entries to an ordered list does not add the next number
 *** TODO configure org agenda and org super agenda
 ** TODO + add adtional language support that does not have a module for it
 *** TODO vue
@@ -1335,6 +1356,7 @@ https://www.emacswiki.org/emacs/DeadKeys
 
 another resource trying to fix by having 2 keyboard layouts:
 https://askubuntu.com/questions/364292/dead-keys-in-emacs-with-ibus
+*** TODO change the behavior on org mode, edit mode, when pressing tab demotes a heading
 *** TODO change how the cursor traverses lines that are wraped
 *** TODO ? find a way to show the other options on which key
 preferably bind =C-h= and =C-l=, or =C-j= and =C-k= to go forwards and backwards
@@ -1393,16 +1415,23 @@ directory (for easy access to its source code).
 (doom!
 #+end_src
 *** input
-+ [[file:../modules/input/chinese/README.org][chinese]] - TODO
-+ [[file:../modules/input/japanese/README.org][japanese]] - TODO
-+ [[file:../modules/input/layout/README.org][layout]] =+azerty +bepo= - TODO
-
+**** input start
 #+begin_src emacs-lisp :tangle ./init.el
        :input
+#+end_src
+**** NO chinese
++ [[file:../modules/input/chinese/README.org][chinese]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;chinese
-
+#+end_src
+**** NO japanese
++ [[file:../modules/input/japanese/README.org][japanese]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;japanese
-
+#+end_src
+**** NO layout
++ [[file:../modules/input/layout/README.org][layout]] =+azerty +bepo= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;(layout            ; auie,ctsrnm is the superior home row
        ;; +azerty
        ;; +bepo
@@ -1412,332 +1441,491 @@ directory (for easy access to its source code).
 Modules that provide new interfaces or frameworks for completion, including code
 completion.
 
-+ [[file:../modules/completion/company/README.org][company]] =+childframe +tng= - The ultimate code completion backend
-+ helm =+fuzzy +childframe= - *Another* search engine for love and life
-+ ido - The /other/ *other* search engine for love and life
-+ [[file:../modules/completion/ivy/README.org][ivy]] =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
-  life
-+ [[file:../modules/completion/vertico/README.org][vertico]] =+icons= - The search engine of the future
-
+**** completion start
 #+begin_src emacs-lisp :tangle ./init.el
        :completion
+#+end_src
+**** yes company
++ [[file:../modules/completion/company/README.org][company]] =+childframe +tng= - The ultimate code completion backend
+#+begin_src emacs-lisp :tangle ./init.el
        (company           ; the ultimate code completion backend
        ;; +childframe
        ;; +tng
         )
-
+#+end_src
+**** NO helm
++ helm =+fuzzy +childframe= - *Another* search engine for love and life
+#+begin_src emacs-lisp :tangle ./init.el
        ;;(helm              ; the *other* search engine for love and life
        ;; +fuzzy
        ;; +childframe
        ;; )
-
+#+end_src
+**** NO ido
++ ido - The /other/ *other* search engine for love and life
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ido               ; the other *other* search engine...
-
+#+end_src
+**** NO ivy
++ [[file:../modules/completion/ivy/README.org][ivy]] =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
+  life
+#+begin_src emacs-lisp :tangle ./init.el
        ;;(ivy              ; a search engine for love and life
        ;; +fuzzy
        ;; +childframe
        ;; +prescient
        ;; +icons
        ;;)
-
+#+end_src
+**** yes vertico
++ [[file:../modules/completion/vertico/README.org][vertico]] =+icons= - The search engine of the future
+#+begin_src emacs-lisp :tangle ./init.el
        (vertico           ; the search engine of the future
         +icons
         )
-
 #+end_src
-*** ui
+*** UI
 Aesthetic modules that affect the Emacs interface or user experience.
 
-+ [[file:../modules/ui/deft/README.org][deft]] - TODO
-+ [[file:../modules/ui/doom/README.org][doom]] - TODO
-+ [[file:../modules/ui/doom-dashboard/README.org][doom-dashboard]] - TODO
-+ [[file:../modules/ui/doom-quit/README.org][doom-quit]] - TODO
-+ [[file:../modules/ui/emoji/README.org][emoji]] =+ascii +github +unicode= - Adds emoji support to Emacs
-+ [[file:../modules/ui/hl-todo/README.org][hl-todo]] - TODO
-+ [[file:../modules/ui/hydra/README.org][hydra]] - TODO
-+ indent-guides - TODO
-+ [[file:../modules/ui/ligatures/README.org][ligatures]] =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
-+ [[file:../modules/ui/minimap/README.org][minimap]] - TODO
-+ [[file:../modules/ui/modeline/README.org][modeline]] =+light= - TODO
-+ [[file:../modules/ui/nav-flash/README.org][nav-flash]] - TODO
-+ [[file:../modules/ui/neotree/README.org][neotree]] - TODO
-+ [[file:../modules/ui/ophints/README.org][ophints]] - TODO
-+ [[file:../modules/ui/popup/README.org][popup]] =+all +defaults= - Makes temporary/disposable windows less intrusive
-+ [[file:../modules/ui/tabs/README.org][tabs]] - TODO
-+ [[file:../modules/ui/treemacs/README.org][treemacs]] - =+lsp= - A tree layout file explorer for Emacs
-+ [[file:../modules/ui/unicode/README.org][unicode]] - TODO
-+ vc-gutter - TODO
-+ vi-tilde-fringe - TODO
-+ [[file:../modules/ui/window-select/README.org][window-select]] =+switch-window +numbers= - TODO
-+ [[file:../modules/ui/workspaces/README.org][workspaces]] - Isolated workspaces
-+ [[file:../modules/ui/zen/README.org][zen]] - Distraction-free coding (or writing)
-
+**** UI start
 #+begin_src emacs-lisp :tangle ./init.el
        :ui
+#+end_src
+**** yes deft
++ [[file:../modules/ui/deft/README.org][deft]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        deft              ; notational velocity for Emacs
-
+#+end_src
+**** doom
++ [[file:../modules/ui/doom/README.org][doom]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        doom              ; what makes DOOM look the way it does
-
+#+end_src
+**** doom-dashboard
++ [[file:../modules/ui/doom-dashboard/README.org][doom-dashboard]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        doom-dashboard    ; a nifty splash screen for Emacs
-
+#+end_src
+**** NO doom-quit
++ [[file:../modules/ui/doom-quit/README.org][doom-quit]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;; doom-quit       ; DOOM quit-message prompts when you quit Emacs
-
+#+end_src
+**** emoji
++ [[file:../modules/ui/emoji/README.org][emoji]] =+ascii +github +unicode= - Adds emoji support to Emacs
+#+begin_src emacs-lisp :tangle ./init.el
        (emoji            ; 🙂
        ;; +ascii
        ;; +github
         +unicode
        )
-
+#+end_src
+**** hl-todo
++ [[file:../modules/ui/hl-todo/README.org][hl-todo]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-
+#+end_src
+**** hydra
++ [[file:../modules/ui/hydra/README.org][hydra]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        hydra
-
+#+end_src
+**** indent-guides
++ indent-guides - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        indent-guides     ; highlighted indent columns
+#+end_src
+**** ligatures
++ [[file:../modules/ui/ligatures/README.org][ligatures]] =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
 
++ =+fira= Enables =Fira Code= ligatures. This requires Fira Code Symbol and a
+  patched version of Fira Code (see below).
++ =+hasklig= Enable =Hasklig= ligatures. This requires a patched version of the
+  HaskLig font (see below).
++ =+iosevka= Enable =Iosevka= ligatures. This requires a patched version of the
+  Iosevka font (see below).
++ =+pragmata-pro= Enable =Pragmata Pro= ligatures. This requires the [[https://www.fsd.it/shop/fonts/pragmatapro/][Pragmata
+  Pro font]].
+#+begin_src emacs-lisp :tangle ./init.el
        (ligatures         ; ligatures and symbols to make your code pretty again
-       ;; +extra
-       ;; +fira
+       +extra
+       +fira
        ;; +hasklig
        ;; +iosevka
        ;; +pragmata-pro
         )
-
+#+end_src
+**** minimap
++ [[file:../modules/ui/minimap/README.org][minimap]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        minimap           ; show a map of the code on the side
-
+#+end_src
+**** modeline
++ [[file:../modules/ui/modeline/README.org][modeline]] =+light= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (modeline          ; snazzy, Atom-inspired modeline, plus API
        ;; +light
         )
-
+#+end_src
+**** nav-flash
++ [[file:../modules/ui/nav-flash/README.org][nav-flash]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;nav-flash         ; blink cursor line after big motions
-
+#+end_src
+**** neotree
++ [[file:../modules/ui/neotree/README.org][neotree]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;neotree           ; a project drawer, like NERDTree for vim
-
+#+end_src
+**** ophints
++ [[file:../modules/ui/ophints/README.org][ophints]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ophints           ; highlight the region an operation acts on
-
+#+end_src
+**** popup
++ [[file:../modules/ui/popup/README.org][popup]] =+all +defaults= - Makes temporary/disposable windows less intrusive
+#+begin_src emacs-lisp :tangle ./init.el
        (popup            ; tame sudden yet inevitable temporary windows
         +defaults
         +all
         )
-
+#+end_src
+**** tabs
++ [[file:../modules/ui/tabs/README.org][tabs]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        tabs              ; a tab bar for Emacs
-
+#+end_src
+**** treemacs
++ [[file:../modules/ui/treemacs/README.org][treemacs]] - =+lsp= - A tree layout file explorer for Emacs
+#+begin_src emacs-lisp :tangle ./init.el
        (treemacs          ; a project drawer, like neotree but cooler
         +lsp
         )
-
+#+end_src
+**** unicode
++ [[file:../modules/ui/unicode/README.org][unicode]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        unicode           ; extended unicode support for various languages
-
+#+end_src
+**** vc-gutter
++ vc-gutter - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        vc-gutter         ; vcs diff in the fringe
-
+#+end_src
+**** vi-tilde-fringe
++ vi-tilde-fringe - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-
+#+end_src
+**** window-select
++ [[file:../modules/ui/window-select/README.org][window-select]] =+switch-window +numbers= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (window-select     ; visually switch windows
         +numbers
         )
-
+#+end_src
+**** workspaces
++ [[file:../modules/ui/workspaces/README.org][workspaces]] - Isolated workspaces
+#+begin_src emacs-lisp :tangle ./init.el
        workspaces        ; tab emulation, persistence & separate workspaces
-
+#+end_src
+**** zen
++ [[file:../modules/ui/zen/README.org][zen]] - Distraction-free coding (or writing)
+#+begin_src emacs-lisp :tangle ./init.el
        ;;zen               ; distraction-free coding or writing
 #+end_src
 *** Editor
 Modules that affect and augment your ability to manipulate or insert text.
 
-+ [[file:../modules/editor/evil/README.org][evil]] =+everywhere= - transforms Emacs into Vim
-+ [[file:../modules/editor/file-templates/README.org][file-templates]] - Auto-inserted templates in blank new files
-+ [[file:../modules/editor/fold/README.org][fold]] - universal code folding
-+ format =+onsave= - TODO
-+ god - TODO
-+ [[file:../modules/editor/lispy/README.org][lispy]] - TODO
-+ multiple-cursors - TODO
-+ [[file:../modules/editor/objed/README.org][objed]] =+manual= - TODO
-+ [[file:../modules/editor/parinfer/README.org][parinfer]] - TODO
-+ rotate-text - TODO
-+ [[file:../modules/editor/snippets/README.org][snippets]] - Snippet expansion for lazy typists
-+ [[file:../modules/editor/word-wrap/README.org][word-wrap]] - soft wrapping with language-aware indent
-
+**** Editor start
 #+begin_src emacs-lisp :tangle ./init.el
        :editor
-
+#+end_src
+**** evil
++ [[file:../modules/editor/evil/README.org][evil]] =+everywhere= - transforms Emacs into Vim
+#+begin_src emacs-lisp :tangle ./init.el
        (evil               ; come to the dark side, we have cookies
         +everywhere
         )
-
+#+end_src
+**** file-templates
++ [[file:../modules/editor/file-templates/README.org][file-templates]] - Auto-inserted templates in blank new files
+#+begin_src emacs-lisp :tangle ./init.el
        file-templates    ; auto-snippets for empty files
-
+#+end_src
+**** fold
++ [[file:../modules/editor/fold/README.org][fold]] - universal code folding
+#+begin_src emacs-lisp :tangle ./init.el
        fold                ; (nigh) universal code folding
-
+#+end_src
+**** format
++ format =+onsave= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;(format             ; automated prettiness
        ;; +onsave
        ;; )
-
+#+end_src
+**** god
++ god - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;god               ; run Emacs commands without modifier keys
-
+#+end_src
+**** lispy
++ [[file:../modules/editor/lispy/README.org][lispy]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;lispy             ; vim for lisp, for people who don't like vim
-
+#+end_src
+**** multiple-cursors
++ multiple-cursors - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;multiple-cursors  ; editing in many places at once
-
+#+end_src
+**** objed
++ [[file:../modules/editor/objed/README.org][objed]] =+manual= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;(objed             ; text object editing for the innocent
        ;; +manual
        ;; )
-
-       ;;parinfer          ; turn lisp into python, sort of
-
-       ;;rotate-text       ; cycle region at point between text candidates
-
-       snippets          ; my elves. They type so I don't have to
-
-       ;;word-wrap         ; soft wrapping with language-aware indent
-
 #+end_src
-*** emacs
+**** parinfer
++ [[file:../modules/editor/parinfer/README.org][parinfer]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;parinfer          ; turn lisp into python, sort of
+#+end_src
+**** rotate-text
++ rotate-text - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;rotate-text       ; cycle region at point between text candidates
+#+end_src
+**** snippets
++ [[file:../modules/editor/snippets/README.org][snippets]] - Snippet expansion for lazy typists
+#+begin_src emacs-lisp :tangle ./init.el
+       snippets          ; my elves. They type so I don't have to
+#+end_src
+**** word-wrap
++ [[file:../modules/editor/word-wrap/README.org][word-wrap]] - soft wrapping with language-aware indent
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;word-wrap         ; soft wrapping with language-aware indent
+#+end_src
+*** Emacs
 Modules that reconfigure or augment packages or features built into Emacs.
-
-+ [[file:../modules/emacs/dired/README.org][dired]] =+ranger +icons= - TODO
-+ electric - TODO
-+ [[file:../modules/emacs/ibuffer/README.org][ibuffer]] =+icons= - TODO
-+ [[file:../modules/emacs/undo/README.org][undo]] =+tree= - A smarter, more intuitive & persistent undo history
-+ [[file:../modules/emacs/vc/README.org][vc]] - TODO
-
+**** Emacs sart
 #+begin_src emacs-lisp :tangle ./init.el
        :emacs
-
+#+end_src
+**** dired
++ [[file:../modules/emacs/dired/README.org][dired]] =+ranger +icons= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (dired             ; making dired pretty [functional]
         +ranger
         +icons
         )
-
+#+end_src
+**** electric
++ electric - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        electric          ; smarter, keyword-based electric-indent
-
+#+end_src
+**** ibuffer
++ [[file:../modules/emacs/ibuffer/README.org][ibuffer]] =+icons= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (ibuffer          ; interactive buffer management
         +icons
         )
-
+#+end_src
+**** undo
++ [[file:../modules/emacs/undo/README.org][undo]] =+tree= - A smarter, more intuitive & persistent undo history
+#+begin_src emacs-lisp :tangle ./init.el
        (undo             ; persistent, smarter undo for your inevitable mistakes
         +tree
         )
-
+#+end_src
+**** vc
++ [[file:../modules/emacs/vc/README.org][vc]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        vc                ; version-control and Emacs, sitting in a tree
-
 #+end_src
 
-*** term
+*** Term
 Modules that offer terminal emulation.
-
-+ [[file:../modules/term/eshell/README.org][eshell]] - TODO
-+ shell - TODO
-+ term - TODO
-+ [[file:../modules/term/vterm/README.org][vterm]] - TODO
-
+**** Term start
 #+begin_src emacs-lisp :tangle ./init.el
        :term
+#+end_src
+**** eshell
++ [[file:../modules/term/eshell/README.org][eshell]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;eshell            ; the elisp shell that works everywhere
+#+end_src
+**** shell
++ shell - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;shell             ; simple shell REPL for Emacs
+#+end_src
+**** term
++ term - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;term              ; basic terminal emulator for Emacs
+#+end_src
+**** vterm
++ [[file:../modules/term/vterm/README.org][vterm]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;vterm             ; the best terminal emulation in Emacs
 #+end_src
-*** checkers
-+ syntax =+childframe= - Live error/warning highlights
-+ [[file:../modules/checkers/spell/README.org][spell]] =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
-+ [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
+*** Checkers
+**** Checkers start
 #+begin_src emacs-lisp :tangle ./init.el
        :checkers
+#+end_src
+**** syntax
++ syntax =+childframe= - Live error/warning highlights
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (syntax              ; tasing you for every semicolon you forget
        ;; +childframe
        ;; )
-
+#+end_src
+**** spell
++ [[file:../modules/checkers/spell/README.org][spell]] =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (spell              ; tasing you for misspelling mispelling
        ;; +flyspell
        ;; )
-
+#+end_src
+**** grammar
++ [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;; grammar             ; tasing grammar mistake every you make
 #+end_src
-*** tools
+*** Tools
 Small modules that give Emacs access to external tools & services.
-
-+ ansible - TODO
-+ debugger =+lsp= - A (nigh-)universal debugger in Emacs
-+ [[file:../modules/tools/direnv/README.org][direnv]] - TODO
-+ [[file:../modules/tools/docker/README.org][docker]] =+lsp= - TODO
-+ [[file:../modules/tools/editorconfig/README.org][editorconfig]] - TODO
-+ [[file:../modules/tools/ein/README.org][ein]] - TODO
-+ [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
-+ gist - TODO
-+ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
-+ [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
-+ [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
-+ make - TODO
-+ [[file:../modules/tools/pass/README.org][pass]] =+auth= - TODO
-+ [[file:../modules/tools/pdf/README.org][pdf]] - TODO
-+ prodigy - TODO
-+ [[file:../modules/tools/rgb/README.org][rgb]] - TODO
-+ [[file:../modules/tools/taskrunner/README.org][taskrunner]] - TODO
-+ [[file:../modules/tools/terraform/README.org][terraform]] - TODO
-+ tmux - TODO
-+ [[file:../modules/tools/upload/README.org][upload]] - TODO
-
+**** Tools start
 #+begin_src emacs-lisp :tangle ./init.el
        :tools
+#+end_src
+**** ansible
++ ansible - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ansible
-
+#+end_src
+**** biblio
+#+begin_src emacs-lisp :tangle ./init.el
        ;;biblio            ; Writes a PhD for you (citation needed)
-
+#+end_src
+**** debugger
++ debugger =+lsp= - A (nigh-)universal debugger in Emacs
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (debugger          ; FIXME stepping through code, to help you add bugs
        ;; +lsp
        ;; )
-
+#+end_src
+**** direnv
++ [[file:../modules/tools/direnv/README.org][direnv]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;direnv
-
+#+end_src
+**** docker
++ [[file:../modules/tools/docker/README.org][docker]] =+lsp= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (docker
        ;; +lsp
        ;; )
-
+#+end_src
+**** editorconfig
++ [[file:../modules/tools/editorconfig/README.org][editorconfig]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;editorconfig      ; let someone else argue about tabs vs spaces
-
+#+end_src
+**** ein - jupyper notebooks
++ [[file:../modules/tools/ein/README.org][ein]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;ein               ; tame Jupyter notebooks with emacs
-
-       (eval      ; run code, run (also, repls)
-        +overlay
-        )
-
+#+end_src
+**** eval
++ [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
+#+begin_src emacs-lisp :tangle ./init.el
+      ;; (eval      ; run code, run (also, repls)
+      ;;  +overlay
+      ;;  )
+#+end_src
+**** gist
++ gist - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;gist              ; interacting with github gists
-
-       (lookup              ; navigate your code and its documentation
+#+end_src
+**** lookup
++ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
+#+begin_src emacs-lisp :tangle ./init.el
+       ;; (lookup              ; navigate your code and its documentation
        ;; +dictionary
        ;; +docsets
        ;; +offline
-        )   ; Universal jump-to & documentation lookup
+       ;; )   ; Universal jump-to & documentation lookup
 
+#+end_src
+**** lsp
++ [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
+#+begin_src emacs-lisp :tangle ./init.el
        (lsp
         +peek          ; M-x vscode
         +eglot
-        )        ; Installation and configuration of language server protocol client (lsp-mode or eglot)
-
+        )
+#+end_src
+**** magit
++ [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        (magit             ; a git porcelain for Emacs
         +forge
         )
-
+#+end_src
+**** make
++ make - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;make              ; run make tasks from Emacs
-
+#+end_src
+**** pass
++ [[file:../modules/tools/pass/README.org][pass]] =+auth= - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (pass              ; password manager for nerds
        ;; +auth
        ;; )
-
-       pdf               ; pdf enhancements
-
-       ;;prodigy           ; FIXME managing external services & code builders
-
-       rgb               ; creating color strings
-
-       ;;taskrunner        ; taskrunner for all your projects
-
-       ;;terraform         ; infrastructure as code
-
-       ;;tmux              ; an API for interacting with tmux
-
-       ;;upload            ; map local to remote projects via ssh/ftp
-
 #+end_src
-*** os
+**** pdf
++ [[file:../modules/tools/pdf/README.org][pdf]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       pdf               ; pdf enhancements
+#+end_src
+**** prodigy
++ prodigy - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;prodigy           ; FIXME managing external services & code builders
+#+end_src
+**** rgb
++ [[file:../modules/tools/rgb/README.org][rgb]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       rgb               ; creating color strings
+#+end_src
+**** taskrunner
++ [[file:../modules/tools/taskrunner/README.org][taskrunner]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;taskrunner        ; taskrunner for all your projects
+#+end_src
+**** terraform
++ [[file:../modules/tools/terraform/README.org][terraform]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;terraform         ; infrastructure as code
+#+end_src
+**** tmux
++ tmux - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;tmux              ; an API for interacting with tmux
+#+end_src
+**** upload
++ [[file:../modules/tools/upload/README.org][upload]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
+       ;;upload            ; map local to remote projects via ssh/ftp
+#+end_src
+
+*** OS
 Modules to improve integration into your OS, system, or devices.
 
 + [[file:../modules/os/macos/README.org][macos]] - Improve Emacs' compatibility with macOS
@@ -2136,31 +2324,45 @@ WTF is this?
        ;; +gmail
        ;; )
 #+end_src
-*** app
+*** App
 Application modules are complex and opinionated modules that transform Emacs
 toward a specific purpose. They may have additional dependencies and *should be
 loaded last*, before =:config= modules.
-
-+ [[file:../modules/app/calendar/README.org][calendar]] - TODO
-+ [[file:../modules/app/emms/README.org][emms]] - TODO
-+ [[file:../modules/app/everywhere/README.org][everywhere]] - TODO
-+ [[file:../modules/app/irc/README.org][irc]] - how neckbeards socialize
-+ [[file:../modules/app/rss/README.org][rss]] =+org= - an RSS client in Emacs
-+ [[file:../modules/app/twitter/README.org][twitter]] - A twitter client for Emacs
-
+**** App start
 #+begin_src emacs-lisp :tangle ./init.el
        :app
+#+end_src
+**** calendar
++ [[file:../modules/app/calendar/README.org][calendar]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        calendar
+#+end_src
+**** emms - emacs multimeadia management system?
++ [[file:../modules/app/emms/README.org][emms]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;emms
+#+end_src
+**** everywhere
++ [[file:../modules/app/everywhere/README.org][everywhere]] - TODO
+#+begin_src emacs-lisp :tangle ./init.el
        ;;everywhere        ; *leave* Emacs!? You must be joking
+#+end_src
+**** irc
++ [[file:../modules/app/irc/README.org][irc]] - how neckbeards socialize
+#+begin_src emacs-lisp :tangle ./init.el
        ;;irc               ; how neckbeards socialize
-
+#+end_src
+**** rss
++ [[file:../modules/app/rss/README.org][rss]] =+org= - an RSS client in Emacs
+#+begin_src emacs-lisp :tangle ./init.el
        ;; (rss         ; emacs as an RSS reader
        ;; +org
        ;; )
-
+#+end_src
+**** twitter
++ [[file:../modules/app/twitter/README.org][twitter]] - A twitter client for Emacs
+#+begin_src emacs-lisp :tangle ./init.el
        ;;twitter           ; twitter client https://twitter.com/vnought
-
 #+end_src
 *** config
 Modules that configure Emacs one way or another, or focus on making it easier
@@ -2238,27 +2440,194 @@ You can also try =gd= (or =C-c c d=) to jump to their definition and see how
 they are implemented.
 *** Looks
 **** Fonts
-
 Doom exposes five (optional) variables for controlling fonts in Doom.
 
 Here are the three important ones:
 
 + `doom-font'
 + `doom-variable-pitch-font'
-+ `doom-big-font' -- used for `doom-big-font-mode'; use this for
-  presentations or streaming.
++ `doom-big-font' -- used for `doom-big-font-mode'; use this for presentations
+  or streaming.
++ 'font-lock-comment-face' -- for comment
++ 'font-lcok-keyword-face' -- for keywords with special significance, like 'for'
+  and 'if' in C
+
 
 They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font
 string. You generally only need these two:
 
+
+#+begin_src emacs-lisp :tangle ./config.el
+
+;; last working config
+;; (setq doom-font (font-spec :family "Victor Mono"
+;;                            :size 32
+;;                            :weight 'medium
+;;                 )
+
+;;       doom-variable-pitch-font (font-spec :family "sans"
+;;                                           :size 32
+;;                                )
+;; )
+;; last working config
+
+#+end_src
+
 #+begin_src emacs-lisp :tangle ./config.el
 (setq doom-font (font-spec :family "Source Code Pro"
                            :size 32
-                           :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans"
-                                          :size 32))
+                           :weight 'medium
+                )
+
+      doom-variable-pitch-font (font-spec :family "Fira Sans"
+                                          :size 32
+                               )
+)
 #+end_src
 
+***** font-spec documentation
+font-spec is a built-in function in ‘C source code’.
+
+(font-spec ARGS...)
+
+Return a newly created font-spec with arguments as properties.
+
+ARGS must come in pairs KEY VALUE of font properties. KEY must be a valid font
+property name listed below:
+
+... [properties / ARGS] ...
+
+Probably introduced at or before Emacs version 23.1.
+****** font-spec properties
+******* :family
+They are the same as face attributes of the same name. See ‘set-face-attribute’.
+******* :weight
+They are the same as face attributes of the same name. See ‘set-face-attribute’.
+******* :slant
+They are the same as face attributes of the same name. See ‘set-face-attribute’.
+******* :width
+They are the same as face attributes of the same name. See ‘set-face-attribute’.
+******* :foundry
+VALUE must be a string or a symbol specifying the font foundry, e.g. ‘misc’.
+******* :adstyle
+VALUE must be a string or a symbol specifying the additional typographic style
+information of a font, e.g. ‘sans’.
+******* :registry
+VALUE must be a string or a symbol specifying the charset registry and encoding
+of a font, e.g. ‘iso8859-1’.
+******* :size
+VALUE must be a non-negative integer or a floating point number specifying the
+font size.
+
+It specifies the font size in pixels (if VALUE is an integer), or in points (if
+VALUE is a float).
+******* :dpi
+VALUE must be a non-negative number that specifies the resolution (dot per inch)
+for which the font is designed.
+******* :spacing
+VALUE specifies the spacing of the font: mono, proportional, charcell, or dual.
+It can be either a number (0 for proportional, 90 for dual, 100 for mono, 110
+for charcell) or a 1-letter symbol: ‘P’, ‘D’, ‘M’, or ‘C’ (lower-case variants
+are also accepted).
+******* :avgwidth
+VALUE must be a non-negative integer specifying the average width of the font in
+1/10 pixel units.
+******* :name
+VALUE must be a string of XLFD-style or fontconfig-style font name.
+******* :script
+VALUE must be a symbol representing a script that the font must support.
+
+It may be a symbol representing a subgroup of a script listed in the variable
+‘script-representative-chars’.
+******* :lang
+VALUE must be a symbol whose name is a two-letter ISO-639 language name, e.g.
+‘ja’.
+
+The value is matched against the "Additional Style" field of the XLFD spec of a
+font, if it’s non-empty, on X, and against the codepages supported by the font
+on w32.
+******* :otf
+VALUE must be a list (SCRIPT-TAG LANGSYS-TAG GSUB [ GPOS ]) to specify required
+OpenType features.
+
+SCRIPT-TAG: OpenType script tag symbol (e.g. ‘deva’).
+
+LANGSYS-TAG: OpenType language system tag symbol, or nil for the default
+language system.
+
+GSUB: List of OpenType GSUB feature tag symbols, or nil if none required.
+
+GPOS: List of OpenType GPOS feature tag symbols, or nil if none required.
+
+GSUB and GPOS may contain nil elements. In such a case, the font must not have
+any of the remaining elements.
+
+For instance, if the VALUE is ‘(thai nil nil (mark))’, the font must be an
+OpenType font whose GPOS table of ‘thai’ script’s default language system must
+contain ‘mark’ feature.
+***** _
+Garantees that /italics/ and *bold* shows correctly in org mode, maybe unnecessary.
+
+#+begin_src emacs-lisp :tangle ./config.el
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t
+  )
+)
+#+end_src
+
+***** _
+changes the font type for comments and keyords
+
+#+begin_src emacs-lisp :tangle ./config.el
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic)
+)
+#+end_src
+***** custom-set-faces! documentation
+custom-set-faces! is an autoloaded Lisp macro in ‘autoload/themes.el’.
+
+(custom-set-faces! &rest SPECS)
+
+Apply a list of face SPECS as user customizations.
+
+This is a convenience macro alternative to ‘custom-set-face’ which allows for a
+simplified face format, and takes care of load order issues, so you can use
+doom-themes’ API without worry.
+
+examples:
+
+#+begin_src emacs-lisp :eval no
+(custom-set-faces!
+ '(outline-1 :weight normal)
+ '(outline-2 :weight normal)
+ '(outline-3 :weight normal)
+ '(outline-4 :weight normal)
+ '(outline-5 :weight normal)
+ '(outline-6 :weight normal)
+ '(default :background "red" :weight bold)
+ '(region :background "red" :weight bold))
+
+(custom-set-faces!
+ '((outline-1 outline-2 outline-3 outline-4 outline-5 outline-6)
+   :weight normal)
+ '((default region)
+   :background "red" :weight bold))
+
+(let ((red-bg-faces '(default region)))
+  (custom-set-faces!
+   `(,(cl-loop for i from 0 to 6 collect (intern (format "outline-%d" i)))
+     :weight normal)
+   `(,red-bg-faces
+     :background "red" :weight bold)))
+
+;; You may utilise `doom-themes's theme API to fetch or tweak colors from their
+;; palettes. No need to wait until the theme or package is loaded. e.g.
+(custom-set-faces!
+ `(outline-1 :foreground ,(doom-color 'red))
+ `(outline-2 :background ,(doom-color 'blue)))
+#+end_src
 **** Theme
 
 There are two ways to load a theme. Both assume the theme is installed and
@@ -2294,7 +2663,396 @@ change `org-directory'. It must be set before org loads!
 #+begin_src emacs-lisp :tangle ./config.el
 (setq org-directory "~/Dropbox/org/")
 #+end_src
+**** styles
+***** ellipsis
+changes ... to an arrow(▼)
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq
+    org-ellipsis " ▼ "
+  )
+)
+#+end_src
+***** headers
 
+BUG : defface: Wrong number of arguments: (3 . 3), 2
+
+error: (void-function org-compatible-face)
+
+
+sets the header color to this order:
+1. white
+2. blue
+3. green
+4. red
+5. yellow
+6. orange
+7. ???
+8. purple?
+9. brown?
+10. (0) black/gray
+
+****** example from stack exchange (fail)
+#+begin_src emacs-lisp
+(progn
+  (defface org-level-9 ;; originally copied from org-level-8
+    (org-compatible-face
+      nil ;; not inheriting from outline-9 because that does not exist
+      '((((class color)
+          (min-colors 16)
+          (background light))
+         (:foreground "RosyBrown")
+        )
+        (((class color)
+          (min-colors 16)
+          (background dark))
+         (:foreground "LightSalmon")
+        )
+        (((class color)
+          (min-colors 8))
+         (:foreground "green")
+        )
+       )
+    )
+    "Face used for level 9 headlines."
+    :group 'org-faces
+  )
+
+  (setq org-level-faces
+        (append org-level-faces
+                (list 'org-level-9)
+        )
+  )
+
+  (setq org-n-level-faces
+        (length org-level-faces)
+  )
+)
+#+end_src
+****** documentation about header faces
+******* org-level-#
+******* org-level-faces
+org-level-faces is a variable defined in ‘org-faces.el’.
+
+Its value is
+#+begin_src elisp
+(org-level-1 org-level-2 org-level-3 org-level-4 org-level-5 org-level-6
+org-level-7 org-level-8)
+#+end_src
+
+Not documented as a variable.
+
+This variable may be risky if used as a file-local variable.
+******* org-n-level-faces
+org-n-level-faces is a variable defined in ‘org-faces.el’.
+
+Its value is 9
+
+The number of different faces to be used for headlines.
+
+Org mode defines 8 different headline faces, so this can be at most 8.
+
+If it is less than 8, the level-1 face gets re-used for level N+1 etc.
+
+  You can customize this variable.
+******* deffface
+defface is a Lisp macro in ‘custom.el’.
+
+(defface FACE SPEC DOC &rest ARGS)
+
+Declare FACE as a customizable face that defaults to SPEC.
+
+FACE does not need to be quoted.
+
+Third argument DOC is the face documentation.
+
+If FACE has been set with ‘custom-theme-set-faces’, set the face
+attributes as specified by that function, otherwise set the face
+attributes according to SPEC.
+
+The remaining arguments should have the form [KEYWORD VALUE]...
+For a list of valid keywords, see the common keywords listed in
+‘defcustom’.
+
+SPEC should be a "face spec", i.e., an alist of the form
+
+   ((DISPLAY . ATTS)...)
+
+where DISPLAY is a form specifying conditions to match certain
+terminals and ATTS is a property list (ATTR VALUE ATTR VALUE...)
+specifying face attributes and values for frames on those
+terminals.  On each terminal, the first element with a matching
+DISPLAY specification takes effect, and the remaining elements in
+SPEC are disregarded.
+
+As a special exception, in the first element of SPEC, DISPLAY can
+be the special value ‘default’.  Then the ATTS in that element
+act as defaults for all the following elements.
+
+For backward compatibility, elements of SPEC can be written
+as (DISPLAY ATTS) instead of (DISPLAY . ATTS).
+
+Each DISPLAY can have the following values:
+ - ‘default’ (only in the first element).
+ - The symbol t, which matches all terminals.
+ - An alist of conditions.  Each alist element must have the form
+   (REQ ITEM...).  A matching terminal must satisfy each
+   specified condition by matching one of its ITEMs.  Each REQ
+   must be one of the following:
+   - ‘type’ (the terminal type).
+     Each ITEM must be one of the values returned by
+     ‘window-system’.  Under X, additional allowed values are
+     ‘motif’, ‘lucid’, ‘gtk’ and ‘x-toolkit’.
+   - ‘class’ (the terminal’s color support).
+     Each ITEM should be one of ‘color’, ‘grayscale’, or ‘mono’.
+   - ‘background’ (what color is used for the background text)
+     Each ITEM should be one of ‘light’ or ‘dark’.
+   - ‘min-colors’ (the minimum number of supported colors)
+     Each ITEM should be an integer, which is compared with the
+     result of ‘display-color-cells’.
+   - ‘supports’ (match terminals supporting certain attributes).
+     Each ITEM should be a list of face attributes.  See
+     ‘display-supports-face-attributes-p’ for more information on
+     exactly how testing is done.
+
+In the ATTS property list, possible attributes are ‘:family’,
+‘:width’, ‘:height’, ‘:weight’, ‘:slant’, ‘:underline’,
+‘:overline’, ‘:strike-through’, ‘:box’, ‘:foreground’,
+‘:background’, ‘:stipple’, ‘:inverse-video’, and ‘:inherit’.
+
+See Info node ‘(elisp) Faces’ in the Emacs Lisp manual for more
+information.
+
+  Probably introduced at or before Emacs version 20.3.
+
+#+BEGIN_SRC elisp :eval no
+(defface highlight
+  '((((class color) (min-colors 88) (background light))
+     :background "darkseagreen2")
+    (((class color) (min-colors 88) (background dark))
+     :background "darkolivegreen")
+    (((class color) (min-colors 16) (background light))
+     :background "darkseagreen2")
+    (((class color) (min-colors 16) (background dark))
+     :background "darkolivegreen")
+    (((class color) (min-colors 8))
+     :background "green" :foreground "black")
+    (t :inverse-video t))
+  "Basic face for highlighting."
+  :group 'basic-faces)
+#+END_SRC
+****** changes the 1st headers color (fail)
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp
+;; NEW CHANGE!!!
+(after! org
+  (defface org-level-1
+    (org-compatible-face nil
+        '((( (class color)
+             (min-colors 16)
+             (background light)
+           )
+           (:foreground "red")
+          )
+            (((class color)
+            (min-colors 16)
+            (background dark))
+            (:foreground "red")
+            )
+            (((class color)
+            (min-colors 8))
+            (:foreground "red")
+          )
+         )
+        "Face used for level 1 headlines."
+        :group 'org-faces
+    )
+  )
+)
+;; NEW CHANGE!!!
+#+end_src
+
+****** changes the 9th headers color (fail)
+leave it for later
+
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; CHANGES!!!
+(after! org
+  ;; (setq org-level-color-stars-only t)
+  (progn
+    (defface org-level-9 ;; originally copied from org-level-8
+        (org-compatible-face
+        nil ;; not inheriting from outline-9 because that does not exist
+        '((( (class color)
+             (min-colors 16)
+             (background light)
+           )
+           (:foreground "green")
+          )
+            (((class color)
+            (min-colors 16)
+            (background dark))
+            (:foreground "green")
+            )
+            (((class color)
+            (min-colors 8))
+            (:foreground "green")
+          )
+         )
+        )
+        "Face used for level 9 headlines."
+        :group 'org-faces
+    )
+    ;; appending the 9th level heading style to the org-level-vaces list
+    (setq org-level-faces
+            (append org-level-faces
+                    (list 'org-level-9)
+            ))
+    ;; setting org-n-level-faces to the length of org-level-faces
+    (setq org-n-level-faces
+            (length org-level-faces))
+  )
+)
+;; CHANGES!!!
+#+end_src
+****** complete answer (fail)
+... #+begin_src elisp
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src elisp
+(progn
+  (progn
+    (face-spec-set 'org-level-5 ;; originally copied from org-level-8
+      (org-compatible-face
+          nil ;; not inheriting from outline-9 because that does not exist
+        '((((class color) (min-colors 16) (background light))
+           (:foreground "yellow"))
+          (((class color) (min-colors 16) (background dark))
+           (:foreground "yellow"))
+          (((class color) (min-colors 8))
+           (:foreground "yellow")))))
+
+    (face-spec-set 'org-level-6 ;; originally copied from org-level-8
+      (org-compatible-face
+          nil ;; not inheriting from outline-9 because that does not exist
+        '((((class color) (min-colors 16) (background light))
+           (:foreground "orange"))
+          (((class color) (min-colors 16) (background dark))
+           (:foreground "orange"))
+          (((class color) (min-colors 8))
+           (:foreground "orange")))))
+
+    (face-spec-set 'org-level-7 ;; originally copied from org-level-8
+      (org-compatible-face
+          nil ;; not inheriting from outline-9 because that does not exist
+        '((((class color) (min-colors 16) (background light))
+           (:foreground "purple"))
+          (((class color) (min-colors 16) (background dark))
+           (:foreground "purple"))
+          (((class color) (min-colors 8))
+           (:foreground "purple")))))
+
+    (face-spec-set 'org-level-8 ;; originally copied from org-level-8
+      (org-compatible-face
+          nil ;; not inheriting from outline-9 because that does not exist
+        '((((class color) (min-colors 16) (background light))
+           (:foreground "gray"))
+          (((class color) (min-colors 16) (background dark))
+           (:foreground "gray"))
+          (((class color) (min-colors 8))
+           (:foreground "gray")))))
+
+    (defface org-level-9 ;; originally copied from org-level-8
+      (org-compatible-face
+          nil ;; not inheriting from outline-9 because that does not exist
+        '((((class color) (min-colors 16) (background light))
+           (:foreground "brown"))
+          (((class color) (min-colors 16) (background dark))
+           (:foreground "brown"))
+          (((class color) (min-colors 8))
+           (:foreground "brown"))))
+      "Face used for level 9 headlines."
+      :group 'org-faces)
+    (setq org-level-faces (append org-level-faces (list 'org-level-9)))
+    (setq org-n-level-faces (length org-level-faces))))
+#+end_src
+***** bullets
+changes the bullets at the start of the headers to roman numerals
+
+NOTE: using more than one character in the list will use /only/ the first
+character
+
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq
+;;   org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+     org-superstar-headline-bullets-list
+     '(
+;;     "α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ"     ;; greek
+;;     "μ" "ν" "ξ" "ο" "π" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"  ;; lower letters
+
+;;     "♠" "♥" "♦" "♣" "♤" "♡" "♢" "♧"             ;; card suits
+
+;; "⓪" ;; starts at zero?
+       "①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧" "⑨" "⑩" ;; empty
+       "⑪" "⑫" "⑬" "⑭" "⑮" "⑯" "⑰" "⑱" "⑲" "⑳" ;; circled
+       "㉑" "㉒" "㉓" "㉔" "㉕" "㉖" "㉗" "㉘" "㉙" "㉚" ;; numbers
+       "㉛" "㉜" "㉝" "㉞" "㉟" "㊱" "㊲" "㊳" "㊴" "㊵"
+       "㊶" "㊷" "㊸" "㊹" "㊺" "㊻" "㊼" "㊽" "㊾" "㊿"
+
+;;    "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾" "➓" ;; filled circled numbers
+     )
+  )
+)
+#+end_src
+
+****** greek alphabet
+| Α α   | A a          | alpha   |
+| Β β   | B b          | beta    |
+| Γ γ   | G g          | gamma   |
+| Δ δ   | D d          | delta   |
+| Ε ε   | E e          | epsilon |
+| Ζ ζ   | Z z          | zeta    |
+| Η η   | Ē ē          | eta     |
+| Θ θ   | Th th        | theta   |
+| Ι ι   | I i          | iota    |
+| Κ κ   | C c, K k     | kappa   |
+| Λ λ   | L l          | lambda  |
+| Μ μ   | M m          | mu      |
+| Ν ν   | N n          | nu      |
+|       |              |         |
+| Ξ ξ   | X x          | xi      |
+| Ο ο   | O o          | omicron |
+| Π π   | P p          | pi      |
+| Ρ ρ   | R r, Rh rh   | rho     |
+| Σ σ/ς | S s          | sigma   |
+|       |              |         |
+| Τ τ   | T t          | tau     |
+| Υ υ   | Y y, U u     | upsilon |
+| Φ φ   | Ph ph        | phi     |
+| Χ χ   | Ch ch, Kh kh | chi     |
+| Ψ ψ   | Ps ps        | psi     |
+| Ω ω   | Ō ō          | omega   |
+***** lists
+
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq
+   org-superstar-item-bullet-alist '((?+ . ?✦) (?- . ?➤))
+  )
+)
+#+end_src
+***** emphasis markers
+
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq
+   org-hide-emphasis-markers t
+  )
+)
+#+end_src
+****** TODO need to install org-reaveal later
 **** roam
 adds the location of the org-roam folder
 
@@ -2490,3 +3248,15 @@ provides, and =doom help COMMAND= to display documentation for a particular
 I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
 directly and from anywhere. Accomplish this by adding this to your .bashrc or
 .zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
+* level 1 - testing headers
+** level 2
+*** level 3
+**** level 4
+***** level 5
+****** level 6
+******* level 7
+******** level 8
+********* level 9
+********** level 10
+*********** level 11
+************ level 12

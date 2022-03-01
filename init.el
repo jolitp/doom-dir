@@ -4,6 +4,7 @@
 (doom!
 
        :input
+
        ;;chinese
 
        ;;japanese
@@ -14,6 +15,7 @@
        ;; )
 
        :completion
+
        (company           ; the ultimate code completion backend
        ;; +childframe
        ;; +tng
@@ -38,6 +40,7 @@
         )
 
        :ui
+
        deft              ; notational velocity for Emacs
 
        doom              ; what makes DOOM look the way it does
@@ -59,8 +62,8 @@
        indent-guides     ; highlighted indent columns
 
        (ligatures         ; ligatures and symbols to make your code pretty again
-       ;; +extra
-       ;; +fira
+       +extra
+       +fira
        ;; +hasklig
        ;; +iosevka
        ;; +pragmata-pro
@@ -155,12 +158,17 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
+
        ;;eshell            ; the elisp shell that works everywhere
+
        ;;shell             ; simple shell REPL for Emacs
+
        ;;term              ; basic terminal emulator for Emacs
+
        ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
+
        ;; (syntax              ; tasing you for every semicolon you forget
        ;; +childframe
        ;; )
@@ -172,6 +180,7 @@
        ;; grammar             ; tasing grammar mistake every you make
 
        :tools
+
        ;;ansible
 
        ;;biblio            ; Writes a PhD for you (citation needed)
@@ -190,22 +199,22 @@
 
        ;;ein               ; tame Jupyter notebooks with emacs
 
-       (eval      ; run code, run (also, repls)
-        +overlay
-        )
+      ;; (eval      ; run code, run (also, repls)
+      ;;  +overlay
+      ;;  )
 
        ;;gist              ; interacting with github gists
 
-       (lookup              ; navigate your code and its documentation
+       ;; (lookup              ; navigate your code and its documentation
        ;; +dictionary
        ;; +docsets
        ;; +offline
-        )   ; Universal jump-to & documentation lookup
+       ;; )   ; Universal jump-to & documentation lookup
 
        (lsp
         +peek          ; M-x vscode
         +eglot
-        )        ; Installation and configuration of language server protocol client (lsp-mode or eglot)
+        )
 
        (magit             ; a git porcelain for Emacs
         +forge
@@ -430,9 +439,13 @@
        ;; )
 
        :app
+
        calendar
+
        ;;emms
+
        ;;everywhere        ; *leave* Emacs!? You must be joking
+
        ;;irc               ; how neckbeards socialize
 
        ;; (rss         ; emacs as an RSS reader
