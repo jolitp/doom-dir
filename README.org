@@ -1,7 +1,6 @@
 #+TITLE: Doom Emacs config
 #+AUTHOR: João Luís Teixeira Pinto
 * Doom Emacs config
-
 This file is a literate configuration of my Doom Emacs config.
 
 Here are the Emacs LISP code that config Emacs and also the explanation of every
@@ -9,79 +8,113 @@ part of the config.
 
 In addition to that, I also document here how I use, or intend to use, such
 configuration.
-
-* Notes about configuring Doom Emacs
-** _
-You can configure Doom by tweaking the files found in your =DOOMDIR=. Doom
-expects this directory to be found in one of:
-
-=~/.config/doom= (respects =$XDG_CONFIG_HOME)= or =~/.doom.d= This directory is
-referred to as your =DOOMDIR=. Only one of these directories should exist (Doom
-will only recognize one).
-
-Change the =DOOMDIR= environment variable to change where Doom looks for this
-directory. Symlinks will work as well.
-
-When you ran =doom install=, it deployed a simple Doom configuration to your
-=DOOMDIR=, comprised of these three files:
-** init.el
-Where you’ll find your =doom!= block, which controls what Doom modules are
-enabled and in what order they will be loaded.
-
-This file is evaluated early when Emacs is starting up; before any other module
-has loaded. You generally shouldn’t add code to this file unless you’re
-targeting Doom’s CLI or something that needs to be configured very early in the
-startup process.
-** config.el
-Here is where 99.99% of your private configuration should go. Anything in here
-is evaluated after all other modules have loaded, when starting up Emacs.
-** packages.el
-Package management is done from this file; where you’ll declare what packages to
-install and where from.
-*** Note:
-do not use =M-x customize= or the customize API in general. Doom is designed to
-be configured programmatically from your config.el, which can conflict with
-Customize’s way of modifying variables.
-
-If you’re concerned about =defcustom= setters, Doom has a =setq!= macro that
-will trigger them.
-** the doom binary CLI utility
-This utility is your new best friend. It won’t spot you a beer, but it’ll
-shoulder much of the work associated with managing and maintaining your Doom
-Emacs configuration, and then some. Not least of which is installation of and
-updating Doom and your installed packages.
-
-It exposes a variety of commands. =bin/doom= help will list them all, but here
-is a summary of the most important ones:
-
-- =doom sync=: This synchronizes your config with Doom Emacs. It ensures that
-  needed packages are installed, orphaned packages are removed and necessary
-  metadata correctly generated. Run this whenever you modify your =doom!= block
-  or =packages.el= file. You’ll need =doom sync -u= if you override the recipe
-  of package installed by another module.
-
-- =doom upgrade=: Updates Doom Emacs (if available) and all its packages.
-
-- =doom env=: (Re)generates an “envvar file”, which is a snapshot of your shell
-  environment that Doom loads at startup. If your app launcher or OS launches
-  Emacs in the wrong environment you will need this. **This is required for GUI
-  Emacs users on MacOS.**
-
-- =doom doctor=: If Doom misbehaves, the doc will diagnose common issues with
-  your installation, system and environment.
-
-- =doom purge=: Over time, the repositories for Doom’s plugins will accumulate.
-  Run this command from time to time to delete old, orphaned packages, and with
-  the =-g= switch to compact existing package repos.
-
-Use =doom help= to see an overview of the available commands that =doom=
-provides, and =doom help COMMAND= to display documentation for a particular
-=COMMAND=.
-
-I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
-directly and from anywhere. Accomplish this by adding this to your .bashrc or
-.zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
 * content about Emacs configs to check out
+** David Wilson (system crafters)
+*** youtube
+**** channel link
+https://www.youtube.com/c/SystemCrafters/videos
+**** playlists
+***** Emacs From Scratch (old)
+https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ
+****** 1 Getting Started with a Basic Usable Configuration
+****** 2 Adding Helpful UI Improvements
+****** 3 Key Bindings and Evil
+****** 4 Projectile and Magit
+****** 5 Org Mode Basics
+****** 6 Organize Your Life with Org Mode
+****** 7 Configure Everything with Org Babel
+****** 8 Build Your Own IDE with lsp-mode
+****** 9 Learn to Love the Terminal Modes
+****** 10 Effortless File Management with Dired
+****** 11 Keeping Your Emacs Packages Up To Date
+****** 12 How to Cut Emacs Start Up Time in Half!
+***** Emacs Tips
+****** 1 How to Show Reminders for Org Mode Tasks
+****** 2 How to Create Your Own Color Theme
+****** 3 How to Use File and Directory Local Variables
+****** 4 How to Give Presentations with Org Mode
+****** 5 How to Create and Manage Multiple Windows - Emacs Tips
+****** 6 Organize Your Windows with the Tab Bar in Emacs 27
+****** 7 Dynamic Tiling Windows like dwm in Emacs with Edwina
+****** 8 Unlock the Power of the Daemon with emacsclient
+****** 9 Give Emacs Psychic Completion Powers with prescient.el
+****** 10 Teach Emacs to Keep Your Folders Clean
+****** 11 How to Encrypt Your Passwords with Emacs
+****** 12 Hey Emacs, Don't Move My Windows! - Customizing display-buffer's behavior
+****** 13 Streamline Your Emacs Completions with Vertico
+****** 14 Doom Emacs or Spacemacs? Use both with Chemacs2!
+***** Emacs IDE
+****** 1 Emacs From Scratch #8 - Build Your Own IDE with lsp-mode
+****** 2 How to Debug Your Code with dap-mode
+****** 3 Python Development Configuration
+***** Learning Emacs Lisp
+****** 1 Introduction to Emacs Lisp - Learning Emacs Lisp #1
+****** 2 Types, Conditionals, and Loops - Learning Emacs Lisp #2
+****** 3 Defining Functions and Commands - Learning Emacs Lisp #3
+****** 4 Defining Variables and Scopes - Learning Emacs Lisp #4
+****** 5 Reading and Writing Buffers in Practice - Learning Emacs Lisp #5
+****** 6 Managing Files and Directories in Practice - Learning Emacs Lisp #6
+****** 7 Creating Custom Minor Modes - Learning Emacs Lisp #7
+***** Managing Your Dotfiles
+****** 1 The Basics of Dotfiles
+****** 2 How to Create a Dotfiles Folder
+****** 3 Give Your Dotfiles a Home with GNU Stow
+***** Emacs Essentials
+****** 1 The Absolute Beginner's Guide to Emacs
+****** 2 Efficient Movement with Emacs Key Bindings - Emacs Essentials #2
+****** 3 Efficient Text Selection with Emacs Key Bindings - Emacs Essentials #3
+***** System Crafters Live!
+****** 1 System Crafters Live! - I'm creating a new Lisp • Emacs News • Q&A
+****** 2 System Crafters Live! - Lisp Compiler Progress • Live Lisp Hacking • Q&A
+****** 3 System Crafters Live! - Taking a look at Magit 3.0 • Streaming with Emacs Lisp
+****** 4 System Crafters Live! - So you've installed GNU Guix, now what?
+****** 5 System Crafters Live! - Do we really need use-package in Emacs?
+****** 6 System Crafters Live! - The Future of System Crafters
+****** 7 System Crafters Live! - Can You Apply Zettelkasten in Emacs?
+****** 8 System Crafters Live! - Emacs Package Potluck (Trying Your Suggestions!)
+****** 9 System Crafters Live! - Can We Fix a Bug in Emacs?
+****** 11 System Crafters Live! - The Many Varieties of Emacs
+****** 10 System Crafters Live! - The Many Varieties of Emacs (Part 2)
+****** 12 System Crafters Live! - A First Look at Guix Home
+****** 13 System Crafters Live! - Why Geeks Don't Use Guix
+****** 14 System Crafters Live! - Building the World's WORST Emacs Configuration (Part 2)
+****** 15 System Crafters Live! - Configuring Emacs With Only the UI?
+****** 16 System Crafters Live! - Planning the New Emacs From Scratch
+****** 17 System Crafters Live! - Live Crafting: Rational Emacs
+****** 18 System Crafters Live! - Trying New Emacs Packages by Minad
+***** Mastering Git with Magit
+****** 1 An Introduction to the Ultimate Git Interface, Magit!
+****** 2 9 Techniques to Boost Your Git Workflow with Magit
+****** 3 Fix Your Git Commits Like a Rebase Expert with Magit
+***** Advanced Emacs Package Management
+****** 1 straight.el: Advanced Emacs Package Management
+***** Effective Window Management in Emacs
+****** 1 Declutter Your Buffer Lists in Emacs with Perspective.el
+***** Build a Second Brain in Emacs
+****** 1 Getting Started with Org Roam - Build a Second Brain in Emacs
+****** 2 Capturing Notes Efficiently in Emacs with Org Roam
+****** 3 Org Roam: The Best Way to Keep a Journal in Emacs
+****** 4 5 Org Roam Hacks for Better Productivity in Emacs
+***** Emacs Shorts
+****** 1 Emacs Has a Built-in Pomodoro Timer?? #Shorts
+***** Hack Sessions
+****** 1 Improving EXWM #1 // Hack Sessions
+****** 2 Improving EXWM #2 // Hack Sessions
+****** 3 "Inverse Literate" Emacs Configurations - Hack Sessions
+****** 4 "Inverse Literate" Emacs Configurations (Part 2) - Hack Sessions
+***** Publishing Websites with Org Mode
+****** 1 Build Your Website with Org Mode
+****** 2 Automated Org Mode Website Publishing with GitHub or SourceHut
+***** Emacs From Scratch (New)
+****** 1 The Basics of Emacs Configuration
+****** 2 The 6 Emacs Settings Every User Should Consider
+*** github
+https://github.com/daviwil
+https://github.com/daviwil/dotfiles
+https://github.com/daviwil/emacs-from-scratch
+https://github.com/SystemCrafters
+**** System Crafter Configurations
+https://github.com/SystemCrafters/crafter-configs
 ** Jakub Neander(Zaiste Programming)
 *** youtube
 **** doomcasts playlist
@@ -131,11 +164,6 @@ https://docs.projectile.mx/projectile/usage.html
 ******* show all projects that Emacs knows of
 Pressing =SPC p p=
 ******* find a file in projcet
-[[attachment:../../../../Dropbox/org/.attach/7d/5b49bc-f111-4655-92f6-e1375ba98ccd/_20220227_034507config.el]]
- :ATTACH:
-:PROPERTIES:
-:ID:       7d5b49bc-f111-4655-92f6-e1375ba98ccd
-:END:
 Pressing: =SPC SPC=, will show files only from the current project
 ******* file explorer (side bar tree view)
 Type: =SPC o p=
@@ -169,7 +197,7 @@ stopped at 2:27
 
 I didn't take notes on deleting files and directory (he explained that at this
 point already)
-***** TODO 4 Buffers, Windows and Basic Navigation
+***** DONE 4 Buffers, Windows and Basic Navigation
 ****** switch buffers
 press: =SPC b b=, or =SPC ,= to have a list of buffer names (only on curent
 project, called a =workspace buffer= by Doom Emacs)
@@ -203,15 +231,197 @@ By pressing:
 
 =C-w -= / =SPC w -= to grow or shrink the current window to the bottom
 
-***** TODO 5 Installing Packages with org-super-agenda as an example
-***** TODO 6 Quick, horizontal movements with evil-snipe
-***** TODO 7 Moving around the screen with Avy
-***** TODO 8 Multiple cursor in Emacs with evil-multiedit
-***** TODO 9 Org Mode, Basic Outlines
-***** TODO 10 Org Mode - Links, Hyperlinks and more
-***** TODO 11 Org Mode - Custom Link Types
-***** TODO 12 Org Mode - Linking to words & Bookmarks
-***** TODO 13 Org Mode, Code Snippets 101
+***** DONE 5 Installing Packages with org-super-agenda as an example
+****** installing packages (example org-super-agenda)
+on the packages file put:
+
+#+begin_src elisp
+(package! org-super-agenda)
+#+end_src
+
+after that on the command line call:
+
+#+begin_src bash
+doom refresh
+#+end_src
+
+then agree to install the new package:
+
+: proceed? (y or n) y
+
+****** configuring packages (example org-super-agenda)
+now go to the =config.el= to config the new package
+
+#+begin_src elisp
+(def-package! org-super-agenda
+;; ... config goes here
+)
+#+end_src
+
+to know what can you configure in a package press:
+
+=SPC h f= for describe function, then type =def-package=
+
+since =def-package= is a wraper around =use-package= it is intresting to know
+about it first:
+
+github page: https://github.com/jwiegley/use-package
+****** use package summary
+use package has "sections" (or named parameters on the form of
+=:parameter-name=)
+
+the most important ones are:
+
+=:init= that is everything that happens before the package loads
+
+=:config= is everything that happens after the package loads
+****** configuring org super agenda
+
+#+begin_src elisp
+(def-package! org-super-agenda
+   :init ;; everything that should happen before the package loads
+   (setq org-super-agenda-groups
+         '(
+           (:name "today"
+                  :time-grid t
+                  :scheduled today)
+           (:name "due today"
+                  :deadline today)
+           (:name "important"
+                  :priority "A")
+           (:name "overdue"
+                  :deadline past)
+           (:name "due soon"
+                  :deadline future)
+           (:name "Big Outcomes"
+                  :tag "bo")
+           )
+    )
+   :config ;; enable the mode for example
+   (org-super-agenda-mode)
+   :after ;; this mode should only load after a certain mode
+   (org-agenda)
+)
+#+end_src
+****** config packages that are part of Doom Emacs
+Packages that comes with Doom Emacs or packages that are part of the modules
+enabled in the =init.el= file, there is another macro:
+
+#+begin_src elisp
+(after!
+
+)
+#+end_src
+
+it is similar to =def-package!= macro, but only allows to specify certain
+configuration options after another package has loaded
+***** DONE 6 Quick, horizontal movements with evil-snipe
+****** basics of evil-snipe
+=evil-snipe= is a package that allows us to quickly jump to a character, it is
+an improved functionallity that vim provides, it works in the following way:
+
+press =f= in the =normal mode=, followed by a letter by which you want to jump
+to (only in the current line!). After that the available letter locations are
+highlighted and you can jump to the next one py pressing =;=, or back by
+pressing =,=. By pressing any one of those the occurences of the selected letter
+will also be highlighted in on the previous and next lines.
+
+there is also =t= that will jump one character before the matching letter
+****** improvements over the functionality present in Vim
+as explained in the last section, when moving through the occurencies of
+letters, you can go beyond the currend line. That is an improvement made by this
+package.
+
+By pressing =s= you can enter 2 letters, resulting in more precise movements
+
+If you want to find a letter before the cursor press =F=. =S= works the same way as =F= but with 2 characters
+
+By pressing =,= in =normal mode= you get your last search forwards, and =;= your
+last search backwards;
+****** selecting text with evil-snip
+In =visual mode= pressing =f=, =F=, =s=, =S=, =,= or =;=
+****** disabled functionallity in doom
+in Doom Emacs this functionallity is disabled
+#+begin_quote
+ - you can ~repeat searches with =f=, =F=, =t=, =T= (ala Clever-F)~
+#+end_quote
+
+***** DONE 7 Moving around the screen with Avy
+****** basics of avy
+by pressing =g s= in normal mode or visual mode, the text that will be used in
+the search changes color to a dark gray, then you can type the letters that you
+want to search in rapid succession
+
+if there are more than one occurency of the word/letter, the places where those
+words/letters are found changes to letters that are easy to reach, starting on
+the home row, like =a=, =s=, =d=, =f=, etc.
+****** using avy on one window vs on all windows
+there is a variable that can be customized to change the behavior of avy when it
+comes to search only in the current window or in all open windows
+
+=avy-all-windows=, can be either =t= or =nil=, for true or false.
+****** changing words with avy
+By pressing =g s SPC=, type a letter, or word in rapid succession, then press
+=x= (to cut it), then the home-row characters presented. It will remove the
+matching word (it won't put you in edit mode)
+****** integration with ispell
+Using the same process as above, but instead of typing =x=, type =i=
+
+A new window will show up, where correction suggestions follows
+single-characters between parenthesis. Pressing any of those letters will change
+the highlighted word on the buffer.
+****** moving/copying words from one part of the text to another
+Press =g i SPC= then the letter/word to search, now press =y= (for
+yanking/pasting), following the highlighted selection "mnemonics"
+
+to move a word, do the same as above, instead of =y=, use =t= (for teleporting)
+***** WATCHED 8 Multiple cursor in Emacs with evil-multiedit
+***** DONE 9 Org Mode, Basic Outlines
+not a single thing I didn't know
+***** DONE 10 Org Mode - Links, Hyperlinks and more
+****** links
+links in org files are marked by [ [/link/location] [description\] ] (without
+the spaces)
+
+to add a link to an org file:
+
+- link to a section of this file:
+  + [[configs TODOs]]
+
+you can highlight a section of the text and type =SPC m l l= and choose a type
+of link, a name for the link and a description (if there is no highlight)
+
+ex:
+
+[ [file:LICENSE] [license] ] = [[file:LICENSE][license]]
+
+normally file links are relative
+
+[ [file:[[TODOs][README.org::TODOs] [license] ] = [[TODOs][README.org::TODOs]]
+
+file:README.org::TODOs
+
+if the heading does not exist it asks if you want to create one
+
+to target a specific line:
+
+file:README.org::44
+
+by default numbers after the :: in the end refers to line numbers, and words
+refer to headlines
+****** run elisp code when clicking on a link
+the link can link to a =elisp= expression.
+***** WATCHED 11 Org Mode - Custom Link Types
+***** STOPPED 12 Org Mode - Linking to words & Bookmarks
+***** DONE 13 Org Mode, Code Snippets 101
+****** opening a code section in another buffer
+press =SPC m '=
+
+: looks like it does not work on my computer, because I have the keyboard locale set to en-us international with ghost keys, when I click on ='= key it prints =´=, then I need to press SPC to actually insert the key
+
+#+begin_src elisp
+;; dummy elisp
+#+end_src
 ***** TODO 14 Org Mode, Getting Organized with Tasks
 ***** TODO 15 Org Mode, Priorities for Tasks
 ***** TODO 16 Org Mode, Marking Tasks with Tags
@@ -220,122 +430,923 @@ By pressing:
 ***** TODO 19 Emacs Magit - The Git Commit Flow in More Detail
 ***** TODO 20 Emacs Magit with Forge for Issuing Pull Requests
 ***** TODO 21 Emacs Magit with Forge for merging Pull Requests
-***** TODO 22 Deft Mode
-***** TODO 23 Journaling with org-journal
-***** TODO 24 Org Roam Setup
-***** TODO 25 Aliases in Org Roam Emacs Doom
+***** DONE 22 Deft Mode
+****** enable deft
+in the =doom.dir= directory, on =init.el= enable =deft= on the =ui= section
+****** to setup deft
+on =config.el=:
+
+#+begin_src elisp
+(setq
+      deft-directory "~/Dropbox/org" ; starting point for searching for notes
+      deft-extensions '("org" "txt") ; file extensions to match on search
+      deft-recurive t ; to force deft to search on subdirectories
+)
+#+end_src
+****** using deft
+to go to the deft UI, press: =SPC d=
+
+now, just by typing I can select a specific note
+******* other options
+by pressing =C-c= on the deft UI you are presented with more options on a
+minibuffer at the bottom of the screen. Some options are: refresh contents of
+the folder, create a new file, etc..
+***** DONE 23 Journaling with org-journal
+****** init.el
+enable journaling in org mode from =init.el= > languages:
+#+begin_src elisp
+(doom!
+;; ...
+  :lang
+  ;; ...
+  (org      ;; add parenthesis if needed
+   ;; ...
+   +journal ;; add this line
+  )
+)
+#+end_src
+****** using
+pressing =SPC n j j= to add a new note, and =SPC n j J= to add a scheduled note
+
+by default it creates a =journal= directory in the =org= directory. The filne
+name is wihout any extension.
+
+if there is already a note for the current day, emacs adds a new heading for the
+current time inside today's file
+****** improving jounaling notes
+******* looking up on the documentation
+press =SPC h v= to describe variable, then type =org-journal= to filter the
+list.
+******* changing the date format
+#+begin_src elisp
+(setq
+      org-journal-date-prefix "#+TITLE: "
+      org-journal-date-prefix "* "
+      org-journal-date-format "%a, %Y-%m-%d" ;; Sun, 2020-12-31
+      org-journal-file-format "%Y-%m-%d.org"
+)
+#+end_src
+
+***** DONE 24 Org Roam Setup
+****** setup
+******* init.el
+enable module in init.el. Remember to run =doom sync= afterwards!
+#+begin_src elisp
+(doom!
+;; ...
+  :lang
+  ;; ...
+  (org      ;; add parenthesis if needed
+   ;; ...
+   +roam ;; add this line
+  )
+)
+#+end_src
+
+******* config.el
+add the location of the folder that org roam will use:
+#+begin_src elisp
+(setq
+      org-roam-directory "~/Dropbox/org/roam"
+)
+#+end_src
+
+a good idea is to put a =.projectile= file in that directory so Emacs interprets
+that as a project directory. Also check if this directory is inside a directory
+that projectile looks up at startup
+****** adding notes
+pressing =SPC n r c= to capture a new note
+****** including links
+press =SPC n r i= to insert. That will give you a list of all notes Org Roam
+knows of. It can create new notes if the file specified does not exists yet.
+****** see the backlinks of a note
+a backlink is a link that comes to the open note from other notes.
+***** DONE 25 Aliases in Org Roam Emacs Doom
+an alias is another name for the same thing, like =javascript= is the same as
+=js=
+
+there is a meta property (org mode property, #+property_name:) called
+#+roam_alias: "javascritp" "js"
+
+by default the note names are taken from the titles and then from the roam_alias
+property, and there is a variable called =org-roam-title-sources= that controls
+this behavior
 ***** NO 26 Getting Started with Emacs & Doom in 2021 (on Apple Silicon M1)
 I don't use a mac
-***** TODO 27 Custom keybindings in Doom Emacs
+***** DONE 27 Custom keybindings in Doom Emacs
+****** using the map! macro
+******* documentation
+press =SPC h f= to describe a function, type =map!=. That gives you all the
+possibilities of configuration, together with some examples.
+******* example, extend the menu from SPC
+******** ex 1: export the current org file to html
+********* no_prefix
+The function/procedure =org-html-export-to-html= is not bound to any key.
 
+#+begin_src elisp
+(map!
+    :leader
+    :desc "Export org to html"
+    "A" #'org-html-export-to-html
+)
+#+end_src
+********* with prefix
+#+begin_src elisp
+(map!
+    :leader
+    (:prefix ("A" . "applications")
+             :desc "Export org to html"
+             "A" #'org-html-export-to-html
+    )
+)
+#+end_src
 *** github
 https://github.com/zaiste
 https://github.com/zaiste/.doom.d
+
+non Doom Emacs
 https://github.com/zaiste/emacs-config
 *** twitter
 https://twitter.com/zaiste
 ** Derik Taylor (distrotube)
 *** youtube
+**** playlist link
 https://www.youtube.com/playlist?list=PL5--8gKSku15uYCnmxWPO17Dq6hVabAB4
+**** playlist videos - The Church of Emacs
+***** 1 20,000 Page Static Website Written In Org Mode
+***** 2 Vim And Emacs Are The Most Important Skills You Should Learn
+***** 3 Emacs Is A Gaming Platform for Windows, Mac and Linux
+***** 4 Three HUGE Mistakes New Emacs Users Make
+***** 5 Rewriting My Website In Org Mode
+***** 6 Transform Words Into Pretty Symbols In Emacs
+***** 7 What Are The Benefits Of Emacs Over Vim?
+***** 8 Leaving Doom Emacs For GNU Emacs? - DT Live!
+***** 9 Create Beautiful Websites Using Emacs Org Mode
+***** 10 Is The Best RSS Reader An Emacs Package?
+***** 11 Setting Up The Mu4e Email Client In Doom Emacs
+***** 12 Doom Emacs And EXWM Are My New Window Manager
+***** 13 Font And Line Settings In Doom Emacs
+***** 14 The Different Shells Available In Emacs
+***** 15 Why Isn't Emacs More Popular?
+***** 16 Boost Productivity With Emacs, Org Mode and Org Agenda
+***** 17 Doom Emacs For Noobs
+***** 18 Useful Tools Within Emacs For Writers
+***** 19 Man Pages Got Your Panties In A Twist? Use Woman Instead!
+***** 20 Want To Rewrite Your Configs In Org-Mode? It's Easy!
+***** 21 The Magit Git Client Is The "Killer Feature" In Emacs
+***** 22 Turn Emacs Into A Window Manager With EXWM
+***** 23 Switching to GNU Emacs
+***** 24 The Basics of Emacs as a Text Editor
+***** 25 Getting Started With Doom Emacs
+***** 26 Bookmarks, Buffers and Windows in Doom Emacs
+***** 27 Vim Versus Emacs. Which Is Better?
+***** 28 Org Mode Basics In Doom Emacs
+***** 29 Friendship With Emacs Is Over, Vim Is My Best Friend
+***** 30 I'm Replacing All Of My Programs...With Emacs
 *** gitlab
+**** home page
 https://gitlab.com/dwt1
+**** doom config
 https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/doom
-** David Wilson (system crafters)
-*** youtube
-https://www.youtube.com/c/SystemCrafters/videos
-*** github
-https://github.com/daviwil
-https://github.com/daviwil/dotfiles
-https://github.com/daviwil/emacs-from-scratch
-https://github.com/SystemCrafters
-**** System Crafter Configurations
-https://github.com/SystemCrafters/crafter-configs
 ** Rafael Accácio
 *** youtube
+**** channel link
 https://www.youtube.com/channel/UC6TH30TksyUf-MHbt5hMdQQ/videos
+**** playlists
+***** Emacs / org-mode
+****** 1 Mantenha-se informado usando Emacs (notícias, artigos, podcasts usando rss) 🇧🇷
+****** 2 Apresentações usando reveal.js e org-mode 🇧🇷
+****** 3 Configurando Emacs (usando doom-emacs org-roam ) 🇧🇷
+****** 4 Anotações usando emacs (org-roam Zettelkasten) 🇧🇷
+****** 5 Programação Literária e Org-mode 🇧🇷
+****** 6 org-mode demo 🇧🇷
+****** 7 Rodando código python dentro de apresentação ( org-mode + reveal.js) 🇧🇷
+****** 8 Configurando doom-emacs org-mode Android ↭ Computador 🇧🇷
+****** 9 Criando marcos em arquivos no Emacs ( imenu ) 🇧🇷
 *** github
 https://github.com/Accacio/doom
 https://github.com/Accacio/.emacs.d
 ** Lukewh
 *** youtube
+**** channel link
 https://www.youtube.com/c/Lukewh/videos
-*** gist
-https://gist.github.com/Lukewh/2da7b54cd773f931b1bf710c84f2f0fb
+**** playlists
+***** Emacs
+****** 1 Emacs - 01 - Intro, files and movement
+****** 2 Emacs - 02 - Frames, Windows and Buffers
+****** 3 Emacs - 04 - Customization with init.el
+****** 4 Emacs - 05 - Themes
+****** 5 Emacs bites - Startup config selector
+****** 6 Emacs - 06 - Toolbar, menubar, scrollbar and other settings
+****** 7 Emacs - 07 - ido and helm
+****** 8 Emacs - 08 - Projectile
+****** 9 Emacs - 09 - Dashboard
+****** 10 Emacs - 10 - Treemacs
+****** 11 Emacs - 11 - Clean configs with org-mode
+****** 12 Emacs - 12 - Bookmarks
+****** 13 Emacs - 13 - Expand region
+****** 14 Emacs bites - Named term
+****** 15 Emacs - 14 - Org-bullets and support-shift-select
+****** 16 Emacs - 15 - Centaur tabs
+****** 17 Emacs - 16 - Company mode (auto-complete) and some thanks
+****** 18 Emacs - 18 - JavaScript with Tide, Prettier and RJSX mode
+****** 19 Emacs - 03 - Modes
+****** 20 Emacs - 17 - Flycheck | Syntax checking
+****** 21 Setting up Emacs for Typescript React projects with lsp-mode and prettier
+****** 22 Emacs: Updating init.el for Typescript React
 ** Mike Zamansky
 *** blog
 https://cestlaz.github.io/
 https://cestlaz-nikola.github.io/
 *** youtube
+**** playlist link
 https://www.youtube.com/playlist?list=PL9KxKa8NpFxIcNQa9js7dQQIHc81b0-Xg
+**** Using Emacs
+****** 1 setting up the package manager
+****** 2 org
+****** 3 Elisp
+****** 4 Buffers
+****** 5 Windows
+****** 6 Search (Swiper)
+****** 7 Navigating with Avy
+****** 8 Auto-complete
+****** 9 Themes
+****** 10 org init file
+****** 11 reveal.js and org-mode
+****** 12 flycheck and Jedi for Python
+****** 13 yasnippet
+****** 14 Thoughts on Using Emacs
+****** 15 macros
+****** 16 undo tree
+****** 17 Misc features
+****** 18 iedit, narrowing, and widening
+****** 19 moving to a live config
+****** 20 yanking
+****** 21 Web Mode
+****** 22 emacsclient
+****** 23 capture
+****** 24 links
+****** 25 tramp
+****** 26 Google Calendar sync and Org Agenda (Bad quality version)
+****** 27 Google Calendar and Org Agenda (good version)
+****** 28 shell and eshell
+****** 29 rectangles
+****** 30 elfeed part 1
+****** 31 elfeed and hydras
+****** 32 elfeed and macros
+****** 33 emacs c++
+****** 34 projectile and dumb-jump
+****** 35 IBuffer and Emmet mode
+****** 36 blogging
+****** 37 A touch of elisp
+****** 38 Treemacs file view
+****** 39 Dired
+****** 40 mu4e
+****** 41 atomic-chrome
+****** 42 pandoc
+****** 43 Git Gutter and Timemachine
+****** 44 Music
+****** 45 An Org mode and PDF-tools workflow
+****** 46 Company or Autocomplete
+****** 47 auto yasnippets
+****** 48 Magit
+****** 49 silversearcher
+****** 50 mu4e-conversation
+****** 51 presentations
+****** 52 day to day with org-mode
+****** 53 eyebrowse
+****** 54 emailing org-agenda
+****** 55 Org Tables
+****** 56 C++ Irony Completions
+****** 57 dictionaries
+****** 58 dired-narrow
+****** 59 lsp-mode
+****** 60 Markdown
+****** 61 Restclient
+****** 62 org-msg
+****** 63 62 Magit Forge
+****** 64 63 ClojureScript
+****** 65 notmuch
+****** 66 Live Python
+****** 67 Switching Eshell buffers in Elisp
+****** 68 An Emacs vs Vim rant
+****** 69 Tramp and org-publish
+****** 70 Floobits
+****** 71 70
+****** 72 openwith
+****** 73 customizing elfeed
+****** 74 Ripgrep and updating my blog
+****** 75 Eglot
+****** 76 bufler
+****** 77 Bookmarks and Burly
+****** 78 Clojure Demo and Advent of Code
+****** 79 a grading workflow
+****** 80 project
+****** 81 Vertico, Marginalia, Consult, and Embark
 ** Protesilaos Stavrou
 *** youtube
+**** channel link
 https://www.youtube.com/c/ProtesilaosStavrou/videos
+**** playlists
+***** GNU Emacs
+****** 1 Live: Emacs videos, LibrePlanet 2022, philosophy presentations
+****** 2 Emacs: Learn to ask for Help and write Elisp
+****** 3 Emacs: Context-specific faces (face-remap-add-relative)
+****** 4 Emacs: custom Org emphasis faces (org-emphasis-alist)
+****** 5 EmacsConf 2021: How Emacs made me appreciate software freedom
+****** 6 Emacs: custom Org agenda
+****** 7 Live: Status update on my Emacs work
+****** 8 Live: Impostor syndrome and the Emacs community
+****** 9 Emacs: Demo of Minibuffer and Completions in Tandem (mct.el)
+****** 10 Live: Emacs and the Unix philosophy
+****** 11 Emacs: introduction to bookmarks
+****** 12 Live: Emacs note-taking and the mindful attitude
+****** 13 The Emacs community bought me a new computer
+****** 14 Emacs: various custom commands
+****** 15 Emacs: custom Dired extras
+****** 16 Emacs: Modus themes status update (2021-05-19)
+****** 17 Emacs: Notmuch demo (notmuch.el)
+****** 18 Vlog: Moral lessons from switching to Emacs
+****** 19 Emacs: Diary and Calendar
+****** 20 Emacs: EWW and my extras (text-based browser)
+****** 21 Emacs: workflow with VC for Git
+****** 22 Emacs: vc-git extras
+****** 23 Emacs: Embark and my extras
+****** 24 Emacs: completion framework (Embark,Consult,Orderless,etc.)
+****** 25 Vlog: Emacs is my "favourite Emacs package"
+****** 26 Emacs: podcast manager with Elfeed+Bongo
+****** 27 The Modus themes are built into Emacs!!!
+****** 28 Emacs: BONGO and my extras
+****** 29 Emacs: custom functions for various tasks
+****** 30 Emacs: outline-minor-mode and imenu
+****** 31 Emacs: mixed fonts for Org mode
+****** 32 Emacs: tools for "focused editing"
+****** 33 Emacs: ELFEED demo
+****** 34 Emacs: ELFEED demo
+****** 35 Emacs: ESHELL demo
+****** 36 Emacs: ESHELL demo
+****** 37 Emacs: resolve Git conflicts with SMERGE and EDIFF
+****** 38 Emacs: introduction to MAGIT
+****** 39 Emacs: introduction to IBUFFER
+****** 40 Emacs: introduction to VC (version control framework)
+****** 41 Emacs: ripgrep with rg.el
+****** 42 Emacs: edit keyboard macros
+****** 43 Emacs: my Modus Themes are in ELPA
+****** 44 Emacs: introduction to REGISTERS
+****** 45 Emacs: ICOMPLETE demo
+****** 46 Emacs: Introduction to ORG-CAPTURE
+****** 47 Emacs: introduction to GNUS
+****** 48 Emacs: basics of regular expressions (regexp)
+****** 49 Emacs: isearch powers for keyboard macros
+****** 50 Emacs: window rules and parameters (`display-buffer-alist' and extras)
+****** 51 Vlog: switching to emacs
+****** 52 Emacs: FZF integration with ace-window (Ivy actions)
+****** 53 Emacs: fuzzy find files (fzf, ripgrep, Ivy+Counsel)
+****** 54 Emacs: Seach+Replace in multiple files (Ivy, ibuffer, Dired…)
+****** 55 Emacs: Ivy tips and tricks
+****** 56 My Modus themes for Emacs are on MELPA
+****** 57 Emacs quick demo: git commit fixup with Magit
+****** 58 Emacs: interactively rebase git commits with Magit
+****** 59 Emacs: store music playlists (Dired+Bongo)
+****** 60 Emacs: change multi-file permissions in Dired
+****** 61 Emacs music management with Bongo and Dired
+****** 62 Basics of Emacs client (`emacsclient' program)
+****** 63 Channel update: BSPWM + Emacs
+****** 64 Vlog: Emacs documentation culture and the GNU telos
+****** 65 Emacs: transpose text
+****** 66 Emacs: easier kmacro counter
+****** 67 Emacs: comment functions and their behaviour
+****** 68 Emacs: recentf and virtual buffers
+****** 69 Emacs: Dired subtree has a toggle!
+****** 70 Emacs micro motions and hacks
+****** 71 Emacs: techniques to narrow Dired
+****** 72 Emacs: M-x append-to-buffer (quick demo)
+****** 73 Emacs: IDO features and concepts
+****** 74 Emacs: DIRED and keyboard macros (quick demo)
+****** 75 Emacs: manage window layouts
+****** 76 Emacs: discovery with M-x customize
+****** 77 Emacs: documentation and feature discovery
+****** 78 Emacs: keyboard macro counter (quick demo)
+****** 79 Emacs: buffer and window management
+****** 80 Emacs: ISEARCH features and extras
+****** 81 Emacs DIRED tweaks and improvements
+****** 82 Vlog: Emacs mindset and Unix philosophy
+****** 83 My accessible Emacs themes
+****** 84 Emacs: use "occur" in practice
+****** 85 Practical Emacs macros (based on Vim Golf)
+****** 86 Introduction to keyboard macros in Emacs
+****** 87 Emacs DIRED: list sub-directories, search results, images, diffs
+****** 88 Basics of the Emacs file manager (dired == directory editor)
+****** 89 Vim user's first impressions of GNU EMACS
 *** blog / site
 https://protesilaos.com/
 ** Marco Avelar
 *** youtube
+**** channel link
 https://www.youtube.com/channel/UCy8M-JO9RfnmBZQ1bEoc8PQ
+**** playlists
+***** emacs
 https://www.youtube.com/playlist?list=PLSjT1fDWcwAJYSwKnzwPw4VYVsWWdBMSr
-** Xavier Baez
+****** 1 Improve project workflow with Projectile! (Emacs)
+****** 2 Easy buffer navigation with avy! (Emacs)
+****** 3 Improve project workflow with Ivy, Counsel, and Swiper! (Emacs)
+****** 4 EXWM is love! (Emacs)
+****** 5 Code completion with company-mode! (Emacs)
+****** 6 Save yourself some time with flycheck-mode! (Emacs)
+****** 7 Easy window movement with winum-mode! (Emacs)
+****** 8 Emacs? Vim? Just go modal with Emacs!
+****** 9 Improve project workflow with GNU Global! (Emacs)
+****** 10 Emacs + LSP = Heaven
+****** 11 Emacs + LSP Setup (clangd)
+****** 12 Emacs: Help section & Elisp
+****** 13 Emacs + dmenu is awesome! bye bye Ivy!
+****** 14 Emacs + Minimal LSP = Happy dev
 *** youtube
 https://www.youtube.com/playlist?list=PL6N_e9hIrvFfmFkXm8fQJpzdx2-rAt00s
 ** Christopher Maiorana
 *** youtube
+**** channel link
 https://www.youtube.com/channel/UCxpeu8gvV77Z1wUrTpu5BUQ
+**** playlists
+***** Emacs
+****** 1 Org Mode GTD Basics
+****** 2 Some Emacs Text Mode Hooks I Like
+****** 3 Emacs Obscure Filename Patterns and Auto Mode Alist Addition
+****** 4 6 Months of Org Mode Nearly Broke Me (Emacs Life)
+****** 5 Sort Yourself Out With Emacs Org Mode GTD (Simplified!)
+****** 6 Emacs For Writers | Count Words, Goals In Buffer
+****** 7 Emacs Macros | Save Time and Typing
+****** 8 Emacs as a Typewriter | LaTeX Standard Manuscript Format
+****** 9 Emacs | Keeping a Journal In Org Mode
+****** 10 Enjoy Reading Documentation With "Info" in Emacs
+****** 11 Emacs Bookmarks Save Your Place
+****** 12 Talking about Emacs and Other Things
+****** 13 6 Months of EXWM - And This Is What Happened!
 ** Gavin Freeborn
 *** youtube
+**** channel link
 https://www.youtube.com/playlist?list=PLknodeJt-I5GJmcd7ENakYf_M0x9q50d1
+**** playlists
+***** Emacs
+****** 1 Getting Evil (aka Vim keys) in Emacs without Doom Emacs
+****** 2 From Vim to Emacs - Is this even my final form?
+****** 3 Bring a Web Browser, Python, Javascript and more to EMACS - Emacs Application Framework
+
 ** Jake B
 *** youtube
+**** channel link
 https://www.youtube.com/c/JakeBox0/videos
+**** playlists
+***** Straightforward Emacs
+****** 1 Perfect Emacs Org Mode Exports to LaTeX – Straightforward Emacs
+****** 2 Export Emacs Org Mode to HTML – Straightforward Emacs
+****** 3 Powerful Text Snippets – Emacs YASnippet – Straightforward Emacs
+****** 4 Org Mode Time and Task Tools – Straightforward Emacs
+****** 5 Classy Slideshows From Emacs Org Mode + org-reveal – Straightforward Emacs
+****** 6 Registers for File Shortcuts – A Better Bookmark – Straightforward Emacs
+***** Emacs Org Mode Videos
+****** 1 Emacs Org Mode Demo 2021
+****** 2 Perfect Emacs Org Mode Exports to LaTeX – Straightforward Emacs
+****** 3 Export Emacs Org Mode to HTML – Straightforward Emacs
+****** 4 Org Mode Time and Task Tools – Straightforward Emacs
+****** 5 Classy Slideshows From Emacs Org Mode + org-reveal – Straightforward Emacs
+***** LaTeX Videos
+****** 1 LaTeX for Students – A Simple Quickstart Guide
 ** James Cash
 *** youtube
+**** channel link
 https://www.youtube.com/user/jamesnvc000/videos
+**** videos
+***** Customizing the Emacs Modeline
+***** Getting Evil With Emacs
+***** Introspective Emacs: Learning How Things Work & Changing Them
+***** Reading PDFs with Emacs
+***** Intermediate Emacs: Extending & Creating Helm Sources
+***** An Emacs Configuration Overview
 ** Seorenn
 *** youtube
 https://www.youtube.com/channel/UCsJXkw_Ssp-1myJFm4_SMJA
-*** github
-https://github.com/seorenn/dotemacs
+**** playlists
+***** doom emacs
+****** 1 Just started
+****** 2 How to configure Doom Emacs | 둠 이맥스 설정 기초
+****** 3 Just a beginner's guide for Doom Emacs | 그냥 기본적인 편집 가이드
+****** 4 Just a beginner's guide for Doom Emacs | 그냥 기본적인 편집 가이드
+****** 5 Projects and Workspaces | Doom Emacs | 프로젝트와 워크스페이스
+****** 6 Simple Editing Tips | Doom Emacs | 둠 이맥스의 간단한 편집 팁 몇 가지
 ** thoughtbot Emacs Meetups
+*** youtube
+**** playlist link
 https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
+**** playlists
+***** Emacs Meetups
+****** 1 Conquering Kubernetes with Emacs
+****** 2 Spin Your Own Spacemacs-lite
+****** 3 Virtualized Emacs as an IDE
+****** 4 Fun Shell Commands
+****** 5 Embedding WebKit in Emacs: XWidgets+WebKit Feature Preview
+****** 6 Have Emacs Teach You Chinese
+****** 7 Getting Started With Org Mode
+****** 8 Conquering Your Finances with Emacs and Ledger
+****** 9 How to Order Salads From Inside Emacs
+****** 10 Emacs For Writers
+****** 11 Searching the Web with engine-mode
+****** 12 How I Use org-capture and Stuff
+****** 13 A Pretty Good Introduction to Pretty Good Privacy
+****** 14 Org-mode for Reproducible Research
+****** 15 Keyboard Macro Workshop
+****** 16 The Editor of a Lifetime
+****** 17 Turtle Graphics with Emacs Lisp
+****** 18 Writing Games with Emacs
+****** 19 Introduction to evil-mode
+****** 20 Emacs as a Python IDE
+****** 21 Upgrading IPython with Emacs
+****** 22 An Introduction to Emacs Lisp
+****** 23 IRC With ERC
+* intresting packages to check out
+** org-roam-ui
+A graphical frontend for exploring your org-roam Zettelkasten
+https://github.com/org-roam/org-roam-ui
+** [#C] writefreely.el
+*Frictionless* blogging with Org Mode. No setup required.
+
+https://github.com/dangom/writefreely.el
+
+This small library allows you to publish and update your Org-mode files as posts
+to any instance of the federated blogging platform write freely. No account nor
+registration is required for anonymous posts in the platform.
+
+https://writefreely.org/
+** Calfw - A calendar framework for Emacs
+https://github.com/kiwanami/emacs-calfw
+** vertico-posframe
+vertico-posframe is an vertico extension, which lets vertico use posframe to
+show its candidate menu.
+
+https://github.com/tumashu/vertico-posframe
+
+https://elpa.gnu.org/packages/vertico-posframe.html
+** org-super-agenda
+** org-noter
+https://github.com/weirdNox/org-noter
+** Ace Jump Mode
+https://github.com/winterTTr/ace-jump-mode
+** vue-mode
+Emacs major mode for vue.js based on mmm-mode.
+https://github.com/AdamNiederer/vue-mode
+** android-mode
+Emacs minor mode for Android application development
+https://github.com/remvee/android-mode
+** anki-editor
+Emacs minor mode for making Anki cards with Org
+https://github.com/louietan/anki-editor
+** origami.el
+A folding minor mode for Emacs
+https://github.com/gregsexton/origami.el
+** lsp-origami
+lsp-mode heart origami.el
+https://github.com/emacs-lsp/lsp-origami
+** diffview-mode
+View diffs side-by-side in Emacs
+https://github.com/mgalgs/diffview-mode
+** highlight-sexp
+A GNU/Emacs minor mode that highlights s-exp at the current position.
+https://github.com/daimrod/highlight-sexp
+** siege-mode
+An emacs minor mode to surround the region with smart delimiters interactively.
+https://github.com/tslilc/siege-mode
+** polymode
+Framework for Multiple Major Modes in Emacs (core library)
+https://github.com/polymode/polymode
+** Highlight-Indentation-for-Emacs
+Minor modes to highlight indentation guides in emacs.
+
+different than =highligh-indent=, this one colors up the first coluomn of characters
+https://github.com/antonj/Highlight-Indentation-for-Emacs
+** aggressive-indent-mode
+Emacs minor mode that keeps your code always indented. More reliable than
+electric-indent-mode.
+
+https://github.com/Malabarba/aggressive-indent-mode
+** highlight-indent-guides
+Emacs minor mode to highlight indentation
+
+https://github.com/DarthFennec/highlight-indent-guides
+
+this only shows a thin line
+
+(not showing on org babel blocks)
+** cargo.el
+Emacs Minor Mode for Cargo, Rust's Package Manager.
+https://github.com/kwrooijen/cargo.el
+** yasnippet-org-mode
+A YASnippet bundle for Emacs org-mode. A collection of yasnippet files
+
+https://github.com/RickMoynihan/yasnippet-org-mode
+** org-babel-examples
+Examples using emacs org mode babel inline source code with different backend
+languages
+https://github.com/dfeich/org-babel-examples
+** ztree
+Directory tree comparison mode for Emacs
+https://github.com/fourier/ztree
+** engine-mode
+Minor mode for defining and querying search engines through Emacs.
+https://github.com/hrs/engine-mode
+** org-transclusion
+Emacs package to enable transclusion with Org Mode
+https://github.com/nobiot/org-transclusion
+** org-fc
+Spaced Repetition System for Emacs org-mode
+https://github.com/l3kn/org-fc
+** emacs-bash-completion
+Add programmable bash completion to Emacs shell-mode
+https://github.com/szermatt/emacs-bash-completion
+** color-identifiers-mode
+Emacs minor mode to highlight each source code identifier uniquely based on its name
+https://github.com/ankurdave/color-identifiers-mode
+** selectric-mode
+keyboard Make your Emacs sound like a proper typewriter.
+https://github.com/rbanffy/selectric-mode
+** modern-cpp-font-lock
+C++ font-lock for Emacs
+https://github.com/ludwigpacifici/modern-cpp-font-lock
+
+I'm putting it here not because I want to use it, but to study it.
+
+It does font locking for a specific major mode.
+
+I want to do something similar in the future.
+** org-protocol-capture-html
+Capture HTML from the browser selection into Emacs as org-mode content
+https://github.com/alphapapa/org-protocol-capture-html
+** ob-mermaid
+Generate mermaid diagrams within Emacs org-mode babel
+https://github.com/arnm/ob-mermaid
+** org-mind-map
+This is an emacs package that creates graphviz directed graphs.
+https://github.com/the-ted/org-mind-map
+** org-graph-view
+View Org buffers as a clickable, graphical mind-map
+https://github.com/alphapapa/org-graph-view
+** spinner.el
+Emacs mode-line spinner for operations in progress
+https://github.com/Malabarba/spinner.el
+** org-ql
+An Org-mode query language, including search commands and saved views
+https://github.com/alphapapa/org-ql
+** svelte-mode
+Emacs major mode for Svelte.
+https://github.com/leafOfTree/svelte-mode
+** emacs-solaire-mode
+If only certain buffers could be so grossly incandescent.
+https://github.com/hlissner/emacs-solaire-mode
+
+already installed in Doom Emacs
+** electric-operator
+An emacs minor mode to automatically add spacing around operators
+https://github.com/davidshepherd7/electric-operator
+** org-clock-convenience
+Convenience functions to work with emacs org mode clocking
+https://github.com/dfeich/org-clock-convenience
+** auto-dictionary-mode
+Emacs: automatic dictionary switcher for flyspell
+https://github.com/nschum/auto-dictionary-mode
+** magic-latex-buffer
+Magical syntax highlighting for LaTeX-mode buffers
+https://github.com/zk-phi/magic-latex-buffer
+** synosaurus
+An extensible thesaurus mode for emacs
+https://github.com/hpdeifel/synosaurus
+
+Quite old and unmaintained (2 years)
+
+the backends work with German and English, no Portuguese option
+** transcription-mode
+Emacs mode for editing transcripts.
+https://github.com/skeeto/transcription-mode
+** ink-mode
+An Emacs major mode for the interactive fiction scripting language Ink, by Inkle Studios.
+https://github.com/Kungsgeten/ink-mode
+** dotnet.el
+dotnet CLI minor mode for Emacs
+https://github.com/julienXX/dotnet.el
+** love-minor-mode
+An Emacs minor mode for LÖVE
+https://github.com/ejmr/love-minor-mode
+** org-kanban
+Simple approach to kanban with emacs' org-mode
+https://github.com/hagmonk/org-kanban
+** journalctl-mode
+Major mode to view journalctl's output in Emacs
+https://github.com/SebastianMeisel/journalctl-mode
+** evil-tutor
+Vimtutor adapted to Emacs+Evil and wrapped in a major mode.
+https://github.com/syl20bnr/evil-tutor
+** org-dashboard
+Visual summary of progress in projects and tasks for Emacs Org Mode
+https://github.com/bard/org-dashboard
+** org-special-block-extras
+A number of new custom blocks and link types for Emacs' Org-mode ^_^
+https://github.com/alhassy/org-special-block-extras
+** evil-textobj-tree-sitter
+Tree-sitter powered textobjects for evil mode in Emacs
+https://github.com/meain/evil-textobj-tree-sitter
+** org-d20
+Emacs minor mode for tabletop roleplaying games that use a d20
+https://github.com/spwhitton/org-d20
+** manage-minor-mode
+Manage your minor-mode on the dedicated interface buffer. Emacs.
+https://github.com/emacsorphanage/manage-minor-mode
+** manage-minor-mode-table
+Manage minor-modes in table.
+https://github.com/jcs-elpa/manage-minor-mode-table
+** snapshot-timemachine
+Emacs-mode to step through (Btrfs, ZFS, ...) snapshots of files
+https://github.com/mrBliss/snapshot-timemachine
+** literate-programming-examples
+A collection of literate programming examples using Emacs Org mode; these
+examples are directly usable (copy and start hacking), and/or can serve as
+educational literate programs. Clojure will be the preferred language.
+https://github.com/limist/literate-programming-examples
+** rust-playground
+GNU/Emacs mode that setup local playground for code snippets in Rust language.
+https://github.com/grafov/rust-playground
+** perfect-margin
+[emacs] auto center emacs windows, work with minimap and/or linum-mode
+https://github.com/mpwang/perfect-margin
+** wakib-keys
+Emacs mode that moves to modern keybindings
+https://github.com/darkstego/wakib-keys
+
+workaround CUA mode
+** prettify-utils.el
+Helper functions for emacs' prettify-symbols-mode
+https://github.com/Ilazki/prettify-utils.el/blob/master/prettify-utils.el
+** speed-of-thought-lisp
+Write elisp at the speed of thought. Emacs minor mode with abbrevs and keybinds.
+https://github.com/Malabarba/speed-of-thought-lisp
+** org-remark
+Highlight and annotate any text file with using Org mode
+https://github.com/nobiot/org-remark
+** wat-mode
+An Emacs major mode for WebAssembly's text format
+https://github.com/devonsparks/wat-mode
+** power-mode.el
+Imbue Emacs with power!
+https://github.com/elizagamedev/power-mode.el
+
+particles and screen shake while you type
+** guess-language.el
+Emacs minor mode that detects the language you're typing in. Automatically
+switches spell checker. Supports multiple languages per document.
+https://github.com/tmalsburg/guess-language.el
+** mode-line-stats
+A bunch of easy to set up stats for the Emacs mode-line.
+https://github.com/Idorobots/mode-line-stats
+** pdf-continuous-scroll-mode.el
+A minor mode for Emacs that implements a two-buffer hack to provide continuous
+scrolling in pdf-tools
+https://github.com/dalanicolai/pdf-continuous-scroll-mode.el
+** mlscroll
+Lightweight scrollbar for the Emacs mode line
+https://github.com/jdtsmith/mlscroll
+** org-fragtog
+Automatically toggle Org mode LaTeX fragment previews as the cursor enters and exits them
+https://github.com/io12/org-fragtog
+** org-recur
+Simple recurring org-mode tasks
+https://github.com/m-cat/org-recur
+** org-menu
+A discoverable menu for Emacs org-mode using transient
+https://github.com/sheijk/org-menu
+** too-long-lines-mode
+A global minor mode to hide lines that are too long and make emacs slow.
+https://github.com/rakete/too-long-lines-mode
+** dtrt-indent
+A minor mode that guesses the indentation offset originally used for creating
+source code files and transparently adjusts the corresponding settings in Emacs,
+making it more convenient to edit foreign files.
+https://github.com/jscheid/dtrt-indent
+** emacs-org-transform-tree-table
+Transform an org-mode outline and its properties to a table format (org-table,
+CSV)
+https://github.com/jplindstrom/emacs-org-transform-tree-table
+** indent-control
+Generic control the indentation level for each mode.
+https://github.com/jcs-elpa/indent-control
+** emmet-mode
+Unofficial Emmet's support for emacs
+https://github.com/emacsmirror/emmet-mode
+* config emacs by purpose
+** edit org files to become pdf files
+** write literate configuration in org mode then tangle to the respective config files
+** take notes in org mode from books, videos, sites, etc.
+** organize life with org mode
+*** use the agenda
+*** have specific TODOs for important stuff
+**** bills due dates
+**** medicine depleting dates
+**** university due dates
+**** recurring tasks
+*** capture
+**** thoughts
+**** dreams
+**** TODOs
+** develop a personal knowledge management system (PKMS)
+*** a reference place for the things I learn
+** programming environment for different languages and technologies
+*** gdscript
+*** python
+*** web / mobile apps
+**** html
+**** css
+**** javascript
+**** vue
+**** svelte
+**** nativescript
+**** webassembly
+*** rust
+*** C/C++
+*** docker
+*** shell
+**** zsh
+**** fish
 * configs TODOs
-** TODO config the dashboard
-** the tabs are showing on the completion list
-*** TODO either hide that or make it show the name of the key pressed before (category)
-** TODO show all tabs, not just tabs of files of same extension
+** TODO + hydras
+*** TODO + manipulate windows
+**** TODO splitting
+**** TODO switching
+**** TODO change buffer
+**** TODO closing
+**** TODO resizing
+*** TODO + selecting text
+** TODO + changes to org mode
+*** DONE add org roam
+*** TODO add headers/bullets on the line the cursor is on
+not after the last item of the current sub-tree
+*** TODO change the bullet point symbol used
+*** TODO change the faces for the org-bullets
+*** TODO change color of headers
+*** TODO hide synthax markers in org mode
+*** TODO start org files folded
+*** TODO change the ... when a header is folded
+*** TODO configure org agenda and org super agenda
+** TODO + add adtional language support that does not have a module for it
+*** TODO vue
+*** TODO svelte
+** TODO + UI improvements
+*** TODO + the tabs are showing on the completion list
+**** TODO either hide that or make it show the name of the key pressed before (category)
+*** TODO get the minimap working
+*** TODO show all tabs, not just tabs of files of same extension
 or show tabs for the groups of buffers present
-** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
-** TODO get the scrollbar on the right back
-** TODO change fundamental mode to org mode?
-** TODO get the minimap working
-** TODO make a hydra to manipulate windows
-*** TODO splitting
-*** TODO switching
-*** TODO change buffer
-*** TODO closing
-*** TODO resizing
-** TODO change the which key position to the middle of the screen or on the fertical
+*** TODO get the scrollbar on the right back
+*** TODO change the which key position to the middle of the screen or on the vertical
 I am using vertico now so it may not be which key anymore
-** TODO hide synthax markers in org mode
-** TODO show synthax markers when inside the word that is surounded by them
+
+which key github page / documentation
+https://github.com/justbur/emacs-which-key#popup-type-options
+*** TODO config the dashboard
+*** TODO configure org capture templates
+*** TODO how to fix the "us international with dead keys" problem on Emacs
+maybe this can solve the issue:
+https://www.emacswiki.org/emacs/DeadKeys
+
+another resource trying to fix by having 2 keyboard layouts:
+https://askubuntu.com/questions/364292/dead-keys-in-emacs-with-ibus
+*** TODO change how the cursor traverses lines that are wraped
+*** TODO ? find a way to show the other options on which key
+preferably bind =C-h= and =C-l=, or =C-j= and =C-k= to go forwards and backwards
+on the list
+
+** TODO + text formatting / styling / completion
+*** TODO show synthax markers when inside the word that is surounded by them
 the name of the package is =org-reveal=
-** TODO find out if changing the rendering of a word in general can work like org-reveal
+*** TODO find out if changing the rendering of a word in general can work like org-reveal
 for examble: changing lambda for λ
 
 but when the cursor is at the symbol the rendering changes back to the word lambda
 
 the original idea (as I know of) of having some words change to symbols comes
 from a distrotube video: https://www.youtube.com/watch?v=5iCjhdCUuLg&t=6s
-** TODO configure the agenda
-** TODO configure capture templates
-** TODO configure snippets
-** TODO configure grammar with that proram I found
+*** TODO change fundamental mode to org mode?
+*** TODO ? how to make emacs highlight given words with different colors no metter what mode it is in
+*** TODO change elisp formatting rules
+make end of parenthesis line up with the oppening parenthesis on its own line
+*** TODO add code completion on emacs lisp blocks (or any org-babel block really)
+*** TODO configure snippets
+*** TODO configure grammar with that proram I found
 look on email for grammar, synthax or spelling
-** DONE add org roam
-** TODO add adtional language support that does not have a module for it
-*** TODO vue
-*** TODO svelte
 
+https://languagetool.org/
+
+https://github.com/mhayashi1120/Emacs-langtool
+** TODO + keybindings
+*** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
+making the distinction of the keybinding comming from Emacs or Doom Emacs,
+including which package overrides that keybinding, also document if the
+keybinding is changed by me
 * Config files
 ** init.el
 #+begin_src emacs-lisp :tangle ./init.el
@@ -424,7 +1435,7 @@ Aesthetic modules that affect the Emacs interface or user experience.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :ui
-       ;;deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit       ; DOOM quit-message prompts when you quit Emacs
@@ -1067,3 +2078,75 @@ release. The `unpin!' macro allows you to unpin single packages...
 #+begin_src emacs-lisp :tangle ./packages.el
 ;;(package! benchmark-init)
 #+end_src
+
+* Notes about configuring Doom Emacs
+** _
+You can configure Doom by tweaking the files found in your =DOOMDIR=. Doom
+expects this directory to be found in one of:
+
+=~/.config/doom= (respects =$XDG_CONFIG_HOME)= or =~/.doom.d= This directory is
+referred to as your =DOOMDIR=. Only one of these directories should exist (Doom
+will only recognize one).
+
+Change the =DOOMDIR= environment variable to change where Doom looks for this
+directory. Symlinks will work as well.
+
+When you ran =doom install=, it deployed a simple Doom configuration to your
+=DOOMDIR=, comprised of these three files:
+** init.el
+Where you’ll find your =doom!= block, which controls what Doom modules are
+enabled and in what order they will be loaded.
+
+This file is evaluated early when Emacs is starting up; before any other module
+has loaded. You generally shouldn’t add code to this file unless you’re
+targeting Doom’s CLI or something that needs to be configured very early in the
+startup process.
+** config.el
+Here is where 99.99% of your private configuration should go. Anything in here
+is evaluated after all other modules have loaded, when starting up Emacs.
+** packages.el
+Package management is done from this file; where you’ll declare what packages to
+install and where from.
+*** Note:
+do not use =M-x customize= or the customize API in general. Doom is designed to
+be configured programmatically from your config.el, which can conflict with
+Customize’s way of modifying variables.
+
+If you’re concerned about =defcustom= setters, Doom has a =setq!= macro that
+will trigger them.
+** the doom binary CLI utility
+This utility is your new best friend. It won’t spot you a beer, but it’ll
+shoulder much of the work associated with managing and maintaining your Doom
+Emacs configuration, and then some. Not least of which is installation of and
+updating Doom and your installed packages.
+
+It exposes a variety of commands. =bin/doom= help will list them all, but here
+is a summary of the most important ones:
+
+- =doom sync=: This synchronizes your config with Doom Emacs. It ensures that
+  needed packages are installed, orphaned packages are removed and necessary
+  metadata correctly generated. Run this whenever you modify your =doom!= block
+  or =packages.el= file. You’ll need =doom sync -u= if you override the recipe
+  of package installed by another module.
+
+- =doom upgrade=: Updates Doom Emacs (if available) and all its packages.
+
+- =doom env=: (Re)generates an “envvar file”, which is a snapshot of your shell
+  environment that Doom loads at startup. If your app launcher or OS launches
+  Emacs in the wrong environment you will need this. **This is required for GUI
+  Emacs users on MacOS.**
+
+- =doom doctor=: If Doom misbehaves, the doc will diagnose common issues with
+  your installation, system and environment.
+
+- =doom purge=: Over time, the repositories for Doom’s plugins will accumulate.
+  Run this command from time to time to delete old, orphaned packages, and with
+  the =-g= switch to compact existing package repos.
+
+Use =doom help= to see an overview of the available commands that =doom=
+provides, and =doom help COMMAND= to display documentation for a particular
+=COMMAND=.
+
+I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
+directly and from anywhere. Accomplish this by adding this to your .bashrc or
+.zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
