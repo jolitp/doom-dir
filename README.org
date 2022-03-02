@@ -1334,26 +1334,7 @@ https://github.com/emacsmirror/emmet-mode
 ** DONE org-appear
 Toggle visibility of hidden Org mode element parts upon entering and leaving an
 element
-** Colored text in org-mode with export to HTML
-https://kitchingroup.cheme.cmu.edu/blog/2016/01/16/Colored-text-in-org-mode-with-export-to-HTML/
-
-Just for fun, I want to put colored text in org-mode using links. This is a
-simple hack that uses the description in an org-mode link as the text to color,
-and the path in link to specify the color. I use an overlay to do this because I
-could not figure out how to change the face foreground color. We provide a
-simple export to HTML. LaTeX is also doable, but a trickier export as you need
-to define the colors in the LaTeX header also.
-
-Here is the code to make the color link, and put overlays on them with
-font-lock.
-** Hugo Cisneros - Org-mode configuration
-https://hugocisneros.com/org-config/
-TODO faces and export settings
-
-Org “TODO” bullets
-** Org Mode - Organize Your Life In Plain Text!
-http://doc.norang.ca/org-mode.html
-** Temporarily show emphasis markers when the cursor is on it
+** DONE Temporarily show emphasis markers when the cursor is on it
 https://www.reddit.com/r/orgmode/comments/43uuck/temporarily_show_emphasis_markers_when_the_cursor/
 *** question
 I'm using (setq org-hide-emphasis-markers t) to hide the emphasis markers in
@@ -1395,6 +1376,27 @@ Probably far from perfect, but the following is inspired by
 (add-hook 'post-command-hook
 	  'org-show-emphasis-markers-at-point nil t)
 #+end_src
+** Making org-mode pretty with icons
+https://thibautbenjamin.github.io/emacs/org-icons
+** Colored text in org-mode with export to HTML
+https://kitchingroup.cheme.cmu.edu/blog/2016/01/16/Colored-text-in-org-mode-with-export-to-HTML/
+
+Just for fun, I want to put colored text in org-mode using links. This is a
+simple hack that uses the description in an org-mode link as the text to color,
+and the path in link to specify the color. I use an overlay to do this because I
+could not figure out how to change the face foreground color. We provide a
+simple export to HTML. LaTeX is also doable, but a trickier export as you need
+to define the colors in the LaTeX header also.
+
+Here is the code to make the color link, and put overlays on them with
+font-lock.
+** Hugo Cisneros - Org-mode configuration
+https://hugocisneros.com/org-config/
+TODO faces and export settings
+
+Org “TODO” bullets
+** Org Mode - Organize Your Life In Plain Text!
+http://doc.norang.ca/org-mode.html
 ** Org ad hoc code, quick hacks and workarounds
 https://orgmode.org/worg/org-hacks.html
 * config emacs by purpose
@@ -1454,14 +1456,17 @@ https://orgmode.org/worg/org-hacks.html
 *** DONE install and configure org-appear
 *** DONE change the default TODO states
 *** DONE change the color of TODO states
-*** SKIP change the symbols for the TODO/DONE, etc
+*** DONE start org files folded
+*** DONE change the symbols for the TODO/DONE, etc
 it can be done with org-superstar
-*** TODO remove the black line that shows on the folded heading
+*** TODO BUG? remove the black line that shows on the folded heading
 when there is a code snippet inside the heading
 *** TODO add headers/bullets on the line the cursor is on
 not after the last item of the current sub-tree
+
+(+org/insert-item-below COUNT)
+
 *** TODO change color of headers
-*** TODO start org files folded
 *** TODO BUG adding new entries to an ordered list does not add the next number
 *** TODO configure org agenda and org super agenda
 ** TODO + add adtional language support that does not have a module for it
@@ -2814,56 +2819,69 @@ Removes annoying exit confirmation message
 (after! org
   (setq org-todo-keyword-faces
     (quote (
-            ("TODO" :foreground "orange red" :weight bold)
-            ("NEXT" :foreground "royal blue" :weight bold)
-            ("SKIP" :foreground "cyan3"      :weight bold)
-            ("DONE" :foreground "lime green" :weight bold)
+            ("TODO" :foreground "#ff4500" :weight bold)
+            ("NEXT" :foreground "#4876ff" :weight bold)
+            ("SKIP" :foreground "#00eeee"      :weight bold)
+            ("DONE" :foreground "#32cd32" :weight bold)
 
-            ("WAITING"   :foreground "orange"     :weight bold)
-            ("CANCELLED" :foreground "violet red" :weight bold)
+            ("WAITING"   :foreground "#ffd700"     :weight bold)
+            ("CANCELLED" :foreground "#ee82ee" :weight bold)
 
-            ("YES"   :foreground "sea green"    :weight bold)
-            ("MAYBE" :foreground "dark orange"  :weight bold)
-            ("NO"    :foreground "dark red"     :weight bold)
+            ("YES"   :foreground "#2E8E27"    :weight bold)
+            ("MAYBE" :foreground "#ff8700"  :weight bold)
+            ("NO"    :foreground "#8b0000"     :weight bold)
            )
     )
   )
 )
+
 ;; end --------------------------------------------- org / TODOs states / colors
 #+end_src
 ****** BUG
 ******* 1
 when a heading starts with DONE, CANCELLED and NO, AND there is no other
 character after, the org-bullet styling does not show, example:
+
+if it starts with BUG also
 ******** DONE
 ******** CANCELLED
 ******** NO
+******** BUG
 ******* 2
 the source blocks above are not rendered as source blocks
 ******* 3
 Error during redisplay: (jit-lock-function 102367) signaled (error "No match 2
 in highlight (2 'org-headline-done prepend)")
-****** tests
-******* TODO asdf
-******* NEXT asdf
-******* DONE asdf
-******* WAITING asdf
-******* CANCELLED asdf
-******* YES asdf
-******* MAYBE asdf
-******* NO asdf
-***** NO bullets
+******* tests
+******** TODO asdf
+******** NEXT asdf
+******** DONE asdf
+******** WAITING asdf
+******** CANCELLED asdf
+******** YES asdf
+******** MAYBE asdf
+******** NO asdf
+***** YES bullets
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
 ;; start ------------------------------------------ org / TODOs states / bullets
-(after! org
+(after! org-superstar
+  (setq org-superstar-special-todo-items t)
   (setq org-superstar-todo-bullet-alist
-        '(("TODO" . ?☐)
+        '(
+          ("TODO" . ?⛶)
           ("NEXT" . ?➔)
-          ("DONE" . ?✔)
+          ("SKIP" . ?⮫)
+          ("DONE" . ?✓)
 
-          ("WAITING" . ?☕)
-          ("CANCELLED" . ?✘))
+          ("WAITING" . ?✋)
+          ("CANCELLED" . ?✘)
+
+          ("YES" . ?👍)
+          ("MAYBE" . ?🤷)
+          ("NO" . ?👎)
+         )
   )
 )
 ;; end -------------------------------------------- org / TODOs states / bullets
@@ -3400,6 +3418,58 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 #+begin_src emacs-lisp :tangle ./config.el
 )
 ;; end ----------------------------------------------- org-appear configuration
+#+end_src
+**** startup
+***** YES folded
+****** code
+when oppening any org file, fold all headers, except the header the point is on
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-folded t)
+)
+;; end ----------------------------------------------- org / startup / folded
+#+end_src
+****** documentation
+=org-startup-folded= is a variable defined in ‘org.el’.
+
+Its value is =nil=
+Original value was =showeverything=
+
+Non-nil means entering Org mode will switch to OVERVIEW.
+
+This can also be configured on a per-file basis by adding one of
+the following lines anywhere in the buffer:
+
+
+\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
+\   #+STARTUP: nofold            (or ‘showall’, this is equivalent)
+\   #+STARTUP: content
+\   #+STARTUP: show<n>levels (<n> = 2..5)
+\   #+STARTUP: showeverything
+\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
+
+Set =org-agenda-inhibit-startup= to a non-nil value if you want
+to ignore this option when Org opens agenda files for the first
+time.
+
+  This variable was introduced, or its default value was changed, in
+  version 9.4 of the Org package that is part of Emacs 27.2.
+  You can customize this variable.
+
+[back]
+**** hide blank lines in folded view
+***** code
+
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- org / hide blank lines in folded view
+(after! org
+  (setq org-cycle-separator-lines 0)
+)
+;; end ------------------------------------ org / hide blank lines in folded view
 #+end_src
 **** org files location
 If you use `org' and don't want your org files in the default location below,

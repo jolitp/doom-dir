@@ -57,22 +57,44 @@
 (after! org
   (setq org-todo-keyword-faces
     (quote (
-            ("TODO" :foreground "orange red" :weight bold)
-            ("NEXT" :foreground "royal blue" :weight bold)
-            ("SKIP" :foreground "cyan3"      :weight bold)
-            ("DONE" :foreground "lime green" :weight bold)
+            ("TODO" :foreground "#ff4500" :weight bold)
+            ("NEXT" :foreground "#4876ff" :weight bold)
+            ("SKIP" :foreground "#00eeee"      :weight bold)
+            ("DONE" :foreground "#32cd32" :weight bold)
 
-            ("WAITING"   :foreground "orange"     :weight bold)
-            ("CANCELLED" :foreground "violet red" :weight bold)
+            ("WAITING"   :foreground "#ffd700"     :weight bold)
+            ("CANCELLED" :foreground "#ee82ee" :weight bold)
 
-            ("YES"   :foreground "sea green"    :weight bold)
-            ("MAYBE" :foreground "dark orange"  :weight bold)
-            ("NO"    :foreground "dark red"     :weight bold)
+            ("YES"   :foreground "#2E8E27"    :weight bold)
+            ("MAYBE" :foreground "#ff8700"  :weight bold)
+            ("NO"    :foreground "#8b0000"     :weight bold)
            )
     )
   )
 )
+
 ;; end --------------------------------------------- org / TODOs states / colors
+
+;; start ------------------------------------------ org / TODOs states / bullets
+(after! org-superstar
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist
+        '(
+          ("TODO" . ?⛶)
+          ("NEXT" . ?➔)
+          ("SKIP" . ?⮫)
+          ("DONE" . ?✓)
+
+          ("WAITING" . ?✋)
+          ("CANCELLED" . ?✘)
+
+          ("YES" . ?👍)
+          ("MAYBE" . ?🤷)
+          ("NO" . ?👎)
+         )
+  )
+)
+;; end -------------------------------------------- org / TODOs states / bullets
 
 ;; start ---------------------------------------------- org / styles / ellipsis
 (after! org
@@ -135,6 +157,18 @@
 
 )
 ;; end ----------------------------------------------- org-appear configuration
+
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-folded t)
+)
+;; end ----------------------------------------------- org / startup / folded
+
+;; start ---------------------------------- org / hide blank lines in folded view
+(after! org
+  (setq org-cycle-separator-lines 0)
+)
+;; end ------------------------------------ org / hide blank lines in folded view
 
 ;; start ------------------------------------------------------- org files location
 (setq org-directory "~/Dropbox/org/")
