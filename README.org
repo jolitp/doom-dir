@@ -1277,6 +1277,8 @@ https://hugocisneros.com/org-config/
 TODO faces and export settings
 
 Org “TODO” bullets
+** Org Mode - Organize Your Life In Plain Text!
+http://doc.norang.ca/org-mode.html
 ** Temporarily show emphasis markers when the cursor is on it
 https://www.reddit.com/r/orgmode/comments/43uuck/temporarily_show_emphasis_markers_when_the_cursor/
 *** question
@@ -1378,6 +1380,9 @@ element
 *** DONE change the bullet point symbol used
 *** DONE install and configure org-appear
 *** TODO change the symbols for the TODO/DONE, etc
+it can be done with org-superstar
+
+
 *** TODO remove the black line that shows on the folded heading
 when there is a code snippet inside the heading
 *** TODO add headers/bullets on the line the cursor is on
@@ -2463,11 +2468,12 @@ Some functionality uses this to identify you, e.g. GPG configuration, email
 clients, file templates and snippets.
 
 #+begin_src emacs-lisp :tangle ./config.el
-;; Personal information
+;; start personal information
 (setq
       user-full-name "João Luís Teixeira Pinto"
       user-mail-address "jolitp@gmail.com"
 )
+;; end personal information
 #+end_src
 
 **** Additional functions/macros
@@ -2505,28 +2511,11 @@ Here are the three important ones:
 + 'font-lcok-keyword-face' -- for keywords with special significance, like 'for'
   and 'if' in C
 
-
 They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font
 string. You generally only need these two:
 
-
 #+begin_src emacs-lisp :tangle ./config.el
-
-;; last working config
-;; (setq doom-font (font-spec :family "Victor Mono"
-;;                            :size 32
-;;                            :weight 'medium
-;;                 )
-
-;;       doom-variable-pitch-font (font-spec :family "sans"
-;;                                           :size 32
-;;                                )
-;; )
-;; last working config
-
-#+end_src
-
-#+begin_src emacs-lisp :tangle ./config.el
+;; start -------------------------------------------------- looks / fonts config
 (setq doom-font (font-spec :family "Source Code Pro"
                            :size 32
                            :weight 'medium
@@ -2536,6 +2525,7 @@ string. You generally only need these two:
                                           :size 32
                                )
 )
+;; end -------------------------------------------------- looks / fonts config
 #+end_src
 
 ***** font-spec documentation
@@ -2618,10 +2608,11 @@ any of the remaining elements.
 For instance, if the VALUE is ‘(thai nil nil (mark))’, the font must be an
 OpenType font whose GPOS table of ‘thai’ script’s default language system must
 contain ‘mark’ feature.
-***** _
+***** NO garantees italics and bold in org mode
 Garantees that /italics/ and *bold* shows correctly in org mode, maybe unnecessary.
 
-#+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
@@ -2629,14 +2620,16 @@ Garantees that /italics/ and *bold* shows correctly in org mode, maybe unnecessa
 )
 #+end_src
 
-***** _
+***** italic for comments and keywords
 changes the font type for comments and keyords
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------- italic for comments and keywords
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic)
 )
+;; end ----------------------------------------- italic for comments and keywords
 #+end_src
 ***** custom-set-faces! documentation
 custom-set-faces! is an autoloaded Lisp macro in ‘autoload/themes.el’.
@@ -2682,13 +2675,14 @@ examples:
  `(outline-2 :background ,(doom-color 'blue)))
 #+end_src
 **** Theme
-
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set `doom-theme' or manually load a theme with the
 `load-theme' function. This is the default:
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start theme config
 (setq doom-theme 'doom-one)
+;; end theme config
 #+end_src
 
 **** Line Numbers
@@ -2697,7 +2691,9 @@ This determines the style of line numbers in effect. If set to `nil', line
 numbers are disabled. For relative line numbers, set this to `relative'.
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start line numbers config ------------------------- start line numbers config
 (setq display-line-numbers-type 'relative)
+;; end line numbers config ----------------------------- end line numbers config
 #+end_src
 
 *** Fixes
@@ -2705,28 +2701,121 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 Removes annoying exit confirmation message
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------ fixes / remove exit confirmation message
 (setq confirm-kill-emacs nil)
+;; end -------------------------------- fixes / remove exit confirmation message
 #+end_src
 *** Org
-**** org files location
+**** error
+Error (org-mode-hook): Error running hook "org-fancy-priorities-mode" because:
+(error No match 2 in highlight (2 'org-headline-done prepend))
 
-If you use `org' and don't want your org files in the default location below,
-change `org-directory'. It must be set before org loads!
+Disable showing Disable logging
 
-#+begin_src emacs-lisp :tangle ./config.el
-(setq org-directory "~/Dropbox/org/")
+**** TODOs states
+***** NO keywords
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ------------------------------------------ org / TODOs states / keywords
+(after! org
+  (setq org-todo-keywords
+    (quote (
+            (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
+;;          (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            )
+    )
+  )
+)
+;; end -------------------------------------------- org / TODOs states / keywords
 #+end_src
+***** NO colors
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ------------------------------------------ org / TODOs states / colors
+(after! org
+  (setq org-todo-keyword-faces
+    (quote (("TODO" :foreground "orange red" :weight bold)
+            ("NEXT" :foreground "royal blue" :weight bold)
+            ("DONE" :foreground "lime green" :weight bold)
+            ("WAITING"   :foreground "orange"     :weight bold)
+            ("CANCELLED" :foreground "violet red" :weight bold)
+            ("YES"   :foreground "spring green" :weight bold)
+            ("MAYBE" :foreground "dark orange"  :weight bold)
+            ("NO"    :foreground "dark red"     :weight bold)))
+  )
+)
+;; end --------------------------------------------- org / TODOs states / colors
+#+end_src
+
+***** NO bullets
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ------------------------------------------ org / TODOs states / bullets
+(after! org
+  (setq org-superstar-todo-bullet-alist
+        '(("TODO" . ?☐)
+          ("NEXT" . ?➔)
+          ("DONE" . ?✔)
+
+          ("WAITING" . ?☕)
+          ("CANCELLED" . ?✘))
+  )
+)
+;; end -------------------------------------------- org / TODOs states / bullets
+#+end_src
+***** tests
+****** TODO
+****** NEXT
+****** DONE
+****** WAITING
+****** CANCELLED
+
+****** YES
+****** NO
+****** MAYBE
+**** NO priorities
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp
+;; start --------------------------------------------------------- org / priorities
+(after! org
+  (setq
+   org-fancy-priorities-list '(
+                               "[A]" . "Iimportant & Urgent"
+                               "[B]" . "Un-Important & Urgent"
+                               "[C]" . "Important & Non-Urgent"
+                               "[D]" . "Un-Important & Non-Urgent"
+                              )
+   org-priority-faces '(
+     (?A :foreground "red" :weight bold)
+     (?B :foreground "green" :weight bold)
+     (?C :foreground "orange" :weight bold)
+     (?D :foreground "orange" :weight bold)
+    )
+   )
+)
+;; end ----------------------------------------------------------- org / priorities
+#+end_src
+***** test
+****** [#A] stupid priority
+****** [#B] stupid priority
+****** [#C] stupid priority
+****** [#D] stupid priority
 **** styles
 ***** ellipsis
 changes ... to an arrow(▼)
 #+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------------------- org / styles / ellipsis
 (after! org
   (setq
     org-ellipsis " ▼ "
   )
 )
+;; end ------------------------------------------------ org / styles / ellipsis
 #+end_src
-***** headers
+***** headers (fail)
 ****** _
 BUG : defface: Wrong number of arguments: (3 . 3), 2
 
@@ -3031,35 +3120,40 @@ leave it for later
     (setq org-n-level-faces (length org-level-faces))))
 #+end_src
 ***** bullets
+****** info
 changes the bullets at the start of the headers to roman numerals
 
 NOTE: using more than one character in the list will use /only/ the first
 character
-
+****** code
 #+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------------ org / styles / bullets
 (after! org
   (setq
-;;   org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
      org-superstar-headline-bullets-list
      '(
-;;     "α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ"     ;; greek
-;;     "μ" "ν" "ξ" "ο" "π" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"  ;; lower letters
-
-;;     "♠" "♥" "♦" "♣" "♤" "♡" "♢" "♧"             ;; card suits
-
-;; "⓪" ;; starts at zero?
+;;     "⓪"                                           ;; starts at zero?
        "①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧" "⑨" "⑩" ;; empty
        "⑪" "⑫" "⑬" "⑭" "⑮" "⑯" "⑰" "⑱" "⑲" "⑳" ;; circled
        "㉑" "㉒" "㉓" "㉔" "㉕" "㉖" "㉗" "㉘" "㉙" "㉚" ;; numbers
        "㉛" "㉜" "㉝" "㉞" "㉟" "㊱" "㊲" "㊳" "㊴" "㊵"
        "㊶" "㊷" "㊸" "㊹" "㊺" "㊻" "㊼" "㊽" "㊾" "㊿"
 
-;;    "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾" "➓" ;; filled circled numbers
      )
   )
 )
+;; end -------------------------------------------------- org / styles / bullets
 #+end_src
+****** other symbols
+#+begin_src elisp
+;;   org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
 
+;;     "α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ"     ;; greek
+;;     "μ" "ν" "ξ" "ο" "π" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"  ;; lower letters
+
+;;     "♠" "♥" "♦" "♣" "♤" "♡" "♢" "♧"             ;; card suits
+;;    "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾" "➓" ;; filled circled numbers
+#+end_src
 ****** greek alphabet
 | Α α   | A a          | alpha   |
 | Β β   | B b          | beta    |
@@ -3087,29 +3181,41 @@ character
 | Χ χ   | Ch ch, Kh kh | chi     |
 | Ψ ψ   | Ps ps        | psi     |
 | Ω ω   | Ō ō          | omega   |
-***** lists
+***** list bullets
+change the bullet points of lists
+
+example:
+
+- one
+- two
+  + a
+  + b
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start -------------------------------------------- org / styles / list bullets
 (after! org
   (setq
-   org-superstar-item-bullet-alist '((?+ . ?✦) (?- . ?➤))
+   org-superstar-item-bullet-alist '((?+ . ?✦) (?- . ?•))
   )
 )
+;; end ---------------------------------------------- org / styles / list bullets
 #+end_src
 ***** emphasis markers
 hides /italic/, *bold* and =code= markers for example
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------------- org / styles / emphasis markers
 (after! org
   (setq
    org-hide-emphasis-markers t
   )
 )
+;; end ------------------------------------------ org / styles / emphasis markers
 #+end_src
 ***** org-appear
 ****** start after-org! block
 #+begin_src emacs-lisp :tangle ./config.el
-;; start of org-appear configuration
+;; start --------------------------------------------- org-appear configuration
 (after! org
 #+end_src
 ****** NO show only in edit mode
@@ -3199,16 +3305,27 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 ****** end after-org! block
 #+begin_src emacs-lisp :tangle ./config.el
 )
-;; end of org-appear configuration
+;; end ----------------------------------------------- org-appear configuration
+#+end_src
+**** org files location
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------------------- org files location
+(setq org-directory "~/Dropbox/org/")
+;; end --------------------------------------------------------- org files location
 #+end_src
 **** roam
 adds the location of the org-roam folder
 
 #+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------------------- org-roam files location
 (setq org-roam-directory "~/Dropbox/org/roam")
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+;; end ----------------------------------------------------- org-roam files location
 #+end_src
-*** Keybindings
+*** TODO Keybindings
 ** packages.el
 #+begin_src emacs-lisp :tangle ./packages.el
 
@@ -3325,12 +3442,20 @@ release. The `unpin!' macro allows you to unpin single packages...
 ;;(package! benchmark-init)
 #+end_src
 *** org
+**** org-fancy-priorities (disable)
+... #+begin_src elisp
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ------------------------------------------------ org / org-fancy-priorities
+(package! org-fancy-priorities :disable t)
+;; end -------------------------------------------------- org / org-fancy-priorities
+#+end_src
 **** org-appear
 
 #+begin_src emacs-lisp :tangle ./packages.el
+;; start --------------------------------------------------------- org / org-appear
 (package! org-appear)
+;; end ----------------------------------------------------------- org / org-appear
 #+end_src
-
 * Notes about configuring Doom Emacs
 ** _
 You can configure Doom by tweaking the files found in your =DOOMDIR=. Doom
@@ -3402,3 +3527,312 @@ provides, and =doom help COMMAND= to display documentation for a particular
 I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
 directly and from anywhere. Accomplish this by adding this to your .bashrc or
 .zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
+* errors :ATTACH:
+Error (org-mode-hook): Error running hook "org-fancy-priorities-mode" because: (error No match 2 in highlight (2 'org-headline-done prepend)) Disable showing Disable logging
+
+Error (org-mode-hook): Error running hook "org-fancy-priorities-mode" because: (error No match 2 in highlight (2 'org-headline-done prepend)) Disable showing Disable logging
+
+Error (org-mode-hook): Error running hook "org-fancy-priorities-mode" because: (error No match 2 in highlight (2 'org-headline-done prepend)) Disable showing Disable logging
+
+:PROPERTIES:
+:ID:       8f9b06ea-2197-4314-94a5-accc0c8cd621
+:END:
+
+
+[[attachment:_20220302_134511config.el]]
+
+Debugger entered--Lisp error: (invalid-read-syntax ". in wrong context" 1 0)
+  read(#<buffer *load*-128265>) eval-buffer(#<buffer *load*-128265> nil
+  "/home/jolitp/.doom.d/config.el" nil t) ;
+
+Reading at buffer position 1646
+
+  load-with-code-conversion("/home/jolitp/.doom.d/config.el"
+  "/home/jolitp/.doom.d/config.el" t t) load("/home/jolitp/.doom.d/config" t
+  nomessage) (let (file-name-handler-alist) (load (expand-file-name "config"
+  doom-private-dir) t 'nomessage)) (condition-case e (let
+  (file-name-handler-alist) (load (expand-file-name "config" doom-private-dir) t
+  'nomessage)) ((debug doom-error) (signal (car e) (cdr e))) ((debug error)
+  (doom--handle-load-error e (expand-file-name "config" doom-private-dir)
+  doom-private-dir))) (if no-config-p nil (maphash (doom-module-loader
+  doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let (file-name-handler-alist)
+  (load (expand-file-name "config" doom-private-dir) t 'nomessage)) ((debug
+  doom-error) (signal (car e) (cdr e))) ((debug error) (doom--handle-load-error
+  e (expand-file-name "config" doom-private-dir) doom-private-dir))) (if
+  custom-file (progn (load custom-file 'noerror (not doom-debug-mode))))) (progn
+  (if doom-debug-p (progn (let ((inhibit-message (active-minibuffer-window)))
+  (message #("DOOM Initializing user config" 0 5 (face
+  font-lock-comment-face)))))) (maphash (doom-module-loader
+  doom-module-init-file) doom-modules) (doom-run-hooks
+  'doom-before-init-modules-hook) (if no-config-p nil (maphash
+  (doom-module-loader doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let (file-name-handler-alist)
+  (load (expand-file-name "config" doom-private-dir) t 'nomessage)) ((debug
+  doom-error) (signal (car e) (cdr e))) ((debug error) (doom--handle-load-error
+  e (expand-file-name "config" doom-private-dir) doom-private-dir))) (if
+  custom-file (progn (load custom-file 'noerror (not doom-debug-mode)))))) (if
+  init-p (progn (if doom-debug-p (progn (let ((inhibit-message
+  (active-minibuffer-window))) (message #("DOOM Initializing user config" 0 5
+  (face font-lock-comment-face)))))) (maphash (doom-module-loader
+  doom-module-init-file) doom-modules) (doom-run-hooks
+  'doom-before-init-modules-hook) (if no-config-p nil (maphash
+  (doom-module-loader doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let (file-name-handler-alist)
+  (load (expand-file-name "config" doom-private-dir) t 'nomessage)) ((debug
+  doom-error) (signal (car e) (cdr e))) ((debug error) (doom--handle-load-error
+  e (expand-file-name "config" doom-private-dir) doom-private-dir))) (if
+  custom-file (progn (load custom-file 'noerror (not doom-debug-mode)))))) nil)
+  (let* ((init-p (and t (condition-case e (let (file-name-handler-alist) (load
+  (expand-file-name doom-module-init-file doom-private-dir) t 'nomessage))
+  ((debug doom-error) (signal (car e) (cdr e))) ((debug error)
+  (doom--handle-load-error e (expand-file-name doom-module-init-file
+  doom-private-dir) doom-private-dir)))))) (if init-p (progn (if doom-debug-p
+  (progn (let ((inhibit-message ...)) (message #("DOOM Initializing user config"
+  0 5 ...))))) (maphash (doom-module-loader doom-module-init-file) doom-modules)
+  (doom-run-hooks 'doom-before-init-modules-hook) (if no-config-p nil (maphash
+  (doom-module-loader doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let (file-name-handler-alist)
+  (load (expand-file-name "config" doom-private-dir) t 'nomessage)) ((debug
+  doom-error) (signal (car e) (cdr e))) ((debug error) (doom--handle-load-error
+  e (expand-file-name "config" doom-private-dir) doom-private-dir))) (if
+  custom-file (progn (load custom-file 'noerror (not doom-debug-mode)))))) nil))
+  (progn (setq doom-init-modules-p t) (if no-config-p nil (if doom-debug-p
+  (progn (let ((inhibit-message (active-minibuffer-window))) (message #("DOOM
+  Initializing core modules" 0 5 (face font-lock-comment-face))))))
+  (doom-initialize-core-modules)) (let* ((init-p (and t (condition-case e (let
+  (file-name-handler-alist) (load ... t ...)) ((debug doom-error) (signal ...
+  ...)) ((debug error) (doom--handle-load-error e ... doom-private-dir)))))) (if
+  init-p (progn (if doom-debug-p (progn (let (...) (message ...)))) (maphash
+  (doom-module-loader doom-module-init-file) doom-modules) (doom-run-hooks
+  'doom-before-init-modules-hook) (if no-config-p nil (maphash
+  (doom-module-loader doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let (file-name-handler-alist)
+  (load ... t ...)) ((debug doom-error) (signal ... ...)) ((debug error)
+  (doom--handle-load-error e ... doom-private-dir))) (if custom-file (progn
+  (load custom-file ... ...))))) nil))) (if (or force-p (not
+  doom-init-modules-p)) (progn (setq doom-init-modules-p t) (if no-config-p nil
+  (if doom-debug-p (progn (let ((inhibit-message ...)) (message #("DOOM
+  Initializing core modules" 0 5 ...))))) (doom-initialize-core-modules)) (let*
+  ((init-p (and t (condition-case e (let ... ...) (... ...) (... ...))))) (if
+  init-p (progn (if doom-debug-p (progn (let ... ...))) (maphash
+  (doom-module-loader doom-module-init-file) doom-modules) (doom-run-hooks
+  'doom-before-init-modules-hook) (if no-config-p nil (maphash
+  (doom-module-loader doom-module-config-file) doom-modules) (doom-run-hooks
+  'doom-init-modules-hook) (condition-case e (let ... ...) (... ...) (... ...))
+  (if custom-file (progn ...)))) nil)))) doom-initialize-modules()
+  eval-buffer(#<buffer *load*-318630> nil
+  "/home/jolitp/Config/Emacs/doom/emacs.d/init.el" nil t) ;
+
+Reading at buffer  position 2803
+
+  load-with-code-conversion("/home/jolitp/Config/Emacs/doom/emacs.d/init.el"
+  "/home/jolitp/Config/Emacs/doom/emacs.d/init.el" t t)
+  load("/home/jolitp/Config/Emacs/doom/emacs.d/init.el" t t) (let ((init-file
+  (expand-file-name "init.el" user-emacs-directory))) (setq package-user-dir
+  (expand-file-name "elpa" user-emacs-directory)) (load init-file t t) (let
+  ((chemacs-custom-file (chemacs-profile-get 'custom-file init-file))) (if (not
+  custom-file) (progn (setq custom-file chemacs-custom-file) (if (equal
+  custom-file init-file) nil (if (file-exists-p custom-file) nil (let (...)
+  (save-current-buffer ... ...))) (load custom-file))))))
+  chemacs-load-user-init() eval-buffer(#<buffer *load*> nil
+  "/home/jolitp/.emacs.d/init.el" nil t) ; Reading at buffer position 238
+  load-with-code-conversion("/home/jolitp/.emacs.d/init.el"
+  "/home/jolitp/.emacs.d/init.el" t t) load("/home/jolitp/.emacs.d/init" noerror
+  nomessage) #f(compiled-function (filename-function &optional
+  alternate-filename-function load-defaults) "Load a user
+  init-file.\nFILENAME-FUNCTION is called with no arguments and should
+  return\nthe name of the init-file to load. If this file cannot be\nloaded, and
+  ALTERNATE-FILENAME-FUNCTION is non-nil, then it is\ncalled with no arguments
+  and should return the name of an\nalternate init-file to load. If
+  LOAD-DEFAULTS is non-nil, then\nload default.el after the init-file, unless
+  `inhibit-default-init'\nis non-nil.\n\nThis function sets `user-init-file' to
+  the name of the loaded\ninit-file, or to a default value if loading is not
+  possible." #<bytecode 0x1535febf671ba5d1>)(#f(compiled-function () #<bytecode
+  0xe4576ecce694ed2>) #f(compiled-function () #<bytecode
+  -0x1f3c6feddc0ad6f5>) t) apply(#f(compiled-function (filename-function
+  &optional alternate-filename-function load-defaults) "Load a user
+  init-file.\nFILENAME-FUNCTION is called with no arguments and should
+  return\nthe name of the init-file to load. If this file cannot be\nloaded, and
+  ALTERNATE-FILENAME-FUNCTION is non-nil, then it is\ncalled with no arguments
+  and should return the name of an\nalternate init-file to load. If
+  LOAD-DEFAULTS is non-nil, then\nload default.el after the init-file, unless
+  `inhibit-default-init'\nis non-nil.\n\nThis function sets `user-init-file' to
+  the name of the loaded\ninit-file, or to a default value if loading is not
+  possible." #<bytecode 0x1535febf671ba5d1>) (#f(compiled-function () #<bytecode
+  0xe4576ecce694ed2>) #f(compiled-function () #<bytecode -0x1f3c6feddc0ad6f5>)
+  t)) startup--load-user-init-file(#f(compiled-function () #<bytecode
+  0xe4576ecce694ed2>) #f(compiled-function () #<bytecode
+  -0x1f3c6feddc0ad6f5>) t) command-line() normal-top-level()
+
+* errors
+Debugger entered--Lisp error: (error "No match 2 in highlight (2 'org-headline-done prep...")
+
+  signal(error ("No match 2 in highlight (2 'org-headline-done prep..."))
+
+  error("No match %d in highlight %S" 2 (2 'org-headline-done prepend))
+
+  #f(compiled-function (highlight) "Apply HIGHLIGHT following a match.\nHIGHLIGHT should be of the form MATCH-HIGHLIGHT, see `font-lock-keywords'." #<bytecode -0x931da8314369745>)((2 'org-headline-done prepend))
+
+  font-lock-fontify-keywords-region(1 133007 nil)
+
+  font-lock-default-fontify-region(1 133007 nil)
+
+  font-lock-fontify-region(1 133007 nil)
+
+  font-lock-default-fontify-buffer()
+
+  font-lock-fontify-buffer()
+
+  org-fancy-priorities-mode()
+
+  funcall(org-fancy-priorities-mode)
+
+  (condition-case e (funcall hook) ((debug error) (signal 'doom-hook-error (list hook e))))
+
+  doom-run-hook(org-fancy-priorities-mode)
+
+  run-hook-wrapped(doom-run-hook org-fancy-priorities-mode)
+
+  (condition-case e (run-hook-wrapped hook #'doom-run-hook) ((debug doom-hook-error) (if debug-on-error nil (lwarn hook :error "Error running hook %S because: %s" (if (symbolp (car (cdr e))) (symbol-name (car (cdr e))) (car (cdr e))) (car (cdr (cdr e))))) (signal 'doom-hook-error (cons hook (cdr e)))))
+
+  (let ((hook (car --dolist-tail--))) (condition-case e (run-hook-wrapped hook #'doom-run-hook) ((debug doom-hook-error) (if debug-on-error nil (lwarn hook :error "Error running hook %S because: %s" (if (symbolp (car ...)) (symbol-name (car ...)) (car (cdr e))) (car (cdr (cdr e))))) (signal 'doom-hook-error (cons hook (cdr e))))) (setq --dolist-tail-- (cdr --dolist-tail--)))
+
+  (while --dolist-tail-- (let ((hook (car --dolist-tail--))) (condition-case e (run-hook-wrapped hook #'doom-run-hook) ((debug doom-hook-error) (if debug-on-error nil (lwarn hook :error "Error running hook %S because: %s" (if (symbolp ...) (symbol-name ...) (car ...)) (car (cdr ...)))) (signal 'doom-hook-error (cons hook (cdr e))))) (setq --dolist-tail-- (cdr --dolist-tail--))))
+
+  (let ((--dolist-tail-- hooks)) (while --dolist-tail-- (let ((hook (car --dolist-tail--))) (condition-case e (run-hook-wrapped hook #'doom-run-hook) ((debug doom-hook-error) (if debug-on-error nil (lwarn hook :error "Error running hook %S because: %s" (if ... ... ...) (car ...))) (signal 'doom-hook-error (cons hook (cdr e))))) (setq --dolist-tail-- (cdr --dolist-tail--)))))
+
+  doom-run-hooks(change-major-mode-after-body-hook text-mode-hook outline-mode-hook org-mode-hook)
+
+  apply(doom-run-hooks (change-major-mode-after-body-hook text-mode-hook outline-mode-hook org-mode-hook))
+
+  run-hooks(change-major-mode-after-body-hook text-mode-hook outline-mode-hook org-mode-hook)
+
+  apply(run-hooks (change-major-mode-after-body-hook text-mode-hook outline-mode-hook org-mode-hook))
+
+  run-mode-hooks(org-mode-hook)
+
+  org-mode()
+
+  set-auto-mode-0(org-mode nil)
+
+  set-auto-mode--apply-alist((("templates/.+\\.php\\'" . web-mode) ("wp-content/themes/.+/.+\\.php\\'" . web-mode) ("\\.eco\\'" . web-mode) ("\\.jinja2?\\'" . web-mode) ("\\.twig\\'" . web-mode) ("\\.svelte\\'" . web-mode) ("\\.mustache\\'" . web-mode) ("\\.hbs\\'" . web-mode) ("\\.ejs\\'" . web-mode) ("\\.as[cp]x\\'" . web-mode) ("\\.jsp\\'" . web-mode) ("\\.sface\\'" . web-mode) ("\\.[lh]?eex\\'" . web-mode) ("\\.erb\\'" . web-mode) ("\\.\\(?:tpl\\|blade\\)\\(?:\\.php\\)?\\'" . web-mode) ("\\.[px]?html?\\'" . web-mode) ("/Pipfile\\'" . conf-mode) ("[./]flake8\\'" . conf-mode) ("/README\\(?:\\.md\\)?\\'" . gfm-mode) ("\\.tex\\'" . LaTeX-mode) ("\\.js\\(?:on\\|[hl]int\\(?:rc\\)?\\)\\'" . json-mode) ("\\.tsx\\'" . typescript-tsx-mode) ("\\.pac\\'" . rjsx-mode) ("\\.es6\\'" . rjsx-mode) ("\\.[mc]?js\\'" . rjsx-mode) ("\\.Cask\\'" . emacs-lisp-mode) ("\\.rss\\'" . nxml-mode) ("\\.xs\\(?:d\\|lt\\)\\'" . nxml-mode) ("\\.p\\(?:list\\|om\\)\\'" . nxml-mode) ("\\.h\\'" . +cc-c-c++-objc-mode) ("\\.mm\\'" . objc-mode) ("\\.pdf\\'" . pdf-view-mode) ("\\.styl\\'" . stylus-mode) ("\\.sass\\'" . sass-mode) ("\\.slim\\'" . slim-mode) ("\\.\\(?:jade\\|pug\\)\\'" . pug-mode) ("\\.haml\\'" . haml-mode) ("requirements\\.in" . pip-requirements-mode) ("requirements[^z-a]*\\.txt\\'" . pip-requirements-mode) ("\\.pip\\'" . pip-requirements-mode) ("\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'" . markdown-mode) ("\\.hva\\'" . latex-mode) ("\\(?:\\(?:\\.\\(?:b\\(?:\\(?:abel\\|ower\\)rc\\)\\|json\\(?:l..." . json-mode) ("\\.ts\\'" . typescript-mode) ("\\.jsx\\'" . rjsx-mode) ("\\.tres\\'" . conf-toml-mode) ("\\.tscn\\'" . conf-toml-mode) ("\\.gd\\'" . gdscript-mode) ("\\.tsv\\'" . tsv-mode) ("\\.[Cc][Ss][Vv]\\'" . csv-mode) ...) nil nil)
+
+
+  #f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>)()
+
+  apply(#f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>) nil)
+
+  so-long--set-auto-mode(#f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>))
+
+  apply(so-long--set-auto-mode #f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>) nil)
+
+  #f(advice-wrapper :around #f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>) so-long--set-auto-mode)()
+
+  apply(#f(advice-wrapper :around #f(compiled-function (&optional keep-mode-if-same) "Select major mode appropriate for current buffer.\n\nTo find the right major mode, this function checks for a -*- mode tag\nchecks for a `mode:' entry in the Local Variables section of the file,\nchecks if there an `auto-mode-alist' entry in `.dir-locals.el',\nchecks if it uses an interpreter listed in `interpreter-mode-alist',\nmatches the buffer beginning against `magic-mode-alist',\ncompares the file name against the entries in `auto-mode-alist',\nthen matches the buffer beginning against `magic-fallback-mode-alist'.\n\nIf `enable-local-variables' is nil, or if the file name matches\n`inhibit-local-variables-regexps', this function does not check\nfor any mode: tag anywhere in the file.  If `local-enable-local-variables'\nis nil, then the only mode: tag that can be relevant is a -*- one.\n\nIf the optional argument KEEP-MODE-IF-SAME is non-nil, then we\nset the major mode only if that would change it.  In other words\nwe don't actually set it to the same mode the buffer already has." #<bytecode -0x123ca002b490f790>) so-long--set-auto-mode) nil)
+
+  set-auto-mode()
+
+  normal-mode(t)
+
+  #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>)(nil t)
+
+  apply(#f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) (nil t))
+
+  (progn (fset #'sit-for #'ignore) (apply fn args))
+
+  (unwind-protect (progn (fset #'sit-for #'ignore) (apply fn args)) (fset #'sit-for old))
+
+  (let* ((old (symbol-function #'sit-for))) (unwind-protect (progn (fset #'sit-for #'ignore) (apply fn args)) (fset #'sit-for old)))
+
+  doom--shut-up-autosave-a(#f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) nil t)
+
+  apply(doom--shut-up-autosave-a #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) (nil t))
+
+  #f(advice-wrapper :around #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) doom--shut-up-autosave-a)(nil t)
+
+  apply(#f(advice-wrapper :around #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) doom--shut-up-autosave-a) (nil t))
+
+  #f(advice-wrapper :before #f(advice-wrapper :around #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) doom--shut-up-autosave-a) doom-first-buffer-hook-init-on-find-file-hook-h ((depth . -101)))(nil t)
+
+  apply(#f(advice-wrapper :before #f(advice-wrapper :around #f(compiled-function (&optional error warn noauto after-find-file-from-revert-buffer nomodes) "Called after finding a file and by the default revert function.\nSets buffer mode, parses file-local and directory-local variables.\nOptional args ERROR, WARN, and NOAUTO: ERROR non-nil means there was an\nerror in reading the file.  WARN non-nil means warn if there\nexists an auto-save file more recent than the visited file.\nNOAUTO means don't mess with auto-save mode.\nFourth arg AFTER-FIND-FILE-FROM-REVERT-BUFFER is ignored\n(see `revert-buffer-in-progress-p' for similar functionality).\nFifth arg NOMODES non-nil means don't alter the file's modes.\nFinishes by calling the functions in `find-file-hook'\nunless NOMODES is non-nil." #<bytecode -0x97b661eefe48851>) doom--shut-up-autosave-a) doom-first-buffer-hook-init-on-find-file-hook-h ((depth . -101))) (nil t))
+
+  after-find-file(nil t)
+
+  find-file-noselect-1(#<buffer README.org<2>> "~/Config/Emacs/doom/doom.d/README.org" nil nil "~/Config/Emacs/doom/doom.d/README.org" (1723964 40))
+
+  find-file-noselect("/home/jolitp/Config/Emacs/doom/doom.d/README.org")
+
+  #f(compiled-function (name fname mode &optional parameters) #<bytecode -0x1e81cf51b56d2d54>)("README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)
+
+  apply(#f(compiled-function (name fname mode &optional parameters) #<bytecode -0x1e81cf51b56d2d54>) ("README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode))
+
+  persp-buffer-from-savelist((def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode))
+
+  #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>)(persp-buffer-from-savelist)
+
+  cl--position(nil ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) 0 nil nil)
+
+  cl-position(nil ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) :if #f(compiled-function (lb) #<bytecode -0x9bad194014bc29c>) :key #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>))
+  j
+  apply(cl-position nil ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) (:if #f(compiled-function (lb) #<bytecode -0x9bad194014bc29c>) :key #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>)))
+
+  cl-find(nil ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) :if #f(compiled-function (lb) #<bytecode -0x9bad194014bc29c>) :key #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>))
+
+  apply(cl-find nil ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) :if #f(compiled-function (lb) #<bytecode -0x9bad194014bc29c>) (:key #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>)))
+
+  cl-find-if(#f(compiled-function (lb) #<bytecode -0x9bad194014bc29c>) ((lambda (savelist) (when (eq (car savelist) 'def-indirect-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-magit-status-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall (with-no-warnings '...) savelist default-load-fun (with-no-warnings 'nil))))) (lambda (savelist) (when (eq (car savelist) 'def-compilation-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) (lambda (savelist) (when (eq (car savelist) 'def-eshell-buffer) (let ((default-load-fun (with-no-warnings ...))) (funcall default-load-fun savelist)))) persp-buffer-from-savelist) :key #f(compiled-function (l-f) #<bytecode 0xcb9523fd352d2fd>))
+
+  #f(compiled-function (saved-buf) #<bytecode 0x8a926e0edcdfc18>)((def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode))
+
+  mapcar(#f(compiled-function (saved-buf) #<bytecode 0x8a926e0edcdfc18>) ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)))
+
+  persp-buffers-from-savelist-0(((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)))
+
+  #f(compiled-function (name dbufs dwc &optional dparams weak auto hidden) #<bytecode -0x2e2645778e7cb9a>)("main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring (0 2 . [... ... nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil ...]) :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil)
+
+  apply(#f(compiled-function (name dbufs dwc &optional dparams weak auto hidden) #<bytecode -0x2e2645778e7cb9a>) ("main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring (0 2 . ...) :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil))
+
+  persp-from-savelist-0((def-persp "main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring (0 2 . ...) :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil) #<hash-table equal 2/10 0x1559fa706a0b> nil)
+
+  #f(compiled-function (pd) #<bytecode 0x8af5b7231f6d916>)((def-persp "main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring (0 2 . ...) :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil))
+
+  mapcar(#f(compiled-function (pd) #<bytecode 0x8af5b7231f6d916>) ((def-persp "main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring ... :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil)))
+
+  persps-from-savelist-0(((def-persp "main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring ... :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil)) #<hash-table equal 2/10 0x1559fa706a0b> "/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/..." nil nil)
+
+  persps-from-savelist(((def-persp "main" ((def-buffer "README.org<2>" "/home/jolitp/Config/Emacs/doom/emacs.d/modules/ui/..." org-mode) (def-buffer "README.org" "/home/jolitp/Config/Emacs/doom/doom.d/README.org" org-mode)) (def-wconf (((min-height . 4) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 3) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 164) (min-pixel-width . 190) (min-pixel-height-ignore . 164) (min-pixel-width-ignore . 57) (min-pixel-height-safe . 41) (min-pixel-width-safe . 38)) leaf (pixel-width . 1886) (pixel-height . 962) (total-width . 99) (total-height . 23) (normal-height . 1.0) (normal-width . 1.0) (parameters (better-jumper-struct . #s(better-jumper-jump-list-struct :ring ... :idx -1))) (buffer "README.org<2>" (selected . t) (hscroll . 0) (fringes 4 4 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3064) (start . 2242)) (prev-buffers ("*Messages*" 1 677) ("*doom*" 1 1) ("*Warnings*" 401 401) ("*scratch*" 1 1) ("README.org" 98685 98685)))) (def-params nil) nil nil nil)) #<hash-table equal 2/10 0x1559fa706a0b> "/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/..." nil nil)
+
+  #f(compiled-function (&rest rest) (interactive #f(compiled-function () #<bytecode 0x1b65397c6d7d0cf3>)) #<bytecode 0x72416c037562dac>)("/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/...")
+
+  apply(#f(compiled-function (&rest rest) (interactive #f(compiled-function () #<bytecode 0x1b65397c6d7d0cf3>)) #<bytecode 0x72416c037562dac>) "/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/...")
+
+  #f(advice-wrapper :after #f(compiled-function (&rest rest) (interactive #f(compiled-function () #<bytecode 0x1b65397c6d7d0cf3>)) #<bytecode 0x72416c037562dac>) +popup--persp-mode-restore-popups-a)("/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/...")
+
+  apply(#f(advice-wrapper :after #f(compiled-function (&rest rest) (interactive #f(compiled-function () #<bytecode 0x1b65397c6d7d0cf3>)) #<bytecode 0x72416c037562dac>) +popup--persp-mode-restore-popups-a) "/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/...")
+
+  persp-load-state-from-file("/home/jolitp/Config/Emacs/doom/emacs.d/.local/etc/...")
+
+  (let ((allowed (persp-list-persp-names-in-file file))) (progn (maphash #'(lambda (name --cl-var--) (if (member name allowed) (progn) (persp-kill name))) *persp-hash*) nil) (persp-load-state-from-file file))
+
+  (cond ((not (file-readable-p file)) (message "No session file at %S to read from" file)) ((require 'persp-mode nil t) (if persp-mode nil (persp-mode 1)) (let ((allowed (persp-list-persp-names-in-file file))) (progn (maphash #'(lambda (name --cl-var--) (if ... ... ...)) *persp-hash*) nil) (persp-load-state-from-file file))) ((and (require 'frameset nil t) (require 'restart-emacs nil t)) (restart-emacs--restore-frames-using-desktop file)) ((error "No session backend to load session with")))
+
+  doom-load-session()
+
+  doom/quickload-session()
+
+  funcall-interactively(doom/quickload-session)
+
+  call-interactively(doom/quickload-session)
+
+  (lambda (_) (call-interactively (or (command-remapping #'doom/quickload-session) #'doom/quickload-session)))(#<marker (moves after insertion) at 1540 in *doom*>)
+
+  button-activate(#<marker (moves after insertion) at 1540 in *doom*> nil)
+
+  push-button(1540)
+
+  funcall-interactively(push-button 1540)
+
+  call-interactively(push-button nil nil)
+
+  command-execute(push-button)
