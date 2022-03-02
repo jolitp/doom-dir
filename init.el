@@ -41,13 +41,13 @@
 
        :ui
 
-       deft              ; notational velocity for Emacs
+       ;; deft              ; notational velocity for Emacs
 
        doom              ; what makes DOOM look the way it does
 
        doom-dashboard    ; a nifty splash screen for Emacs
 
-       ;; doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       doom-quit       ; DOOM quit-message prompts when you quit Emacs
 
        (emoji            ; 🙂
        ;; +ascii
@@ -57,19 +57,19 @@
 
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
 
-       hydra
+      ;; hydra
 
-       indent-guides     ; highlighted indent columns
+       ;; indent-guides     ; highlighted indent columns
 
-       (ligatures         ; ligatures and symbols to make your code pretty again
-       +extra
-       +fira
+       ;; (ligatures         ; ligatures and symbols to make your code pretty again
+       ;; +extra
+       ;; +fira
        ;; +hasklig
        ;; +iosevka
        ;; +pragmata-pro
-        )
+       ;; )
 
-       minimap           ; show a map of the code on the side
+       ;; minimap           ; show a map of the code on the side
 
        (modeline          ; snazzy, Atom-inspired modeline, plus API
        ;; +light
@@ -79,30 +79,30 @@
 
        ;;neotree           ; a project drawer, like NERDTree for vim
 
-       ophints           ; highlight the region an operation acts on
+       ;; ophints           ; highlight the region an operation acts on
 
-       (popup            ; tame sudden yet inevitable temporary windows
-        +defaults
-        +all
-        )
+      ;; (popup            ; tame sudden yet inevitable temporary windows
+      ;;  +defaults
+      ;;  +all
+      ;;  )
 
-       tabs              ; a tab bar for Emacs
+       ;; tabs              ; a tab bar for Emacs
 
-       (treemacs          ; a project drawer, like neotree but cooler
-        +lsp
-        )
+      ;; (treemacs          ; a project drawer, like neotree but cooler
+      ;;  +lsp
+      ;;  )
 
        unicode           ; extended unicode support for various languages
 
        vc-gutter         ; vcs diff in the fringe
 
-       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+      ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
 
        (window-select     ; visually switch windows
         +numbers
         )
 
-       workspaces        ; tab emulation, persistence & separate workspaces
+       ;; workspaces        ; tab emulation, persistence & separate workspaces
 
        ;;zen               ; distraction-free coding or writing
 
@@ -112,9 +112,9 @@
         +everywhere
         )
 
-       file-templates    ; auto-snippets for empty files
+      ;; file-templates    ; auto-snippets for empty files
 
-       fold                ; (nigh) universal code folding
+      ;; fold                ; (nigh) universal code folding
 
        ;;(format             ; automated prettiness
        ;; +onsave
@@ -145,7 +145,7 @@
         +icons
         )
 
-       electric          ; smarter, keyword-based electric-indent
+      ;; electric          ; smarter, keyword-based electric-indent
 
        (ibuffer          ; interactive buffer management
         +icons
@@ -213,7 +213,7 @@
 
        (lsp
         +peek          ; M-x vscode
-        +eglot
+       ;; +eglot
         )
 
        (magit             ; a git porcelain for Emacs
@@ -254,9 +254,9 @@
 
        ;;beancount         ; mind the GAAP
 
-       (cc                ; C > C++ == 1
-        +lsp
-        )
+      ;; (cc                ; C > C++ == 1
+      ;;  +lsp
+      ;;  )
 
        ;;clojure           ; java with a lisp
 
@@ -351,15 +351,19 @@
        ;;ocaml             ; an objective camel
 
        (org              ; organize your plain life in plain text
-        +roam
+       ;; +brain
         +dragndrop
+       ;; +gnuplot
+       ;; +hugo
        ;; +ipython
         +journal
+       ;; +jupyter
         +noter
        ;; +pandoc
-       ;; +pomodoro
+        +pomodoro
         +present
         +pretty
+        +roam
         )
 
        ;;php               ; perl's insecure younger brother

@@ -40,6 +40,40 @@
 (setq confirm-kill-emacs nil)
 ;; end -------------------------------- fixes / remove exit confirmation message
 
+;; start ------------------------------------------ org / TODOs states / keywords
+(after! org
+  (setq org-todo-keywords
+    (quote (
+            (sequence "TODO(t)" "NEXT(n)" "SKIP(s)" "|" "DONE(d)")
+            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
+            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            )
+    )
+  )
+)
+;; end -------------------------------------------- org / TODOs states / keywords
+
+;; start ------------------------------------------ org / TODOs states / colors
+(after! org
+  (setq org-todo-keyword-faces
+    (quote (
+            ("TODO" :foreground "orange red" :weight bold)
+            ("NEXT" :foreground "royal blue" :weight bold)
+            ("SKIP" :foreground "cyan3"      :weight bold)
+            ("DONE" :foreground "lime green" :weight bold)
+
+            ("WAITING"   :foreground "orange"     :weight bold)
+            ("CANCELLED" :foreground "violet red" :weight bold)
+
+            ("YES"   :foreground "sea green"    :weight bold)
+            ("MAYBE" :foreground "dark orange"  :weight bold)
+            ("NO"    :foreground "dark red"     :weight bold)
+           )
+    )
+  )
+)
+;; end --------------------------------------------- org / TODOs states / colors
+
 ;; start ---------------------------------------------- org / styles / ellipsis
 (after! org
   (setq
