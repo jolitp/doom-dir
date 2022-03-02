@@ -28,3 +28,5 @@
 ;(unpin! t)
 
 ;;(package! benchmark-init)
+
+(package! org-appear)

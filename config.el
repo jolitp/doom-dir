@@ -55,64 +55,6 @@
   )
 )
 
-(progn
-  (progn
-    (face-spec-set 'org-level-5 ;; originally copied from org-level-8
-      (org-compatible-face
-          nil ;; not inheriting from outline-9 because that does not exist
-        '((((class color) (min-colors 16) (background light))
-           (:foreground "yellow"))
-          (((class color) (min-colors 16) (background dark))
-           (:foreground "yellow"))
-          (((class color) (min-colors 8))
-           (:foreground "yellow")))))
-
-    (face-spec-set 'org-level-6 ;; originally copied from org-level-8
-      (org-compatible-face
-          nil ;; not inheriting from outline-9 because that does not exist
-        '((((class color) (min-colors 16) (background light))
-           (:foreground "orange"))
-          (((class color) (min-colors 16) (background dark))
-           (:foreground "orange"))
-          (((class color) (min-colors 8))
-           (:foreground "orange")))))
-
-    (face-spec-set 'org-level-7 ;; originally copied from org-level-8
-      (org-compatible-face
-          nil ;; not inheriting from outline-9 because that does not exist
-        '((((class color) (min-colors 16) (background light))
-           (:foreground "purple"))
-          (((class color) (min-colors 16) (background dark))
-           (:foreground "purple"))
-          (((class color) (min-colors 8))
-           (:foreground "purple")))))
-
-    (face-spec-set 'org-level-8 ;; originally copied from org-level-8
-      (org-compatible-face
-          nil ;; not inheriting from outline-9 because that does not exist
-        '((((class color) (min-colors 16) (background light))
-           (:foreground "gray"))
-          (((class color) (min-colors 16) (background dark))
-           (:foreground "gray"))
-          (((class color) (min-colors 8))
-           (:foreground "gray")))))
-
-  )
-)
-    ;; (defface org-level-9 ;; originally copied from org-level-8
-    ;;   (org-compatible-face
-    ;;       nil ;; not inheriting from outline-9 because that does not exist
-    ;;     '((((class color) (min-colors 16) (background light))
-    ;;        (:foreground "brown"))
-    ;;       (((class color) (min-colors 16) (background dark))
-    ;;        (:foreground "brown"))
-    ;;       (((class color) (min-colors 8))
-    ;;        (:foreground "brown"))))
-    ;;   "Face used for level 9 headlines."
-    ;;   :group 'org-faces)
-    ;; (setq org-level-faces (append org-level-faces (list 'org-level-9)))
-    ;; (setq org-n-level-faces (length org-level-faces))))
-
 (after! org
   (setq
 ;;   org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
@@ -145,6 +87,25 @@
   (setq
    org-hide-emphasis-markers t
   )
+)
+
+(after! org
+
+  (add-hook 'org-mode-hook 'org-appear-mode)
+
+  (setq org-appear-autolinks t)
+
+  (setq org-pretty-entities t)
+  (setq org-appear-autosubmarkers t)
+
+  (setq org-appear-autoentities t)
+
+  (setq org-appear-autokeywords t)
+
+  (setq org-appear-delay 1)
+
+  (setq org-appear-trigger 'always)
+
 )
 
 (setq org-roam-directory "~/Dropbox/org/roam")

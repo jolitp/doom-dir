@@ -1,5 +1,6 @@
 #+TITLE: Doom Emacs config
 #+AUTHOR: João Luís Teixeira Pinto
+#+OPTIONS: ^:{}
 * Doom Emacs config
 This file is a literate configuration of my Doom Emacs config.
 
@@ -1276,6 +1277,51 @@ https://hugocisneros.com/org-config/
 TODO faces and export settings
 
 Org “TODO” bullets
+** Temporarily show emphasis markers when the cursor is on it
+https://www.reddit.com/r/orgmode/comments/43uuck/temporarily_show_emphasis_markers_when_the_cursor/
+*** question
+I'm using (setq org-hide-emphasis-markers t) to hide the emphasis markers in
+*bold* and /italics/ etc.
+
+However, is it possible to display the markers only when the cursor is on or
+between them to simplify editing and removal?
+*** answer
+Probably far from perfect, but the following is inspired by
+=prettify-symbols-unprettify-at-point=. The hook is buffer-local:
+#+begin_src elisp
+(defun org-show-emphasis-markers-at-point ()
+  (save-match-data
+    (if (and (org-in-regexp org-emph-re 2)
+            (>= (point)
+                (match-beginning 3)
+            )
+            (<= (point)
+                (match-end 4)
+            )
+            (member (match-string 3)
+                    (mapcar 'car org-emphasis-alist)
+            )
+        )
+	      (with-silent-modifications
+	        (remove-text-properties
+	          (match-beginning 3) (match-beginning 5)
+	         '(invisible org-link)
+          )
+        )
+        (apply 'font-lock-flush
+               (list (match-beginning 3)
+                     (match-beginning 5))
+        )
+    )
+  )
+)
+
+(add-hook 'post-command-hook
+	  'org-show-emphasis-markers-at-point nil t)
+#+end_src
+** org-appear
+Toggle visibility of hidden Org mode element parts upon entering and leaving an
+element
 * config emacs by purpose
 ** edit org files to become pdf files
 ** write literate configuration in org mode then tangle to the respective config files
@@ -1319,11 +1365,18 @@ Org “TODO” bullets
 **** TODO closing
 **** TODO resizing
 *** TODO + selecting text
+*** TODO + commenting text
+**** TODO comment reagion
+**** TODO comment s-expression
+**** TODO comment block
+**** TODO comment paragraph
+**** TODO add comment to the end of the line
 ** TODO + changes to org mode
 *** DONE add org roam
 *** DONE hide synthax markers in org mode
 *** DONE change the ... when a header is folded
 *** DONE change the bullet point symbol used
+*** DONE install and configure org-appear
 *** TODO change the symbols for the TODO/DONE, etc
 *** TODO remove the black line that shows on the folded heading
 when there is a code snippet inside the heading
@@ -2674,7 +2727,7 @@ changes ... to an arrow(▼)
 )
 #+end_src
 ***** headers
-
+****** _
 BUG : defface: Wrong number of arguments: (3 . 3), 2
 
 error: (void-function org-compatible-face)
@@ -3044,6 +3097,7 @@ character
 )
 #+end_src
 ***** emphasis markers
+hides /italic/, *bold* and =code= markers for example
 
 #+begin_src emacs-lisp :tangle ./config.el
 (after! org
@@ -3052,7 +3106,101 @@ character
   )
 )
 #+end_src
-****** TODO need to install org-reaveal later
+***** org-appear
+****** start after-org! block
+#+begin_src emacs-lisp :tangle ./config.el
+;; start of org-appear configuration
+(after! org
+#+end_src
+****** NO show only in edit mode
+toggles hiding and showing emphasis markers, links, etc. in and out of edit mode
+
+...#+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+(setq org-appear-trigger 'manual)
+(add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
+(add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t)
+#+end_src
+****** enable mode
+#+begin_src emacs-lisp :tangle ./config.el
+  (add-hook 'org-mode-hook 'org-appear-mode)
+#+end_src
+****** enable for links
+enable behavior for links also
+
+[[http://www.google.com][link example (google)]]
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-appear-autolinks t)
+#+end_src
+****** enable for subscripts and superscripts
+******* documentation
+enable behavior for subscripts and superscripts
+
+examples:
+
+Add #+OPTIONS: ^:{} to your org-mode file to explicitly enable superscripts and
+subscripts.
+
+You would also need to enable pretty-entites using the
+=org-toggle-pretty-entities=. Default keychord is: =C-c C-x \=.
+
+#+OPTIONS: ^:{}
+
+superscripts
+
+To create a superscript put ^{ characters at the start of the superscript text
+and } at the end of the superscript text, e.g. word ^{superscript} will render as
+word^{superscript}.
+
+subscripts
+
+To create a subscript put _{ characters at the start of the subscript text and }
+at the end of the subscript text, e.g. word _{subscript} will render as
+word_{subscript}.
+
+******* code
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-pretty-entities t)
+  (setq org-appear-autosubmarkers t)
+#+end_src
+****** org entities (latex syntax)
+example of entity:
+
+Pro tip: Given a circle \Gamma of diameter d, the length of its
+circumference is \pi{}d.
+
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-appear-autoentities t)
+#+end_src
+****** org keywords
+toggle keywords in =org-hidden-keywords=
+
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-appear-autokeywords t)
+#+end_src
+****** delay
+1 second of delay
+
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-appear-delay 1)
+#+end_src
+****** org-appear-trigger
+=org-appear-trigger= can be set to =always=, =on-change=, or =manual=.
+
+With =on-change=, elements will be toggled only when the buffer is modified or on
+mouse click. This option disables delayed toggling.
+
+With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
+=org-appear-manual-stop= is used to disable toggling with this option.
+
+#+begin_src emacs-lisp :tangle ./config.el
+  (setq org-appear-trigger 'always)
+#+end_src
+****** end after-org! block
+#+begin_src emacs-lisp :tangle ./config.el
+)
+;; end of org-appear configuration
+#+end_src
 **** roam
 adds the location of the org-roam folder
 
@@ -3176,6 +3324,12 @@ release. The `unpin!' macro allows you to unpin single packages...
 #+begin_src emacs-lisp :tangle ./packages.el
 ;;(package! benchmark-init)
 #+end_src
+*** org
+**** org-appear
+
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! org-appear)
+#+end_src
 
 * Notes about configuring Doom Emacs
 ** _
@@ -3248,15 +3402,3 @@ provides, and =doom help COMMAND= to display documentation for a particular
 I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
 directly and from anywhere. Accomplish this by adding this to your .bashrc or
 .zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
-* level 1 - testing headers
-** level 2
-*** level 3
-**** level 4
-***** level 5
-****** level 6
-******* level 7
-******** level 8
-********* level 9
-********** level 10
-*********** level 11
-************ level 12
