@@ -3,11 +3,9 @@
 * Doom Emacs config
 This file is a literate configuration of my Doom Emacs config.
 
-Here are the Emacs LISP code that config Emacs and also the explanation of every
-part of the config.
+Here are the Emacs LISP code that config Emacs and also the explanation of every part of the config.
 
-In addition to that, I also document here how I use, or intend to use, such
-configuration.
+In addition to that, I also document here how I use, or intend to use, such configuration.
 * Notes about configuring Doom Emacs
 Taken from the Doom Emacs github page
 ** _
@@ -765,6 +763,14 @@ https://www.youtube.com/playlist?list=PL9KxKa8NpFxIcNQa9js7dQQIHc81b0-Xg
 ****** 29 rectangles
 ****** 30 elfeed part 1
 ****** 31 elfeed and hydras
+elfid
+
+...
+
+
+
+
+
 ****** 32 elfeed and macros
 ****** 33 emacs c++
 ****** 34 projectile and dumb-jump
@@ -1378,6 +1384,9 @@ Probably far from perfect, but the following is inspired by
 #+end_src
 ** Making org-mode pretty with icons
 https://thibautbenjamin.github.io/emacs/org-icons
+** Doom Emacs Configuration
+The Methods, Management, and Menagerie of Madness
+https://tecosaur.github.io/emacs-config/config.html
 ** Colored text in org-mode with export to HTML
 https://kitchingroup.cheme.cmu.edu/blog/2016/01/16/Colored-text-in-org-mode-with-export-to-HTML/
 
@@ -1435,6 +1444,8 @@ https://orgmode.org/worg/org-hacks.html
 **** fish
 * configs TODOs
 ** TODO + hydras
+*** documentation
+https://github.com/abo-abo/hydra
 *** TODO + manipulate windows
 **** TODO splitting
 **** TODO switching
@@ -1448,6 +1459,17 @@ https://orgmode.org/worg/org-hacks.html
 **** TODO comment block
 **** TODO comment paragraph
 **** TODO add comment to the end of the line
+** TODO + text editing
+*** TODO search words é and ê whth only e
+emacs Diacritical Character search
+
+CharacterFoldPlus
+
+"This page is about package CharacterFold+, which enhances character folding for Isearch."
+
+https://www.emacswiki.org/emacs/CharacterFoldPlus
+
+https://www.emacswiki.org/emacs/download/character-fold%2b.el
 ** TODO + changes to org mode
 *** DONE add org roam
 *** DONE hide synthax markers in org mode
@@ -1459,6 +1481,18 @@ https://orgmode.org/worg/org-hacks.html
 *** DONE start org files folded
 *** DONE change the symbols for the TODO/DONE, etc
 it can be done with org-superstar
+*** DONE don't indent org headers and text
+*** DONE BUG adding new entries to an ordered list does not add the next number
+work around:
+
+instead of adding bullets below with =C-RET=, add a bullet above with =M-RET=, that will recalculate the numbering
+*** TODO change the symbols and steps inside check boxes
+ex:
+
+- [ ]
+- [-]
+- [X]
+*** TODO justify text in org mode?
 *** TODO BUG? remove the black line that shows on the folded heading
 when there is a code snippet inside the heading
 *** TODO add headers/bullets on the line the cursor is on
@@ -1467,50 +1501,71 @@ not after the last item of the current sub-tree
 (+org/insert-item-below COUNT)
 
 *** TODO change color of headers
-*** TODO BUG adding new entries to an ordered list does not add the next number
 *** TODO configure org agenda and org super agenda
-** TODO + add adtional language support that does not have a module for it
+** TODO + add addional programming language support that does not have a module for it
 *** TODO vue
 *** TODO svelte
 ** TODO + UI improvements
-*** TODO + the tabs are showing on the completion list
-**** TODO either hide that or make it show the name of the key pressed before (category)
-*** TODO rebind TAB when in visual mode to no more insert snippet
-*** TODO get the minimap working
-*** TODO show all tabs, not just tabs of files of same extension
+*** DONE change how the cursor traverses lines that are wraped
+https://www.emacswiki.org/emacs/VisualLineMode
+
+https://stackoverflow.com/questions/20882935/how-to-move-between-visual-lines-and-move-past-newline-in-evil-mode
+*** SKIP + tabs
+**** SKIP the tabs are showing on the completion list
+either hide that or make it show the name of the key pressed before (category)
+**** SKIP get the minimap working
+**** SKIP show all tabs, not just tabs of files of same extension
 or show tabs for the groups of buffers present
+*** DONE center text
+**** NO centered-window-mode
+didn't work
+https://github.com/anler/centered-window-mode
+
+https://github.com/hlissner/doom-emacs/issues/225
+
+**** NO zen mode (doom module)
+neither with zen mode
+**** NO darkroom
+https://github.com/joaotavora/darkroom
+**** MAYBE Setting default Emacs window margins
+https://superuser.com/questions/307751/setting-default-emacs-window-margins/645114
+*** TODO change the behavior on org mode, edit mode, when pressing tab demotes a heading
+**** TODO rebind TAB when in visual mode to no more insert snippet
 *** TODO get the scrollbar on the right back
-*** TODO change the which key position to the middle of the screen or on the vertical
+*** NO change the which key position to the middle of the screen or on the vertical
 I am using vertico now so it may not be which key anymore
 
 which key github page / documentation
 https://github.com/justbur/emacs-which-key#popup-type-options
-*** TODO config the dashboard
+
+I can't do it...
+*** TODO configure the dashboard
+what you want in it?
 *** TODO configure org capture templates
+what will you capture?
+**** TODO brain dump / fleeting thoughts
 *** TODO how to fix the "us international with dead keys" problem on Emacs
 maybe this can solve the issue:
 https://www.emacswiki.org/emacs/DeadKeys
 
 another resource trying to fix by having 2 keyboard layouts:
 https://askubuntu.com/questions/364292/dead-keys-in-emacs-with-ibus
-*** TODO change the behavior on org mode, edit mode, when pressing tab demotes a heading
-*** TODO change how the cursor traverses lines that are wraped
+
+how to test it?
+
+there wass something I couldn't do in evil mode
 *** TODO ? find a way to show the other options on which key
 preferably bind =C-h= and =C-l=, or =C-j= and =C-k= to go forwards and backwards
 on the list
 
+maybe it is not needed, because you can type =?=, and get a searchable list
+
 ** TODO + text formatting / styling / completion
-*** TODO show synthax markers when inside the word that is surounded by them
+*** DONE show syntax markers when inside the word that is surounded by them
 the name of the package is =org-reveal=
-*** TODO find out if changing the rendering of a word in general can work like org-reveal
-for examble: changing lambda for λ
-
-but when the cursor is at the symbol the rendering changes back to the word lambda
-
-the original idea (as I know of) of having some words change to symbols comes
-from a distrotube video: https://www.youtube.com/watch?v=5iCjhdCUuLg&t=6s
 *** TODO change fundamental mode to org mode?
 *** TODO ? how to make emacs highlight given words with different colors no metter what mode it is in
+https://kitchingroup.cheme.cmu.edu/blog/2016/01/16/Colored-text-in-org-mode-with-export-to-HTML/
 *** TODO change elisp formatting rules
 make end of parenthesis line up with the oppening parenthesis on its own line
 *** TODO add code completion on emacs lisp blocks (or any org-babel block really)
@@ -1523,9 +1578,7 @@ https://languagetool.org/
 https://github.com/mhayashi1120/Emacs-langtool
 ** TODO + keybindings
 *** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
-making the distinction of the keybinding comming from Emacs or Doom Emacs,
-including which package overrides that keybinding, also document if the
-keybinding is changed by me
+making the distinction of the keybinding comming from Emacs or Doom Emacs, including which package overrides that keybinding, also document if the keybinding is changed by me
 * Config files
 ** init.el
 #+begin_src emacs-lisp :tangle ./init.el
@@ -1557,17 +1610,17 @@ directory (for easy access to its source code).
        :input
 #+end_src
 **** NO chinese
-+ [[file:../modules/input/chinese/README.org][chinese]] - TODO
++ chinese - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;chinese
 #+end_src
 **** NO japanese
-+ [[file:../modules/input/japanese/README.org][japanese]] - TODO
++ japanese - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;japanese
 #+end_src
 **** NO layout
-+ [[file:../modules/input/layout/README.org][layout]] =+azerty +bepo= - TODO
++ layout =+azerty +bepo= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;(layout            ; auie,ctsrnm is the superior home row
        ;; +azerty
@@ -1583,7 +1636,7 @@ completion.
        :completion
 #+end_src
 **** YES company
-+ [[file:../modules/completion/company/README.org][company]] =+childframe +tng= - The ultimate code completion backend
++ company =+childframe +tng= - The ultimate code completion backend
 #+begin_src emacs-lisp :tangle ./init.el
        (company           ; the ultimate code completion backend
        ;; +childframe
@@ -1604,7 +1657,7 @@ completion.
        ;;ido               ; the other *other* search engine...
 #+end_src
 **** NO ivy
-+ [[file:../modules/completion/ivy/README.org][ivy]] =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
++ ivy =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
   life
 #+begin_src emacs-lisp :tangle ./init.el
        ;;(ivy              ; a search engine for love and life
@@ -1615,7 +1668,7 @@ completion.
        ;;)
 #+end_src
 **** YES vertico
-+ [[file:../modules/completion/vertico/README.org][vertico]] =+icons= - The search engine of the future
++ vertico =+icons= - The search engine of the future
 #+begin_src emacs-lisp :tangle ./init.el
        (vertico           ; the search engine of the future
         +icons
@@ -1629,27 +1682,27 @@ Aesthetic modules that affect the Emacs interface or user experience.
        :ui
 #+end_src
 **** NO deft
-+ [[file:../modules/ui/deft/README.org][deft]] - TODO
++ deft - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; deft              ; notational velocity for Emacs
 #+end_src
 **** YES doom
-+ [[file:../modules/ui/doom/README.org][doom]] - TODO
++ doom - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        doom              ; what makes DOOM look the way it does
 #+end_src
 **** YES doom-dashboard
-+ [[file:../modules/ui/doom-dashboard/README.org][doom-dashboard]] - TODO
++ doom-dashboard - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        doom-dashboard    ; a nifty splash screen for Emacs
 #+end_src
 **** YES doom-quit
-+ [[file:../modules/ui/doom-quit/README.org][doom-quit]] - TODO
++ doom-quit - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        doom-quit       ; DOOM quit-message prompts when you quit Emacs
 #+end_src
 **** YES emoji
-+ [[file:../modules/ui/emoji/README.org][emoji]] =+ascii +github +unicode= - Adds emoji support to Emacs
++ emoji =+ascii +github +unicode= - Adds emoji support to Emacs
 #+begin_src emacs-lisp :tangle ./init.el
        (emoji            ; 🙂
        ;; +ascii
@@ -1658,12 +1711,12 @@ Aesthetic modules that affect the Emacs interface or user experience.
        )
 #+end_src
 **** YES hl-todo
-+ [[file:../modules/ui/hl-todo/README.org][hl-todo]] - TODO
++ hl-todo - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
 #+end_src
 **** YES hydra
-+ [[file:../modules/ui/hydra/README.org][hydra]] - TODO
++ hydra - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; hydra
 #+end_src
@@ -1673,8 +1726,7 @@ Aesthetic modules that affect the Emacs interface or user experience.
        ;; indent-guides     ; highlighted indent columns
 #+end_src
 **** NO ligatures
-+ [[file:../modules/ui/ligatures/README.org][ligatures]] =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
-
++ ligatures =+extra +fira +hasklig +iosevka +pragmata-pro= - Ligature support for Emacs
 
 + =+fira= Enables =Fira Code= ligatures. This requires Fira Code Symbol and a
   patched version of Fira Code (see below).
@@ -1694,34 +1746,34 @@ Aesthetic modules that affect the Emacs interface or user experience.
        ;; )
 #+end_src
 **** NO minimap
-+ [[file:../modules/ui/minimap/README.org][minimap]] - TODO
++ minimap - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; minimap           ; show a map of the code on the side
 #+end_src
 **** YES modeline
-+ [[file:../modules/ui/modeline/README.org][modeline]] =+light= - TODO
++ modeline =+light= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (modeline          ; snazzy, Atom-inspired modeline, plus API
        ;; +light
         )
 #+end_src
 **** NO nav-flash
-+ [[file:../modules/ui/nav-flash/README.org][nav-flash]] - TODO
++ nav-flash - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;nav-flash         ; blink cursor line after big motions
 #+end_src
 **** NO neotree
-+ [[file:../modules/ui/neotree/README.org][neotree]] - TODO
++ neotree - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;neotree           ; a project drawer, like NERDTree for vim
 #+end_src
 **** NO ophints
-+ [[file:../modules/ui/ophints/README.org][ophints]] - TODO
++ ophints - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; ophints           ; highlight the region an operation acts on
 #+end_src
 **** NO popup
-+ [[file:../modules/ui/popup/README.org][popup]] =+all +defaults= - Makes temporary/disposable windows less intrusive
++ popup =+all +defaults= - Makes temporary/disposable windows less intrusive
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (popup            ; tame sudden yet inevitable temporary windows
       ;;  +defaults
@@ -1729,19 +1781,19 @@ Aesthetic modules that affect the Emacs interface or user experience.
       ;;  )
 #+end_src
 **** NO tabs
-+ [[file:../modules/ui/tabs/README.org][tabs]] - TODO
++ tabs - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; tabs              ; a tab bar for Emacs
 #+end_src
 **** NO treemacs
-+ [[file:../modules/ui/treemacs/README.org][treemacs]] - =+lsp= - A tree layout file explorer for Emacs
++ treemacs - =+lsp= - A tree layout file explorer for Emacs
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (treemacs          ; a project drawer, like neotree but cooler
       ;;  +lsp
       ;;  )
 #+end_src
 **** YES unicode
-+ [[file:../modules/ui/unicode/README.org][unicode]] - TODO
++ unicode - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        unicode           ; extended unicode support for various languages
 #+end_src
@@ -1756,21 +1808,21 @@ Aesthetic modules that affect the Emacs interface or user experience.
       ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
 #+end_src
 **** YES window-select
-+ [[file:../modules/ui/window-select/README.org][window-select]] =+switch-window +numbers= - TODO
++ window-select =+switch-window +numbers= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (window-select     ; visually switch windows
         +numbers
         )
 #+end_src
 **** NO workspaces
-+ [[file:../modules/ui/workspaces/README.org][workspaces]] - Isolated workspaces
++ workspaces - Isolated workspaces
 #+begin_src emacs-lisp :tangle ./init.el
        ;; workspaces        ; tab emulation, persistence & separate workspaces
 #+end_src
-**** NO zen
-+ [[file:../modules/ui/zen/README.org][zen]] - Distraction-free coding (or writing)
+**** YES zen
++ zen - Distraction-free coding (or writing)
 #+begin_src emacs-lisp :tangle ./init.el
-       ;;zen               ; distraction-free coding or writing
+       zen               ; distraction-free coding or writing
 #+end_src
 *** Editor
 Modules that affect and augment your ability to manipulate or insert text.
@@ -1780,19 +1832,19 @@ Modules that affect and augment your ability to manipulate or insert text.
        :editor
 #+end_src
 **** YES evil
-+ [[file:../modules/editor/evil/README.org][evil]] =+everywhere= - transforms Emacs into Vim
++ evil =+everywhere= - transforms Emacs into Vim
 #+begin_src emacs-lisp :tangle ./init.el
        (evil               ; come to the dark side, we have cookies
         +everywhere
         )
 #+end_src
 **** NO file-templates
-+ [[file:../modules/editor/file-templates/README.org][file-templates]] - Auto-inserted templates in blank new files
++ file-templates - Auto-inserted templates in blank new files
 #+begin_src emacs-lisp :tangle ./init.el
       ;; file-templates    ; auto-snippets for empty files
 #+end_src
 **** NO fold
-+ [[file:../modules/editor/fold/README.org][fold]] - universal code folding
++ fold - universal code folding
 #+begin_src emacs-lisp :tangle ./init.el
       ;; fold                ; (nigh) universal code folding
 #+end_src
@@ -1809,7 +1861,7 @@ Modules that affect and augment your ability to manipulate or insert text.
        ;;god               ; run Emacs commands without modifier keys
 #+end_src
 **** NO lispy
-+ [[file:../modules/editor/lispy/README.org][lispy]] - TODO
++ lispy - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;lispy             ; vim for lisp, for people who don't like vim
 #+end_src
@@ -1819,14 +1871,14 @@ Modules that affect and augment your ability to manipulate or insert text.
        ;;multiple-cursors  ; editing in many places at once
 #+end_src
 **** NO objed
-+ [[file:../modules/editor/objed/README.org][objed]] =+manual= - TODO
++ objed =+manual= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;(objed             ; text object editing for the innocent
        ;; +manual
        ;; )
 #+end_src
 **** NO parinfer
-+ [[file:../modules/editor/parinfer/README.org][parinfer]] - TODO
++ parinfer - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;parinfer          ; turn lisp into python, sort of
 #+end_src
@@ -1836,12 +1888,12 @@ Modules that affect and augment your ability to manipulate or insert text.
        ;;rotate-text       ; cycle region at point between text candidates
 #+end_src
 **** YES snippets
-+ [[file:../modules/editor/snippets/README.org][snippets]] - Snippet expansion for lazy typists
++ snippets - Snippet expansion for lazy typists
 #+begin_src emacs-lisp :tangle ./init.el
        snippets          ; my elves. They type so I don't have to
 #+end_src
 **** NO word-wrap
-+ [[file:../modules/editor/word-wrap/README.org][word-wrap]] - soft wrapping with language-aware indent
++ word-wrap - soft wrapping with language-aware indent
 #+begin_src emacs-lisp :tangle ./init.el
        ;;word-wrap         ; soft wrapping with language-aware indent
 #+end_src
@@ -2801,7 +2853,7 @@ Removes annoying exit confirmation message
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "SKIP(s)" "|" "DONE(d)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -2821,6 +2873,7 @@ Removes annoying exit confirmation message
     (quote (
             ("TODO" :foreground "#ff4500" :weight bold)
             ("NEXT" :foreground "#4876ff" :weight bold)
+            ("DOING" :foreground "#ffd700" :weight bold)
             ("SKIP" :foreground "#00eeee"      :weight bold)
             ("DONE" :foreground "#32cd32" :weight bold)
 
@@ -2834,7 +2887,6 @@ Removes annoying exit confirmation message
     )
   )
 )
-
 ;; end --------------------------------------------- org / TODOs states / colors
 #+end_src
 ****** BUG
@@ -2872,6 +2924,7 @@ in highlight (2 'org-headline-done prepend)")
         '(
           ("TODO" . ?⛶)
           ("NEXT" . ?➔)
+          ("DOING" . ?🏃)
           ("SKIP" . ?⮫)
           ("DONE" . ?✓)
 
@@ -3461,6 +3514,34 @@ time.
   You can customize this variable.
 
 [back]
+***** YES not indented
+****** code
+when oppening any org file, fold all headers, except the header the point is on
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-indented nil)
+)
+;; end ----------------------------------------------- org / startup / folded
+#+end_src
+****** documentation
+=org-startup-indented= is a variable defined in ‘org.el’.
+
+Its value is nil
+Local in buffer README.org; global value is t
+
+Non-nil means turn on ‘org-indent-mode’ on startup.
+This can also be configured on a per-file basis by adding one of
+the following lines anywhere in the buffer:
+
+/   #+STARTUP: indent
+/   #+STARTUP: noindent
+
+  You can customize this variable.
+
 **** hide blank lines in folded view
 ***** code
 
@@ -3489,7 +3570,131 @@ adds the location of the org-roam folder
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
 ;; end ----------------------------------------------------- org-roam files location
 #+end_src
-*** TODO Keybindings
+*** UI
+**** lines
+***** move point through long lines one visual line at a time
+****** code
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- UI / lines
+(define-key evil-normal-state-map
+  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map
+  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map
+  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map
+  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
+;; end ------------------------------------ UI / lines
+#+end_src
+****** documentation
+evil-cross-lines is a variable defined in ‘evil-vars.el’.
+
+Its value is nil
+
+Whether horizontal motions may move to other lines.
+
+If non-nil, certain motions that conventionally operate in a single line may
+move the cursor to other lines.
+
+Otherwise, they are restricted to the current line.
+
+This applies to h, SPC, f, F, t, T, ~.
+**** which key
+***** on the right side
+****** code
+I can't do it...
+
+... #+begin_src emacs-lisp 
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- UI / which key / on the right side
+(after! which-key
+;; (which-key-setup-side-window-right)
+
+;; (setq which-key-popup-type 'side-window)
+;; (setq which-key-side-window-location 'bottom)
+;; (setq which-key-side-window-max-width 0.33)
+;; (setq which-key-side-window-max-height 0.25)
+                
+(setq which-key-idle-delay 0)
+
+(setq which-key-prefix-prefix "📁" )
+
+)
+;; end ------------------------------------ UI / which key / on the right side
+#+end_src
+****** bug
+
+  #+begin_src elisp
+Debugger entered--Lisp error: (wrong-type-argument stringp nil)
+
+  regexp-quote(nil)
+  
+  org-src-coderef-regexp(nil)
+  
+  org-babel-tangle-single-block(1)
+  
+  org-babel-tangle-collect-blocks(nil nil)
+  
+  #f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>)(nil)
+  
+  apply(#f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
+  
+  (let (before-save-hook after-save-hook) (apply fn args))
+  
+  +org--dont-trigger-save-hooks-a(#f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
+  
+  apply(+org--dont-trigger-save-hooks-a #f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
+  
+  org-babel-tangle(nil)
+  
+  funcall-interactively(org-babel-tangle nil)
+  
+  call-interactively(org-babel-tangle record nil)
+  
+  command-execute(org-babel-tangle record)
+  
+  execute-extended-command(nil "org-babel-tangle" nil)
+  
+  funcall-interactively(execute-extended-command nil "org-babel-tangle" nil)
+  
+  call-interactively(execute-extended-command nil nil)
+  
+  command-execute(execute-extended-command)
+  
+
+  #+end_src
+**** NO centered-window-mode
+didn't work
+
+... #+begin_src emacs-lisp
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ------------------------------------------------------ UI / centered-window-mode
+(use-package! centered-window-mode
+  :init (centered-window-mode)
+)
+;; end -------------------------------------------------------- UI / centered-window-mode
+#+end_src
+**** MAYBE add margins on both sides
+the problem with it is that it applies those margins everywhere
+
+... #+begin_src emacs-lisp
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------------------ UI / margins
+(setq-default
+  left-margin-width  10
+  right-margin-width 10
+)
+(set-window-buffer nil
+                   (current-buffer)
+) ; Use them now.
+;; end -------------------------------------------------------- UI / margins
+#+end_src
+*** Keybindings
 ** packages.el
 #+begin_src emacs-lisp :tangle ./packages.el
 
@@ -3600,8 +3805,7 @@ release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! t)
 #+end_src
 
-*** benchmark startup time
-
+*** NO benchmark startup time
 #+begin_src emacs-lisp :tangle ./packages.el
 ;;(package! benchmark-init)
 #+end_src
@@ -3610,13 +3814,29 @@ release. The `unpin!' macro allows you to unpin single packages...
 ... #+begin_src elisp
 #+begin_src emacs-lisp :tangle ./packages.el
 ;; start ------------------------------------------------ org / org-fancy-priorities
-(package! org-fancy-priorities :disable t)
+(package!
+  org-fancy-priorities
+  :disable t
+)
 ;; end -------------------------------------------------- org / org-fancy-priorities
 #+end_src
 **** YES org-appear
 
 #+begin_src emacs-lisp :tangle ./packages.el
 ;; start --------------------------------------------------------- org / org-appear
-(package! org-appear)
+(package!
+  org-appear
+)
 ;; end ----------------------------------------------------------- org / org-appear
+#+end_src
+*** UI
+**** NO centered-window-mode
+Keep your text centered when there's only one window.
+...#+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp
+;; start ------------------------------------------------------- UI / centered-window-mode
+(package!
+  centered-window-mode
+)
+;; end --------------------------------------------------------- UI / centered-window-mode
 #+end_src

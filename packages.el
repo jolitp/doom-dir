@@ -30,9 +30,14 @@
 ;;(package! benchmark-init)
 
 ;; start ------------------------------------------------ org / org-fancy-priorities
-(package! org-fancy-priorities :disable t)
+(package!
+  org-fancy-priorities
+  :disable t
+)
 ;; end -------------------------------------------------- org / org-fancy-priorities
 
 ;; start --------------------------------------------------------- org / org-appear
-(package! org-appear)
+(package!
+  org-appear
+)
 ;; end ----------------------------------------------------------- org / org-appear

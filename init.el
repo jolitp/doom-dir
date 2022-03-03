@@ -104,7 +104,7 @@
 
        ;; workspaces        ; tab emulation, persistence & separate workspaces
 
-       ;;zen               ; distraction-free coding or writing
+       zen               ; distraction-free coding or writing
 
        :editor
 

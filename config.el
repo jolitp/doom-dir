@@ -44,7 +44,7 @@
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "SKIP(s)" "|" "DONE(d)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -59,6 +59,7 @@
     (quote (
             ("TODO" :foreground "#ff4500" :weight bold)
             ("NEXT" :foreground "#4876ff" :weight bold)
+            ("DOING" :foreground "#ffd700" :weight bold)
             ("SKIP" :foreground "#00eeee"      :weight bold)
             ("DONE" :foreground "#32cd32" :weight bold)
 
@@ -72,7 +73,6 @@
     )
   )
 )
-
 ;; end --------------------------------------------- org / TODOs states / colors
 
 ;; start ------------------------------------------ org / TODOs states / bullets
@@ -82,6 +82,7 @@
         '(
           ("TODO" . ?⛶)
           ("NEXT" . ?➔)
+          ("DOING" . ?🏃)
           ("SKIP" . ?⮫)
           ("DONE" . ?✓)
 
@@ -164,6 +165,12 @@
 )
 ;; end ----------------------------------------------- org / startup / folded
 
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-indented nil)
+)
+;; end ----------------------------------------------- org / startup / folded
+
 ;; start ---------------------------------- org / hide blank lines in folded view
 (after! org
   (setq org-cycle-separator-lines 0)
@@ -178,3 +185,42 @@
 (setq org-roam-directory "~/Dropbox/org/roam")
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
 ;; end ----------------------------------------------------- org-roam files location
+
+;; start ---------------------------------- UI / lines
+(define-key evil-normal-state-map
+  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map
+  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map
+  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map
+  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
+;; end ------------------------------------ UI / lines
+
+;; start ---------------------------------- UI / which key / on the right side
+(after! which-key
+;; (which-key-setup-side-window-right)
+
+;; (setq which-key-popup-type 'side-window)
+;; (setq which-key-side-window-location 'bottom)
+;; (setq which-key-side-window-max-width 0.33)
+;; (setq which-key-side-window-max-height 0.25)
+                
+(setq which-key-idle-delay 0)
+
+(setq which-key-prefix-prefix "📁" )
+
+)
+;; end ------------------------------------ UI / which key / on the right side
+
+;; start ------------------------------------------------------ UI / margins
+(setq-default
+  left-margin-width  10
+  right-margin-width 10
+)
+(set-window-buffer nil
+                   (current-buffer)
+) ; Use them now.
+;; end -------------------------------------------------------- UI / margins
