@@ -41,3 +41,11 @@
   org-appear
 )
 ;; end ----------------------------------------------------------- org / org-appear
+
+;; start ------------------------------------------------------- UI / yascroll
+(package!
+  yascroll
+)
+;; end ------------------------------------------------------- UI / yascroll
+
+(package! evil-better-visual-line)

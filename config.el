@@ -186,18 +186,21 @@
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
 ;; end ----------------------------------------------------- org-roam files location
 
-;; start ---------------------------------- UI / lines
-(define-key evil-normal-state-map
-  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-(define-key evil-normal-state-map
-  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-(define-key evil-motion-state-map
-  (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-(define-key evil-motion-state-map
-  (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-; Make horizontal movement cross lines
-(setq-default evil-cross-lines t)
-;; end ------------------------------------ UI / lines
+;; start ------------------- org / images
+(after! org
+  (setq org-image-actual-width nil)
+)
+;; end --------------------- org / images
+
+;; start ---------------------------------- UI / Interface / Scrollbar
+(global-yascroll-bar-mode t)
+;; end ---------------------------------- UI / Interface / Scrollbar
+
+;; start ---------------------------------- UI / lines / Evil Better Visual Line
+(after! evil
+  (evil-better-visual-line-on)
+)
+;; end ------------------------------------ UI / lines / Evil Better Visual Line
 
 ;; start ---------------------------------- UI / which key / on the right side
 (after! which-key
@@ -207,7 +210,8 @@
 ;; (setq which-key-side-window-location 'bottom)
 ;; (setq which-key-side-window-max-width 0.33)
 ;; (setq which-key-side-window-max-height 0.25)
-                
+
+(setq which-key-side-window-max-height 0.60)
 (setq which-key-idle-delay 0)
 
 (setq which-key-prefix-prefix "📁" )
@@ -217,10 +221,43 @@
 
 ;; start ------------------------------------------------------ UI / margins
 (setq-default
-  left-margin-width  10
-  right-margin-width 10
+  left-margin-width  5
+  right-margin-width 5
 )
 (set-window-buffer nil
                    (current-buffer)
 ) ; Use them now.
 ;; end -------------------------------------------------------- UI / margins
+
+;; start ------------------------------ Checkers / Grammar / Langtool
+(use-package! langtool
+  :commands (langtool-check
+             langtool-check-done
+             langtool-show-message-at-point
+             langtool-correct-buffer)
+  :init (setq langtool-default-language "pt-BR")
+  :config
+  (unless (or langtool-bin
+              langtool-language-tool-jar
+              langtool-java-classpath)
+    (cond (IS-LINUX
+          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
+;; end -------------------------------- Checkers / Grammar / Langtool
+
+;; start -------------------------------- Checkers / Grammar / writegood
+;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
+(use-package! writegood-mode
+  :hook
+  (org-mode markdown-mode
+            rst-mode
+            asciidoc-mode
+            latex-mode
+            LaTeX-mode)
+  :config
+  (map! :localleader
+        :map writegood-mode-map
+        "g" #'writegood-grade-level
+        "r" #'writegood-reading-ease
+  )
+)
+;; end -------------------------------- Checkers / Grammar / writegood

@@ -78,6 +78,12 @@ provides, and =doom help COMMAND= to display documentation for a particular
 I recommend you add =~/.emacs.d/bin= to your =PATH= so you can call =doom=
 directly and from anywhere. Accomplish this by adding this to your .bashrc or
 .zshrc file: ~export PATH=”$HOME/.emacs.d/bin:$PATH”~
+* notes about elisp
+** symbols
+symbols in lisp stat with a ='= like:
+#+begin_src elisp
+(a 'symbol)
+#+end_src
 * content about Emacs configs to check out
 ** David Wilson (system crafters)
 *** youtube
@@ -86,7 +92,26 @@ https://www.youtube.com/c/SystemCrafters/videos
 **** playlists
 ***** Emacs From Scratch (old)
 https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ
-****** 1 Getting Started with a Basic Usable Configuration
+****** DONE 1 Getting Started with a Basic Usable Configuration
+******* 0 introduction
+******* 2:40 how I use Emacs
+******* 6:40 start
+******* 11:20 start of configuration
+******* 13:40 font style config
+******* 19:15 ...
+******* 22:00 ~ package sources
+Doom does not install packages this way, it uses straight instead
+******* 27:00 command log mode
+******* 31:00 ~ completion frameworks
+ivy or helm, etc
+******* 33:00 ~ counsel shenanigans
+******* 36:00 M-x explanation
+******* 37:00 counsel load theme
+******* 39:00 use package
+******* 40:00 modeline
+******* 42:58 swiper
+******* 44:00 caps as ctrl
+******* 47:00 modeline 2nd time
 ****** 2 Adding Helpful UI Improvements
 ****** 3 Key Bindings and Evil
 ****** 4 Projectile and Magit
@@ -1045,6 +1070,8 @@ https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
 ** org-roam-ui
 A graphical frontend for exploring your org-roam Zettelkasten
 https://github.com/org-roam/org-roam-ui
+** org-transclusion
+https://github.com/nobiot/org-transclusion
 ** [#C] writefreely.el
 *Frictionless* blogging with Org Mode. No setup required.
 
@@ -1408,6 +1435,10 @@ Org “TODO” bullets
 http://doc.norang.ca/org-mode.html
 ** Org ad hoc code, quick hacks and workarounds
 https://orgmode.org/worg/org-hacks.html
+** Awesome emacs config files
+https://github.com/caisah/emacs.dz
+** awesome-emacs
+https://github.com/emacs-tw/awesome-emacs
 * config emacs by purpose
 ** edit org files to become pdf files
 ** write literate configuration in org mode then tangle to the respective config files
@@ -1452,15 +1483,23 @@ https://github.com/abo-abo/hydra
 **** TODO change buffer
 **** TODO closing
 **** TODO resizing
-*** TODO + selecting text
-*** TODO + commenting text
-**** TODO comment reagion
-**** TODO comment s-expression
-**** TODO comment block
-**** TODO comment paragraph
-**** TODO add comment to the end of the line
+*** TODO + org mode
+**** TODO export options
+the default org export is shit
+*** TODO + text editing
+**** TODO + commenting text
+***** TODO comment reagion
+***** TODO comment s-expression
+***** TODO comment block
+***** TODO comment paragraph
+***** TODO add comment to the end of the line
+**** TODO selecting text
+**** TODO + checkers
+***** TODO syntax
+***** TODO grammar
+****** TODO languagetool functions
 ** TODO + text editing
-*** TODO search words é and ê whth only e
+*** TODO search words é and ê with only e
 emacs Diacritical Character search
 
 CharacterFoldPlus
@@ -1470,6 +1509,11 @@ CharacterFoldPlus
 https://www.emacswiki.org/emacs/CharacterFoldPlus
 
 https://www.emacswiki.org/emacs/download/character-fold%2b.el
+*** TODO make the screen scroll below the end of file
+*** TODO remove writegood passive voice warnings
+*** TODO get a message on top of cursor when in a word that is not right
+as in have wrong syntax or grammar
+*** TODO get spell checking working in portuguese
 ** TODO + changes to org mode
 *** DONE add org roam
 *** DONE hide synthax markers in org mode
@@ -1492,6 +1536,23 @@ ex:
 - [ ]
 - [-]
 - [X]
+*** TODO ? can I make the changed bullet, like the TODOs, a different color?
+*** TODO install and configure org drill
+*** TODO make a ABNT css file to use with org export
+**** references
+https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
+
+https://pt.stackoverflow.com/questions/149014/como-imprimir-p%C3%A1ginas-em-a4-utilizando-css
+
+https://github.com/cognitom/paper-css
+*** TODO change the style of links
+instead of blue bold and underline, put a square with outup arrow, like obsidian, to the right
+*** TODO show an additional unicode icon for links of different types
+*** TODO check out org-transclusion
+*** TODO FIX images at arbitrary sizes
+not the actual size, that may be too small or too big
+*** TODO ? render org tables with unicode characters?
+change the presentation only
 *** TODO justify text in org mode?
 *** TODO BUG? remove the black line that shows on the folded heading
 when there is a code snippet inside the heading
@@ -1499,7 +1560,6 @@ when there is a code snippet inside the heading
 not after the last item of the current sub-tree
 
 (+org/insert-item-below COUNT)
-
 *** TODO change color of headers
 *** TODO configure org agenda and org super agenda
 ** TODO + add addional programming language support that does not have a module for it
@@ -1531,7 +1591,15 @@ https://github.com/joaotavora/darkroom
 https://superuser.com/questions/307751/setting-default-emacs-window-margins/645114
 *** TODO change the behavior on org mode, edit mode, when pressing tab demotes a heading
 **** TODO rebind TAB when in visual mode to no more insert snippet
+*** TODO add and customize showing whitespace characters
+*** TODO smooth scrolling
+*** TODO change behavior of M-q, instead of separating lines to a given width
+make it join everything in one single line
+
+or bind this desired behaior to another key, like C-q
 *** TODO get the scrollbar on the right back
+**** TODO style the scrollbar
+thicker but less prominent, less call for attention
 *** NO change the which key position to the middle of the screen or on the vertical
 I am using vertico now so it may not be which key anymore
 
@@ -1539,6 +1607,7 @@ which key github page / documentation
 https://github.com/justbur/emacs-which-key#popup-type-options
 
 I can't do it...
+*** TODO change the size of which key to go beyond 50% of the screen
 *** TODO configure the dashboard
 what you want in it?
 *** TODO configure org capture templates
@@ -1571,11 +1640,13 @@ make end of parenthesis line up with the oppening parenthesis on its own line
 *** TODO add code completion on emacs lisp blocks (or any org-babel block really)
 *** TODO configure snippets
 *** TODO configure grammar with that proram I found
+**** TODO install
 look on email for grammar, synthax or spelling
 
 https://languagetool.org/
 
 https://github.com/mhayashi1120/Emacs-langtool
+**** TODO configure
 ** TODO + keybindings
 *** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
 making the distinction of the keybinding comming from Emacs or Doom Emacs, including which package overrides that keybinding, also document if the keybinding is changed by me
@@ -1967,24 +2038,24 @@ Modules that offer terminal emulation.
 #+begin_src emacs-lisp :tangle ./init.el
        :checkers
 #+end_src
-**** NO syntax
+**** YES syntax
 + syntax =+childframe= - Live error/warning highlights
 #+begin_src emacs-lisp :tangle ./init.el
-       ;; (syntax              ; tasing you for every semicolon you forget
-       ;; +childframe
-       ;; )
+       (syntax              ; tasing you for every semicolon you forget
+       +childframe
+       )
 #+end_src
-**** NO spell
-+ [[file:../modules/checkers/spell/README.org][spell]] =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
+**** YES spell
++ spell =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
 #+begin_src emacs-lisp :tangle ./init.el
-       ;; (spell              ; tasing you for misspelling mispelling
-       ;; +flyspell
-       ;; )
+       (spell              ; tasing you for misspelling mispelling
+       +flyspell
+       )
 #+end_src
-**** NO grammar
-+ [[file:../modules/checkers/grammar/README.org][grammar]] - TODO
+**** YES grammar
++ grammar - TODO
 #+begin_src emacs-lisp :tangle ./init.el
-       ;; grammar             ; tasing grammar mistake every you make
+       grammar             ; tasing grammar mistake every you make
 #+end_src
 *** Tools
 Small modules that give Emacs access to external tools & services.
@@ -2590,6 +2661,51 @@ for you to customize it yourself. It is best to load these last.
 ** config.el
 #+begin_src emacs-lisp :tangle ./config.el
 
+#+end_src
+*** documentation
+**** macros
+***** use-package!
+****** _
+use-package! is a Lisp macro in ‘core-modules.el’.
+
+(use-package! NAME &rest PLIST)
+
+Declares and configures a package.
+
+This is a thin wrapper around ‘use-package’, and is ignored if the NAME package
+is disabled by the user (with ‘package!’).
+
+See ‘use-package’ to see what properties can be provided. Doom adds support for
+two extra properties:
+****** :after-call
+:after-call SYMBOL|LIST
+  Takes a symbol or list of symbols representing functions or hook variables.
+  The first time any of these functions or hooks are executed, the package is
+  loaded.
+****** :defere-incrementally
+:defer-incrementally SYMBOL|LIST|t
+  Takes a symbol or list of symbols representing packages that will be loaded
+  incrementally at startup before this one. This is helpful for large packages
+  like magit or org, which load a lot of dependencies on first load. This lets
+  you load them piece-meal during idle periods, so that when you finally do need
+  the package, it’ll load quicker.
+
+  NAME is implicitly added if this property is present and non-nil. No need to
+  specify it. A value of ‘t’ implies NAME.
+****** code examples
+#+begin_src emacs-lisp :eval no
+;; Use after-call to load package before hook
+(use-package! projectile
+  :after-call (pre-command-hook after-find-file dired-before-readin-hook))
+
+;; defer recentf packages one by one
+(use-package! recentf
+  :defer-incrementally easymenu tree-widget timer
+  :after-call after-find-file)
+
+;; This is equivalent to :defer-incrementally (abc)
+(use-package! abc
+  :defer-incrementally t)
 #+end_src
 *** _
 Place your private configuration here! Remember, you do not need to run =doom
@@ -3570,12 +3686,72 @@ adds the location of the org-roam folder
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
 ;; end ----------------------------------------------------- org-roam files location
 #+end_src
-*** UI
-**** lines
-***** move point through long lines one visual line at a time
-****** code
-... #+begin_src emacs-lisp
+**** images
+
 #+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------- org / images
+(after! org
+  (setq org-image-actual-width nil)
+)
+;; end --------------------- org / images
+#+end_src
+*** UI
+**** Interface
+***** NO scroll bar
+****** code
+put the scrollbar on the right back on
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ---------------------------------- UI / Interface / Scrollbar
+(scroll-bar-mode t)
+(setq scroll-bar ('foreground nil))
+;; end ---------------------------------- UI / Interface / Scrollbar
+#+end_src
+****** documentation
+Basic face for the scroll bar colors under X.
+
+Defined in ‘faces.el’.
+
+
+           Family: unspecified
+          Foundry: unspecified
+            Width: unspecified
+           Height: unspecified
+           Weight: unspecified
+            Slant: unspecified
+       Foreground: white
+DistantForeground: unspecified
+       Background: unspecified
+        Underline: unspecified
+         Overline: unspecified
+   Strike-through: unspecified
+              Box: unspecified
+          Inverse: unspecified
+          Stipple: unspecified
+             Font: unspecified
+          Fontset: unspecified
+           Extend: unspecified
+          Inherit: unspecified
+
+  This face was introduced, or its default value was changed, in
+  version 28.1 of Emacs.
+***** YES yascroll
+****** link
+https://github.com/emacsorphanage/yascroll
+****** description
+scrollbar that shows only when the screen is moving
+****** code
+.. #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- UI / Interface / Scrollbar
+(global-yascroll-bar-mode t)
+;; end ---------------------------------- UI / Interface / Scrollbar
+#+end_src
+**** lines
+***** NO move point through long lines one visual line at a time
+****** code
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
 ;; start ---------------------------------- UI / lines
 (define-key evil-normal-state-map
   (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -3602,6 +3778,20 @@ move the cursor to other lines.
 Otherwise, they are restricted to the current line.
 
 This applies to h, SPC, f, F, t, T, ~.
+***** Evil Better Visual Line
+****** site
+https://github.com/YourFin/evil-better-visual-line
+****** code
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- UI / lines / Evil Better Visual Line
+(after! evil
+  (evil-better-visual-line-on)
+)
+;; end ------------------------------------ UI / lines / Evil Better Visual Line
+#+end_src
+****** bug
+Error (use-package): Failed to parse package evil-better-visual-line: Wrong type argument: symbolp, (evil-better-visual-line-on)
+
 **** which key
 ***** on the right side
 ****** code
@@ -3617,7 +3807,8 @@ I can't do it...
 ;; (setq which-key-side-window-location 'bottom)
 ;; (setq which-key-side-window-max-width 0.33)
 ;; (setq which-key-side-window-max-height 0.25)
-                
+
+(setq which-key-side-window-max-height 0.60)
 (setq which-key-idle-delay 0)
 
 (setq which-key-prefix-prefix "📁" )
@@ -3625,47 +3816,6 @@ I can't do it...
 )
 ;; end ------------------------------------ UI / which key / on the right side
 #+end_src
-****** bug
-
-  #+begin_src elisp
-Debugger entered--Lisp error: (wrong-type-argument stringp nil)
-
-  regexp-quote(nil)
-  
-  org-src-coderef-regexp(nil)
-  
-  org-babel-tangle-single-block(1)
-  
-  org-babel-tangle-collect-blocks(nil nil)
-  
-  #f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>)(nil)
-  
-  apply(#f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
-  
-  (let (before-save-hook after-save-hook) (apply fn args))
-  
-  +org--dont-trigger-save-hooks-a(#f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
-  
-  apply(+org--dont-trigger-save-hooks-a #f(compiled-function (&optional arg target-file lang-re) "Write code blocks to source-specific files.\nExtract the bodies of all source code blocks from the current\nfile into their own source-specific files.\nWith one universal prefix argument, only tangle the block at point.\nWhen two universal prefix arguments, only tangle blocks for the\ntangle file of the block at point.\nOptional argument TARGET-FILE can be used to specify a default\nexport file for all source blocks.  Optional argument LANG-RE can\nbe used to limit the exported source code blocks by languages\nmatching a regular expression." (interactive "P") #<bytecode 0x10c80995f74ab88f>) nil)
-  
-  org-babel-tangle(nil)
-  
-  funcall-interactively(org-babel-tangle nil)
-  
-  call-interactively(org-babel-tangle record nil)
-  
-  command-execute(org-babel-tangle record)
-  
-  execute-extended-command(nil "org-babel-tangle" nil)
-  
-  funcall-interactively(execute-extended-command nil "org-babel-tangle" nil)
-  
-  call-interactively(execute-extended-command nil nil)
-  
-  command-execute(execute-extended-command)
-  
-
-  #+end_src
 **** NO centered-window-mode
 didn't work
 
@@ -3686,13 +3836,53 @@ the problem with it is that it applies those margins everywhere
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start ------------------------------------------------------ UI / margins
 (setq-default
-  left-margin-width  10
-  right-margin-width 10
+  left-margin-width  5
+  right-margin-width 5
 )
 (set-window-buffer nil
                    (current-buffer)
 ) ; Use them now.
 ;; end -------------------------------------------------------- UI / margins
+#+end_src
+*** Checkers
+**** Grammar
+***** Langtool
+.. #+begin_src elisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------ Checkers / Grammar / Langtool
+(use-package! langtool
+  :commands (langtool-check
+             langtool-check-done
+             langtool-show-message-at-point
+             langtool-correct-buffer)
+  :init (setq langtool-default-language "pt-BR")
+  :config
+  (unless (or langtool-bin
+              langtool-language-tool-jar
+              langtool-java-classpath)
+    (cond (IS-LINUX
+          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
+;; end -------------------------------- Checkers / Grammar / Langtool
+#+end_src
+***** writegood
+#+begin_src emacs-lisp :tangle ./config.el
+;; start -------------------------------- Checkers / Grammar / writegood
+;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
+(use-package! writegood-mode
+  :hook
+  (org-mode markdown-mode
+            rst-mode
+            asciidoc-mode
+            latex-mode
+            LaTeX-mode)
+  :config
+  (map! :localleader
+        :map writegood-mode-map
+        "g" #'writegood-grade-level
+        "r" #'writegood-reading-ease
+  )
+)
+;; end -------------------------------- Checkers / Grammar / writegood
 #+end_src
 *** Keybindings
 ** packages.el
@@ -3839,4 +4029,19 @@ Keep your text centered when there's only one window.
   centered-window-mode
 )
 ;; end --------------------------------------------------------- UI / centered-window-mode
+#+end_src
+**** YES yascroll
+a better scrollbar
+
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ------------------------------------------------------- UI / yascroll
+(package!
+  yascroll
+)
+;; end ------------------------------------------------------- UI / yascroll
+#+end_src
+**** YES evil-better-visual-line
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! evil-better-visual-line)
 #+end_src
