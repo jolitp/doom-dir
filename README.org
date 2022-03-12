@@ -703,6 +703,105 @@ https://www.youtube.com/playlist?list=PL5--8gKSku15uYCnmxWPO17Dq6hVabAB4
 https://gitlab.com/dwt1
 **** doom config
 https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/doom
+
+
+** Rainer König (org mode)
+*** udemy course
+**** _
+Getting yourself organized with Org-mode
+https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7
+**** content
+8 sections
+37 lectures
+6h 34m total length
+**** welcome
+****** introduction
+****** The course book
+**** the basics of org mode
+****** installation of org mode
+****** headlines and outline mode
+****** ToDo keywords
+****** Schedule, deadlines & agenda views
+****** Repeating tasks
+****** checklists
+**** advanced topics
+****** Tags
+****** Advanced agenda view
+****** Customized agenda views
+****** Drawers, logging and quick notes
+****** Archiving
+**** making things more smooth
+****** Automatic logging of status changes
+****** Splitting your system into several files
+****** The first capture template
+****** More capture templates
+**** workflow and time tracking
+****** Ordered tasks
+****** Timers
+****** Clocking
+****** Column view
+****** Effort estimates
+**** linking, attachments and more
+****** Linking (internal)
+****** Linking (external)
+****** Attachments
+****** Priorities
+****** Tables
+**** exporting and publishing
+****** Exporting
+****** Advanced exporting
+****** Publishing
+**** more advanced topics
+****** Dynamic blocks
+****** Tracking habits
+****** Bulk agenda actions
+****** Google calendar import
+****** Working with source code blocks
+****** Goal setting and tracking
+****** Presenting my system
+*** link to youtube playlist
+https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE
+*** episodes
+**** OrgMode E01S01: Headlines & outline mode
+**** Orgmode E01S02: ToDo keywords
+**** OrgMode E01S03: Schedule, deadlines & agenda views
+**** OrgMode E01S04: Repeating tasks
+**** OrgMode E01S05: Checklists
+**** OrgMode E02S01: Tags
+**** OrgMode E02S02: Agenda view (advanced)
+**** OrgMode E02S03: Customized agenda views
+**** Orgmode E02S04: Drawers, Logging & quick notes
+**** OrgMode E02S05: Archiving
+**** OrgMode E03S01: Automatic logging of status changes
+**** Orgmode E03S02: Splitting your system up to several files
+**** OrgMode E03S03: The first capture template(s)
+**** OrgMode E03S04: The :PROPERTIES: drawer
+**** OrgMode E03S05: Archiving to different files
+**** OrgMode E04S01: Ordered tasks
+**** OrgMode E04S02: Timers
+**** Orgmode E04S03: Clocking (aka time tracking)
+**** OrgMode E04S04: Column view
+**** OrgMode E04S05: Effort estimates
+**** OrgMode E05S01: Linking (internal)
+**** OrgMode E05S02: Linking (external)
+**** OrgMode E05S03: Attachments
+**** OrgMode E05S04: Priorities
+**** OrgMode E05S05: Tables
+**** OrgMode E06S01: Exporting
+**** OrgMode E06S02: Advanced exporting
+**** OrgMode E06S03: Publishing
+**** OrgMode E06S04: Dynamic blocks
+**** OrgMode E06S05: Tracking habits
+**** OrgMode E07S01: Bulk agenda actions
+**** Orgmode E07S02: Presenting my system
+**** OrgMode E07S03: Google Calendar integration
+**** OrgMode E07S04: Source code in OrgMode
+**** OrgMode E07S05: Goal setting & Goal Tracking
+**** OrgMode - A third approach to goal setting & tracking
+**** Orgmode TV - News about the future plans
+**** Orgmode TV - A new episode
+**** Orgmode-TV: How do I plan my days
+**** My course is online on Udemy
 ** Rafael Accácio
 *** youtube
 **** channel link
