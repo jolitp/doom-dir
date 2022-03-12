@@ -3059,6 +3059,83 @@ Removes annoying exit confirmation message
 ;; end -------------------------------- fixes / remove exit confirmation message
 #+end_src
 *** Org
+**** startup
+***** YES folded
+****** code
+when oppening any org file, fold all headers, except the header the point is on
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-folded t)
+)
+;; end ----------------------------------------------- org / startup / folded
+#+end_src
+****** documentation
+=org-startup-folded= is a variable defined in ‘org.el’.
+
+Its value is =nil=
+Original value was =showeverything=
+
+Non-nil means entering Org mode will switch to OVERVIEW.
+
+This can also be configured on a per-file basis by adding one of
+the following lines anywhere in the buffer:
+
+
+\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
+\   #+STARTUP: nofold            (or ‘showall’, this is equivalent)
+\   #+STARTUP: content
+\   #+STARTUP: show<n>levels (<n> = 2..5)
+\   #+STARTUP: showeverything
+\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
+
+Set =org-agenda-inhibit-startup= to a non-nil value if you want
+to ignore this option when Org opens agenda files for the first
+time.
+
+  This variable was introduced, or its default value was changed, in
+  version 9.4 of the Org package that is part of Emacs 27.2.
+  You can customize this variable.
+
+[back]
+***** YES not indented
+****** code
+when oppening any org file, fold all headers, except the header the point is on
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-indented nil)
+)
+;; end ----------------------------------------------- org / startup / folded
+#+end_src
+****** documentation
+=org-startup-indented= is a variable defined in ‘org.el’.
+
+Its value is nil
+Local in buffer README.org; global value is t
+
+Non-nil means turn on ‘org-indent-mode’ on startup.
+This can also be configured on a per-file basis by adding one of
+the following lines anywhere in the buffer:
+
+/   #+STARTUP: indent
+/   #+STARTUP: noindent
+
+  You can customize this variable.
+**** agenda
+***** super agenda
+
+#+begin_src emacs-lisp
+;; start --- org / super agenda
+(after! org
+)
+;; end ----------------------- org / super agenda
 **** TODOs states
 ***** YES keywords
 ... #+begin_src emacs-lisp :tangle ./config.el
@@ -3687,76 +3764,6 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 )
 ;; end ----------------------------------------------- org-appear configuration
 #+end_src
-**** startup
-***** YES folded
-****** code
-when oppening any org file, fold all headers, except the header the point is on
-
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-folded t)
-)
-;; end ----------------------------------------------- org / startup / folded
-#+end_src
-****** documentation
-=org-startup-folded= is a variable defined in ‘org.el’.
-
-Its value is =nil=
-Original value was =showeverything=
-
-Non-nil means entering Org mode will switch to OVERVIEW.
-
-This can also be configured on a per-file basis by adding one of
-the following lines anywhere in the buffer:
-
-
-\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
-\   #+STARTUP: nofold            (or ‘showall’, this is equivalent)
-\   #+STARTUP: content
-\   #+STARTUP: show<n>levels (<n> = 2..5)
-\   #+STARTUP: showeverything
-\   #+STARTUP: fold              (or ‘overview’, this is equivalent)
-
-Set =org-agenda-inhibit-startup= to a non-nil value if you want
-to ignore this option when Org opens agenda files for the first
-time.
-
-  This variable was introduced, or its default value was changed, in
-  version 9.4 of the Org package that is part of Emacs 27.2.
-  You can customize this variable.
-
-[back]
-***** YES not indented
-****** code
-when oppening any org file, fold all headers, except the header the point is on
-
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-indented nil)
-)
-;; end ----------------------------------------------- org / startup / folded
-#+end_src
-****** documentation
-=org-startup-indented= is a variable defined in ‘org.el’.
-
-Its value is nil
-Local in buffer README.org; global value is t
-
-Non-nil means turn on ‘org-indent-mode’ on startup.
-This can also be configured on a per-file basis by adding one of
-the following lines anywhere in the buffer:
-
-/   #+STARTUP: indent
-/   #+STARTUP: noindent
-
-  You can customize this variable.
-
 **** hide blank lines in folded view
 ***** code
 
