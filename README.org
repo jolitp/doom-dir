@@ -1,11 +1,14 @@
 #+TITLE: Doom Emacs config
 #+AUTHOR: João Luís Teixeira Pinto
 * Doom Emacs config
+** _
 This file is a literate configuration of my Doom Emacs config.
 
 Here are the Emacs LISP code that config Emacs and also the explanation of every part of the config.
 
 In addition to that, I also document here how I use, or intend to use, such configuration.
+** Getting Started Guide
+https://github.com/hlissner/doom-emacs/blob/master/docs/getting_started.org
 * Notes about configuring Doom Emacs
 Taken from the Doom Emacs github page
 ** _
@@ -355,7 +358,7 @@ now go to the =config.el= to config the new package
 
 to know what can you configure in a package press:
 
-=SPC h f= for describe function, then type =def-package=
+=SPC h f= for describe function, then type =def-package= (should be use-package! now)
 
 since =def-package= is a wraper around =use-package= it is intresting to know
 about it first:
@@ -1166,11 +1169,50 @@ https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
 ****** 22 An Introduction to Emacs Lisp
 ****** 23 IRC With ERC
 * intresting packages to check out
+** DONE org-appear
+Toggle visibility of hidden Org mode element parts upon entering and leaving an
+element
+** DONE org-transclusion
+https://github.com/nobiot/org-transclusion
 ** org-roam-ui
 A graphical frontend for exploring your org-roam Zettelkasten
 https://github.com/org-roam/org-roam-ui
-** org-transclusion
-https://github.com/nobiot/org-transclusion
+** anki-editor
+Emacs minor mode for making Anki cards with Org
+https://github.com/louietan/anki-editor
+**  ednc
+The Emacs Desktop Notification Center
+https://github.com/sinic/ednc
+** alert
+A Growl-like alerts notifier for Emacs
+https://github.com/jwiegley/alert
+** notdeft
+NotDeft note manager for Emacs
+
+Notdeft is a fork of Deft that uses an external search engine and indexer.
+
+https://github.com/hasu/notdeft
+** Git time machine
+https://gitlab.com/pidu/git-timemachine
+** crux
+A Collection of Ridiculously Useful eXtensions for Emacs
+
+https://github.com/bbatsov/crux
+** HideShow (built-in package)
+https://www.emacswiki.org/emacs/HideShow
+** DOCT: Declarative Org Capture Templates
+*** github
+https://github.com/progfolio/doct
+*** melpa
+recipe
+#+begin_src elisp
+(doct
+ :repo "progfolio/doct"
+ :fetcher github)
+#+end_src
+** dirvish
+Dired can be a nice file manager.
+https://github.com/alexluigit/dirvish
 ** [#C] writefreely.el
 *Frictionless* blogging with Org Mode. No setup required.
 
@@ -1192,7 +1234,11 @@ https://github.com/tumashu/vertico-posframe
 https://elpa.gnu.org/packages/vertico-posframe.html
 ** org-super-agenda
 ** org-noter
+included with doom?
 https://github.com/weirdNox/org-noter
+** transcription-mode
+Emacs mode for editing transcripts.
+https://github.com/skeeto/transcription-mode
 ** Ace Jump Mode
 https://github.com/winterTTr/ace-jump-mode
 ** vue-mode
@@ -1269,7 +1315,12 @@ Emacs package to enable transclusion with Org Mode
 https://github.com/nobiot/org-transclusion
 ** org-fc
 Spaced Repetition System for Emacs org-mode
+
+https://www.leonrische.me/fc/index.html
 https://github.com/l3kn/org-fc
+**  pamparam
+Simple and fast flashcards for Emacs
+https://github.com/abo-abo/pamparam
 ** emacs-bash-completion
 Add programmable bash completion to Emacs shell-mode
 https://github.com/szermatt/emacs-bash-completion
@@ -1346,9 +1397,6 @@ https://github.com/hpdeifel/synosaurus
 Quite old and unmaintained (2 years)
 
 the backends work with German and English, no Portuguese option
-** transcription-mode
-Emacs mode for editing transcripts.
-https://github.com/skeeto/transcription-mode
 ** ink-mode
 An Emacs major mode for the interactive fiction scripting language Ink, by Inkle Studios.
 https://github.com/Kungsgeten/ink-mode
@@ -1463,9 +1511,6 @@ https://github.com/jcs-elpa/indent-control
 Unofficial Emmet's support for emacs
 https://github.com/emacsmirror/emmet-mode
 * configs from the net to check out
-** DONE org-appear
-Toggle visibility of hidden Org mode element parts upon entering and leaving an
-element
 ** DONE Temporarily show emphasis markers when the cursor is on it
 https://www.reddit.com/r/orgmode/comments/43uuck/temporarily_show_emphasis_markers_when_the_cursor/
 *** question
@@ -1629,14 +1674,17 @@ it can be done with org-superstar
 work around:
 
 instead of adding bullets below with =C-RET=, add a bullet above with =M-RET=, that will recalculate the numbering
+*** DONE configure org agenda and org super agenda
 *** TODO change the symbols and steps inside check boxes
 ex:
 
 - [ ]
 - [-]
 - [X]
+*** TODO ? how to make my own expanding code blocks?
+like =<= for source block, I want =<el= for elisp for example
 *** TODO ? can I make the changed bullet, like the TODOs, a different color?
-*** TODO install and configure org drill
+*** TODO install and configure org drill/pamparam/org-fc
 *** TODO make a ABNT css file to use with org export
 **** references
 https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
@@ -1660,7 +1708,6 @@ not after the last item of the current sub-tree
 
 (+org/insert-item-below COUNT)
 *** TODO change color of headers
-*** TODO configure org agenda and org super agenda
 ** TODO + add addional programming language support that does not have a module for it
 *** TODO vue
 *** TODO svelte
@@ -1749,6 +1796,661 @@ https://github.com/mhayashi1120/Emacs-langtool
 ** TODO + keybindings
 *** TODO add documentation to this config about every key mapping in Emacs and Doom Emacs
 making the distinction of the keybinding comming from Emacs or Doom Emacs, including which package overrides that keybinding, also document if the keybinding is changed by me
+** TODO + fixes
+*** TODO emacs is slow in org files
+how to troubleshoot emacs performance
+https://emacs.stackexchange.com/questions/5359/how-can-i-troubleshoot-a-very-slow-emacs
+
+https://www.reddit.com/r/emacs/comments/lt51wy/how_to_diagnose_slow_emacs_at_runtime/
+
+https://www.emacswiki.org/emacs/ProfileDotEmacs
+
+https://stardiviner.github.io/Blog/Emacs-slow-and-heavy-Profile,-Benchmark-your-Emacs,-and-speed-it-up.html
+* documentation
+** org
+*** org-roam
+**** link
+https://www.orgroam.com/manual.html
+**** exerpts
+***** 5 Getting Started
+****** 5.1 The Org-roam Node
+#+begin_quote
+A node is any *headline* or *top level file* /with an ID/.
+#+end_quote
+
+Headlines without IDs will not be considered Org-roam nodes.
+
+Org IDs can be added to files or headlines via the interactive command =M-x
+org-id-get-create=.
+****** 5.2 Links between Nodes
+We link between nodes using Org’s standard ID link (e.g. id:foo).
+
+While only ID links will be considered during the computation of links between
+nodes, Org-roam caches all other links in the documents for external use.
+****** 5.3 Setting up Org-roam
+To start using Org-roam, pick a location to store the Org-roam files.
+
+The directory that will contain your notes is specified by the variable
+=org-roam-directory=.
+
+=(org-roam-db-autosync-mode)= is used to run functions on file changes to maintain
+cache consistency
+****** 5.4 Creating and Linking Nodes
+- =org-roam-node-insert=:
+  + creates a node if it does not exist, and inserts a link to the node at
+    point.
+  + This brings up the list of nodes
+  + Selecting the node will insert an =id:= link to the node.
+  + If you instead entered a title that does not exist it prompts to create a
+    node
+
+- =org-roam-node-find=:
+  + creates a node if it does not exist, and visits the node.
+  + will show a list of titles for nodes that reside in =org-roam-directory=.
+
+- =org-roam-capture=:
+  + creates a node if it does not exist, and restores the current window
+    configuration upon completion.
+****** 5.5 Customizing Node Completions
+Using a completion engine:
+
+For example, to include a column for tags up to 10 character widths wide, one
+can set org-roam-node-display-template as such:
+
+#+begin_src elisp
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)
+      )
+)
+
+#+end_src
+***** 6 Customizing Node Caching
+****** 6.1 How to cache
+sqline vs sqlite3
+****** 6.2 What to cache
+There are instances where you may want to have headlines with ID, but not have
+them cached by Org-roam.
+
+To exclude a headline from the Org-roam database, set the =ROAM_EXCLUDE= property
+to a non-nil value.
+
+For example:
+
+#+begin_src org
+/* Foo
+/  :PROPERTIES:
+/  :ID:       foo
+/  :ROAM_EXCLUDE: t
+/  :END:
+#+end_src
+
+exlude the =:ATTACH:= tag
+
+#+begin_src elisp
+(setq org-roam-db-node-include-function
+      (lambda ()
+        (not (member "ATTACH" (org-get-tags)))))
+#+end_src
+
+links inside property drawers
+
+Use =org-roam-db-extra-links-elements= to specify which additional Org AST element
+types to consider.
+
+Additionally, one may want to ignore certain keys from being excluded within
+property drawers.
+
+For example, we would not want ROAM_REFS links to be self-referential.
+
+Hence, to exclude specific keys, we use =org-roam-db-extra-links-exclude-keys=.
+****** 6.3 When to cache
+You can disable the automatic updating of the database by setting
+=org-roam-db-update-on-save= to nil.
+
+Disable this if your files are large and updating the database is slow.
+***** 7 The Org-roam Buffer
+****** _
+Org-roam provides the Org-roam buffer: an interface to view relationships with other notes (backlinks, reference links, unlinked references etc.). There are two main commands to use here:
+
+- =org-roam-buffer-toggle=:
+  + Launch an Org-roam buffer that tracks the node currently at point. This
+    means that the content of the buffer changes as the point is moved, if
+    necessary.
+
+- =org-roam-buffer-display-dedicated=:
+  + Launch an Org-roam buffer for a specific node without visiting its file.
+    Unlike org-roam-buffer-toggle you can have multiple such buffers and their
+    content won’t be automatically replaced with a new node at point.
+****** 7.1 Navigating the Org-roam Buffer
+Here are several of the more useful magit-section keybindings:
+
+    - M-{N}: magit-section-show-level-{N}-all
+
+    - n: magit-section-forward
+
+    - <TAB>: magit-section-toggle
+
+    - <RET>: org-roam-buffer-visit-thing
+****** 7.2 Configuring what is displayed in the buffer
+To configure what sections are displayed in the buffer, set ~org-roam-mode-sections.
+
+(this is the default)
+#+begin_src elisp
+(setq org-roam-mode-sections
+      (list
+       #'org-roam-backlinks-section
+       #'org-roam-reflinks-section
+    ;; #'org-roam-unlinked-references-section
+      )
+)
+#+end_src
+
+For each section function, you can pass args along to modify its behaviour.
+
+For example, if you want to render unique sources for backlinks (and also keep
+rendering reference links), set =org-roam-mode-sections= as follows:
+
+#+begin_src elisp
+(setq org-roam-mode-sections
+      '(
+        (org-roam-backlinks-section
+         :unique t)
+        org-roam-reflinks-section)
+)
+#+end_src
+****** 7.3 Configuring the Org-roam buffer display
+The author’s recommended configuration is as follows:
+
+(regular window)
+#+begin_src elisp
+(add-to-list 'display-buffer-alist
+             '(
+               "\\*org-roam\\*"
+               (display-buffer-in-direction)
+               (direction . right)
+               (window-width . 0.33)
+               (window-height . fit-window-to-buffer)
+              )
+)
+#+end_src
+
+(side-window)
+#+begin_src elisp
+(add-to-list 'display-buffer-alist
+             '("\\*org-roam\\*"
+               (display-buffer-in-side-window)
+               (side . right)
+               (slot . 0)
+               (window-width . 0.33)
+               (window-parameters . ((no-other-window . t)
+                                     (no-delete-other-windows . t)))
+              )
+)
+#+end_src
+****** 7.4 TODO Styling the Org-roam buffer
+empty
+***** 8 Node Properties
+****** 8.1 Standard Org properties
+****** 8.2 Titles and Aliases
+alias
+
+To assign an alias to a node, add the “ROAM_ALIASES” property to the node:
+
+#+begin_src org
+\* Artificial Intelligence
+\:PROPERTIES:
+\:ROAM_ALIASES: AI
+\:END:
+#+end_src
+
+functions to add or remove alias: =org-roam-alias-add alias=, =org-roam-alias-remove=
+****** 8.3 Tags
+Tags for top-level (file) nodes are pulled from the =#+filetags= keyword
+
+Tags for headline level nodes are regular Org tags.
+
+Note that the #+filetags keyword results in tags being inherited by headers
+within the file.
+****** 8.4 Refs
+Refs are unique identifiers for nodes. These keys allow references to the key to
+show up in the Org-roam buffer.
+
+For example, a node for a website may use the URL as the ref, and a node for a
+paper may use an Org-ref citation key.
+
+To add a ref, add to the “ROAM_REFS” property as follows:
+
+#+begin_src org
+\* Google
+\:PROPERTIES:
+\:ROAM_REFS: https://www.google.com/
+\:END:
+#+end_src
+
+With the above example, if another node links to https://www.google.com/, it
+will show up as a “reference backlink”.
+
+You may assign multiple refs to a single node, for example when you want
+multiple papers in a series to share the same note, or an article has a citation
+key and a URL at the same time
+
+functions:
+
+Function: org-roam-ref-add ref
+
+    Add REF to the node at point. When called interactively, prompt for the ref
+    to add.
+
+Function: org-roam-ref-remove
+
+    Remove a ref from the node at point.
+***** 9 Citations
+Org-roam supports the caching of both org roam citations and in-built (org mode)
+citations (of form [cite:@key]) and =org-ref= citations (of form cite:key).
+****** 9.1 Using the Cached Information
+To designate the node to be the canonical node for the academic paper, we can
+use its unique citation key:
+
+for org-ref.
+
+#+begin_src org
+\* Probabilistic Robotics
+\:PROPERTIES:
+\:ID:       51b7b82c-bbb4-4822-875a-ed548cffda10
+\:ROAM_REFS: cite:thrun2005probabilistic
+\:END:
+#+end_src
+***** 10 Completion
+****** 10.1 Completing within Link Brackets
+****** 10.2 Completing anywhere
+***** 11 Encryption
+***** 12 Org-roam Protocol
+Org-roam provides extensions for capturing content from external applications
+such as the browser, via =org-protocol=.
+
+Org-roam extends org-protocol with 2 protocols: the =roam-node= and =roam-ref=
+protocols.
+****** 12.1 Installation
+******* _
+To enable Org-roam’s protocol extensions, simply add the following to your init
+file:
+
+#+begin_src elisp
+(require 'org-roam-protocol)
+#+end_src
+
+set up org-protocol:
+
+to use org-protocol, once must:
+
+- launch the emacsclient process
+- Register org-protocol:// as a valid scheme-handler
+******* 12.1.1 Linux
+For Linux users, create a desktop application in
+=~/.local/share/applications/org-protocol.desktop=:
+
+#+begin_src conf
+[Desktop Entry]
+Name=Org-Protocol
+Exec=emacsclient %u
+Icon=emacs-icon
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/org-protocol
+#+end_src
+
+Associate org-protocol:// links with the desktop application by running in your
+shell:
+
+#+begin_src bash
+xdg-mime default org-protocol.desktop x-scheme-handler/org-protocol
+#+end_src
+
+To disable the “confirm” prompt in Chrome, you can also make Chrome show a
+checkbox to tick, so that the Org-Protocol Client app will be used without
+confirmation.
+
+To do this, run in a shell:
+
+#+begin_src bash
+sudo mkdir -p /etc/opt/chrome/policies/managed/
+sudo tee /etc/opt/chrome/policies/managed/external_protocol_dialog.json >/dev/null <<'EOF'
+{
+  "ExternalProtocolDialogShowAlwaysOpenCheckbox": true
+}
+EOF
+sudo chmod 644 /etc/opt/chrome/policies/managed/external_protocol_dialog.json
+#+end_src
+
+and then restart Chrome (for example, by navigating to <chrome://restart>) to
+make the new policy take effect.
+******* 12.1.2 Mac OS
+******* 12.1.3 Windows
+****** 12.2 The roam-node protocol
+The roam-node protocol opens the node with ID specified by the node key (e.g.
+org-protocol://roam-node?node=node-id). org-roam-graph uses this to make the
+graph navigable.
+****** 12.3 The roam-ref protocol
+This protocol finds or creates a new note with a given =ROAM_REFS=:
+
+To use this, create the following bookmarklet in your browser:
+
+#+begin_src javascript
+javascript:location.href =
+    'org-protocol://roam-ref?template=r&ref='
+    + encodeURIComponent(location.href)
+    + '&title='
+    + encodeURIComponent(document.title)
+    + '&body='
+    + encodeURIComponent(window.getSelection())
+#+end_src
+
+where template is the template key for a template in
+org-roam-capture-ref-templates (see The Templating System).
+***** 13 The Templating System
+****** _
+Org-roam extends the =org-capture= system, providing a smoother note-taking
+experience.
+
+However, these extensions mean =Org-roam= capture templates are
+incompatible with =org-capture= templates.
+
+Org-roam’s templates are specified by org-roam-capture-templates.
+
+Just like =org-capture-templates=, =org-roam-capture-template= can contain multiple
+templates.
+
+If =org-roam-capture-templates= only contains one template, there will be no
+prompt for template selection.
+****** 13.1 Template Walkthrough
+(default template)
+#+begin_src elisp
+(("d" "default" plain "%?"
+  :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                     "#+title: ${title}\n")
+  :unnarrowed t)
+)
+#+end_src
+
+- The template has short key "d".
+  + If you have only one template, org-roam automatically chooses this template
+    for you.
+
+- The template is given a description of "default".
+
+- plain text is inserted.
+  + Other options include Org headings via entry.
+
+- Notice that the target that’s usually in Org-capture templates is missing
+  here.
+
+- "%?" is the template inserted on each call to org-roam-capture-.
+  + This template means don’t insert any content, but place the cursor here.
+
+- :target is a compulsory specification in the Org-roam capture template.
+  + The first element of the list indicates the type of the target, the second
+    element indicates the location of the captured node, and the rest of the
+    elements indicate prefilled template that will be inserted and the position
+    of the point will be adjusted for.
+  + The latter behavior varies from type to type of the capture target.
+
+- :unnarrowed t tells org-capture to show the contents for the whole file,
+  rather than narrowing to just the entry.
+  + This is part of the Org-capture templates.
+
+See the =org-roam-capture-templates= documentation for more details and
+customization options.
+****** 13.2 Org-roam Template Expansion
+Org-roam provides the ${foo} syntax for substituting variables with known
+strings.
+
+...
+***** 14 Graphing
+****** 14.1 Graph Options
+***** 15 Org-roam Dailies
+Org-roam provides journaling capabilities akin to Org-journal with
+org-roam-dailies.
+****** 15.1 Configuration
+******* _
+For org-roam-dailies to work, you need to define two variables:
+
+Variable: org-roam-dailies-directory
+
+    Path to daily-notes. This path is relative to org-roam-directory.
+
+Variable: org-roam-dailies-capture-templates
+
+    Capture templates for daily-notes in Org-roam.
+
+Here is a sane default configuration:
+
+#+begin_src elisp
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n")
+        )
+       )
+)
+#+end_src
+******* 15.2 Usage
+***** 16 Performance Optimization
+***** 17 The Org-mode Ecosystem
+****** 17.1 Browsing History with winner-mode
+winner-mode is a global minor mode that allows one to undo and redo changes in
+the window configuration.
+
+winner-mode can be used as a simple version of browser history for Org-roam.
+
+Each click through org-roam links (from both Org files and the backlinks buffer)
+causes changes in window configuration, which can be undone and redone using
+winner-mode.
+
+To use winner-mode, simply enable it, and bind the appropriate interactive
+functions:
+
+#+begin_src emacs-lisp
+(winner-mode +1)
+(define-key winner-mode-map (kbd "<M-left>") #'winner-undo)
+(define-key winner-mode-map (kbd "<M-right>") #'winner-redo)
+#+end_src
+****** 17.2 Versioning Notes
+****** 17.3 Full-text search with Deft
+#+begin_src elisp
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-roam-directory))
+#+end_src
+****** 17.4 Org-journal
+#+begin_src emacs-lisp
+(use-package org-journal
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  :custom
+  (org-journal-date-prefix "#+title: ")
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-dir "/path/to/journal/files/")
+  (org-journal-date-format "%A, %d %B %Y"))
+#+end_src
+****** 17.5 Org-download
+#+begin_src emacs-lisp
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
+#+end_src
+****** 17.6 mathpix.el
+****** 17.7 Org-noter / Interleave (abandomware)
+****** 17.8 Bibliography
+org-roam-bibtex offers tight integration between org-ref, helm-bibtex and
+org-roam.
+
+This helps you manage your bibliographic notes under org-roam.
+****** 17.9 Spaced Repetition
+***** 18 FAQ
+****** 18.1 How do I have more than one Org-roam directory?
+Emacs supports directory-local variables, allowing the value of
+org-roam-directory to be different in different directories.
+
+It does this by checking for a file named .dir-locals.el.
+
+To add support for multiple directories, override the org-roam-directory
+variable using directory-local variables.
+
+This is what .dir-locals.el may contain:
+
+#+begin_src emacs-lisp
+((nil . ((org-roam-directory . "/path/to/alt/org-roam-dir")
+         (org-roam-db-location . "/path/to/alt/org-roam-dir/org-roam.db"))))
+#+end_src
+
+Note org-roam-directory and org-roam-db-location should be an absolute path, not
+relative.
+
+Alternatively, use eval if you wish to call functions:
+
+#+begin_src emacs-lisp
+(
+ (nil .
+        (
+         (eval .
+                 (setq-local
+                  org-roam-directory
+                    (expand-file-name
+                      (locate-dominating-file
+                        default-directory ".dir-locals.el")
+                    )
+                 )
+         )
+         (eval . (setq-local
+                  org-roam-db-location
+                    (expand-file-name "org-roam.db"
+                      org-roam-directory)
+                 )
+         )
+        )
+ )
+)
+#+end_src
+
+All files within that directory will be treated as their own separate set of
+Org-roam files. Remember to run org-roam-db-sync from a file within that
+directory, at least once.
+****** 18.2 How do I create a note whose title already matches one of the candidates?
+****** 18.3 How can I stop Org-roam from creating IDs everywhere?
+check the value you have set for org-id-link-to-org-use-id: setting it to
+'create-if-interactive is a popular option.
+****** 18.4 How do I migrate from Roam Research?
+****** 18.5 How to migrate from Org-roam v1?
+****** 18.6 How do I publish my notes with an Internet-friendly graph?
+******* 18.6.1 Configure org-mode for publishing
+******* 18.6.2 Overriding the default link creation function
+******* 18.6.3 Copying the generated file to the export directory
+****** 18.7 I’m seeing this “Selecting deleted buffer” error. What do I do?
+****** 19 Developer’s Guide to Org-roam
+****** 20 Appendix
+******* 20.1 Note-taking Workflows
+******** Books
+********* How To Take Smart Notes
+https://www.goodreads.com/book/show/34507927-how-to-take-smart-notes
+******** Articles
+********* The Zettelkasten Method - LessWrong 2.0
+https://www.lesswrong.com/posts/NfdHG6oHBJ8Qxc26s/the-zettelkasten-method-1
+********* Building a Second Brain in Roam…And Why You Might Want To : RoamResearch
+https://www.reddit.com/r/RoamResearch/comments/eho7de/building_a_second_brain_in_roamand_why_you_might
+********* Roam Research: Why I Love It and How I Use It - Nat Eliason
+https://www.nateliason.com/blog/roam
+********* Adam Keesling’s Twitter Thread
+https://twitter.com/adam_keesling/status/1196864424725774336?s=20
+********* How To Take Smart Notes With Org-mode · Jethro Kuan
+https://blog.jethro.dev/posts/how_to_take_smart_notes_org/
+******** Threads
+********* Ask HN: How to Take Good Notes
+https://news.ycombinator.com/item?id=22473209
+******** Videos
+********* How to Use Roam to Outline a New Article in Under 20 Minutes
+https://www.youtube.com/watch?v=RvWic15iXjk
+****** 20.2 Ecosystem
+empty
+**** questions
+***** how can I delete an org-roam note/node?
+****** simple way
+Right now, deleting a file will result in links to the current file breaking.
+
+If you delete the file using Emacs (with dired, or calling =M-x delete-file=), the
+cache remains consistent.
+
+If you delete the file from outside Emacs, it won’t, but is not a big issue,
+because running =M-x org-roam-db-build-cache= once more will bring it to a
+consistent state.
+****** more sofisticated way
+
+I currently handle that with a script to remove all the references first, then I
+delete the file:
+
+#+begin_src python
+#!/usr/bin/env python3
+
+import re
+import os
+import subprocess
+import sys
+
+def get_id(fname):
+    with open(fname) as f:
+        content = f.read()
+        return re.findall(r":ID:\s+(.*)", content)[0]
+
+def notes_with_pattern(pat):
+    roam_folder = os.path.expanduser("~/.roam/")
+    raw = subprocess.check_output(f"rg -l {pat} {roam_folder}", shell=True).decode("utf-8")
+    return raw.splitlines()
+
+def subid(content, ident):
+    pat = f"\[\[id:{ident}\]\[(.*?)\]\]"
+    return re.sub(pat, "\\1", content)
+
+def remove_note_mention(fn, ident):
+    with open(fn) as f:
+        content = f.read()
+    newcontent = subid(content, ident)
+    with open(fn, "w") as f:
+        f.write(newcontent)
+    print(f"Edited {fn}")
+
+def delete_note(fname):
+    ident = get_id(fname)
+    print(f"Removing id {ident}")
+    to_edit = [n for n in notes_with_pattern(ident)
+               if n != fname]
+    for fn in to_edit:
+        remove_note_mention(fn, ident)
+
+if __name__ == '__main__':
+    delete_note(sys.argv[1])
+#+end_src
+
+And I call it from emacs with:
+
+#+begin_src elisp
+(defun delete-org-roam-note-references ()
+  (interactive)
+  (async-shell-command (s-concat "delete_note.py " (buffer-file-name))))
+#+end_src
+
+Note: It does not work with heading references just whole notes ones.
 * Config files
 ** init.el
 #+begin_src emacs-lisp :tangle ./init.el
@@ -2074,7 +2776,7 @@ Modules that reconfigure or augment packages or features built into Emacs.
        :emacs
 #+end_src
 **** YES dired
-+ [[file:../modules/emacs/dired/README.org][dired]] =+ranger +icons= - TODO
++ dired =+ranger +icons= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (dired             ; making dired pretty [functional]
         +ranger
@@ -2087,21 +2789,21 @@ Modules that reconfigure or augment packages or features built into Emacs.
       ;; electric          ; smarter, keyword-based electric-indent
 #+end_src
 **** YES ibuffer
-+ [[file:../modules/emacs/ibuffer/README.org][ibuffer]] =+icons= - TODO
++ ibuffer =+icons= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (ibuffer          ; interactive buffer management
         +icons
         )
 #+end_src
 **** YES undo
-+ [[file:../modules/emacs/undo/README.org][undo]] =+tree= - A smarter, more intuitive & persistent undo history
++ undo =+tree= - A smarter, more intuitive & persistent undo history
 #+begin_src emacs-lisp :tangle ./init.el
        (undo             ; persistent, smarter undo for your inevitable mistakes
         +tree
         )
 #+end_src
 **** YES vc
-+ [[file:../modules/emacs/vc/README.org][vc]] - TODO
++ vc - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        vc                ; version-control and Emacs, sitting in a tree
 #+end_src
@@ -2113,7 +2815,7 @@ Modules that offer terminal emulation.
        :term
 #+end_src
 **** NO eshell
-+ [[file:../modules/term/eshell/README.org][eshell]] - TODO
++ eshell - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;eshell            ; the elisp shell that works everywhere
 #+end_src
@@ -2128,7 +2830,7 @@ Modules that offer terminal emulation.
        ;;term              ; basic terminal emulator for Emacs
 #+end_src
 **** NO vterm
-+ [[file:../modules/term/vterm/README.org][vterm]] - TODO
++ vterm - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;vterm             ; the best terminal emulation in Emacs
 #+end_src
@@ -2137,19 +2839,19 @@ Modules that offer terminal emulation.
 #+begin_src emacs-lisp :tangle ./init.el
        :checkers
 #+end_src
-**** YES syntax
+**** NO syntax
 + syntax =+childframe= - Live error/warning highlights
 #+begin_src emacs-lisp :tangle ./init.el
-       (syntax              ; tasing you for every semicolon you forget
-       +childframe
-       )
+      ;; (syntax              ; tasing you for every semicolon you forget
+      ;; +childframe
+      ;; )
 #+end_src
-**** YES spell
+**** NO spell
 + spell =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
 #+begin_src emacs-lisp :tangle ./init.el
-       (spell              ; tasing you for misspelling mispelling
-       +flyspell
-       )
+      ;; (spell              ; tasing you for misspelling mispelling
+      ;; +flyspell
+      ;; )
 #+end_src
 **** YES grammar
 + grammar - TODO
@@ -2179,29 +2881,29 @@ Small modules that give Emacs access to external tools & services.
        ;; )
 #+end_src
 **** NO direnv
-+ [[file:../modules/tools/direnv/README.org][direnv]] - TODO
++ direnv - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;direnv
 #+end_src
 **** NO docker
-+ [[file:../modules/tools/docker/README.org][docker]] =+lsp= - TODO
++ docker =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (docker
        ;; +lsp
        ;; )
 #+end_src
 **** NO editorconfig
-+ [[file:../modules/tools/editorconfig/README.org][editorconfig]] - TODO
++ editorconfig - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;editorconfig      ; let someone else argue about tabs vs spaces
 #+end_src
 **** NO ein - jupyper notebooks
-+ [[file:../modules/tools/ein/README.org][ein]] - TODO
++ ein - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;ein               ; tame Jupyter notebooks with emacs
 #+end_src
 **** NO eval
-+ [[file:../modules/tools/eval/README.org][eval]] =+overlay= - REPL & code evaluation support for a variety of languages
++ eval =+overlay= - REPL & code evaluation support for a variety of languages
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (eval      ; run code, run (also, repls)
       ;;  +overlay
@@ -2213,7 +2915,7 @@ Small modules that give Emacs access to external tools & services.
        ;;gist              ; interacting with github gists
 #+end_src
 **** NO lookup
-+ [[file:../modules/tools/lookup/README.org][lookup]] =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
++ lookup =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (lookup              ; navigate your code and its documentation
        ;; +dictionary
@@ -2223,7 +2925,7 @@ Small modules that give Emacs access to external tools & services.
 
 #+end_src
 **** YES lsp
-+ [[file:../modules/tools/lsp/README.org][lsp]] =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
++ lsp =+peek +eglot= - Installation and configuration of language server protocol client (lsp-mode or eglot)
 #+begin_src emacs-lisp :tangle ./init.el
        (lsp
         +peek          ; M-x vscode
@@ -2231,7 +2933,7 @@ Small modules that give Emacs access to external tools & services.
         )
 #+end_src
 **** YES magit
-+ [[file:../modules/tools/magit/README.org][magit]] =+forge= - TODO
++ magit =+forge= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (magit             ; a git porcelain for Emacs
         +forge
@@ -2243,14 +2945,14 @@ Small modules that give Emacs access to external tools & services.
        ;;make              ; run make tasks from Emacs
 #+end_src
 **** NO pass
-+ [[file:../modules/tools/pass/README.org][pass]] =+auth= - TODO
++ pass =+auth= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (pass              ; password manager for nerds
        ;; +auth
        ;; )
 #+end_src
 **** YES pdf
-+ [[file:../modules/tools/pdf/README.org][pdf]] - TODO
++ pdf - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        pdf               ; pdf enhancements
 #+end_src
@@ -2260,17 +2962,17 @@ Small modules that give Emacs access to external tools & services.
        ;;prodigy           ; FIXME managing external services & code builders
 #+end_src
 **** YES rgb
-+ [[file:../modules/tools/rgb/README.org][rgb]] - TODO
++ rgb - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        rgb               ; creating color strings
 #+end_src
 **** NO taskrunner
-+ [[file:../modules/tools/taskrunner/README.org][taskrunner]] - TODO
++ taskrunner - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;taskrunner        ; taskrunner for all your projects
 #+end_src
 **** NO terraform
-+ [[file:../modules/tools/terraform/README.org][terraform]] - TODO
++ terraform - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;terraform         ; infrastructure as code
 #+end_src
@@ -2280,7 +2982,7 @@ Small modules that give Emacs access to external tools & services.
        ;;tmux              ; an API for interacting with tmux
 #+end_src
 **** NO upload
-+ [[file:../modules/tools/upload/README.org][upload]] - TODO
++ upload - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;upload            ; map local to remote projects via ssh/ftp
 #+end_src
@@ -2288,8 +2990,8 @@ Small modules that give Emacs access to external tools & services.
 *** OS
 Modules to improve integration into your OS, system, or devices.
 
-+ [[file:../modules/os/macos/README.org][macos]] - Improve Emacs' compatibility with macOS
-+ [[file:../modules/os/tty/README.org][tty]] =+osc= - Improves the terminal Emacs experience.
++ macos - Improve Emacs' compatibility with macOS
++ tty =+osc= - Improves the terminal Emacs experience.
 
 #+begin_src emacs-lisp :tangle ./init.el
        :os
@@ -2308,24 +3010,24 @@ Modules that bring support for a language or group of languages to Emacs.
        :lang
 #+end_src
 **** NO Agda
-+ [[file:../modules/lang/agda/README.org][agda]] =+local= - TODO
++ agda =+local= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;agda              ; types of types of types of types...
 #+end_src
 **** NO Beancount
-+ [[file:../modules/lang/beancount/README.org][beancount]] =+lsp= - TODO
++ beancount =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;beancount         ; mind the GAAP
 #+end_src
 **** NO C/C++
-+ [[file:../modules/lang/cc/README.org][cc]] =+lsp= - TODO
++ cc =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (cc                ; C > C++ == 1
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO Clojure
-+ [[file:../modules/lang/clojure/README.org][clojure]] =+lsp= - TODO
++ clojure =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;clojure           ; java with a lisp
 #+end_src
@@ -2335,17 +3037,17 @@ Modules that bring support for a language or group of languages to Emacs.
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
 #+end_src
 **** NO coq
-+ [[file:../modules/lang/coq/README.org][coq]] - TODO
++ coq - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;coq               ; proofs-as-programs
 #+end_src
 **** NO crystal
-+ [[file:../modules/lang/crystal/README.org][crystal]] - TODO
++ crystal - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;crystal           ; ruby at the speed of c
 #+end_src
 **** NO C#
-+ [[file:../modules/lang/csharp/README.org][csharp]] =+lsp +unity= - TODO
++ csharp =+lsp +unity= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
         ;; (csharp            ; unity, .NET, and mono shenanigans
         ;; +lsp
@@ -2353,7 +3055,7 @@ Modules that bring support for a language or group of languages to Emacs.
         ;; )
 #+end_src
 **** NO dart / flutter
-+ [[file:../modules/lang/dart/README.org][dart]] =+lsp +flutter=
++ dart =+lsp +flutter=
 #+begin_src emacs-lisp :tangle ./init.el
        ;;(dart              ; paint ui and not much else
        ;; +lsp
@@ -2366,7 +3068,7 @@ Modules that bring support for a language or group of languages to Emacs.
        data              ; config/data formats
 #+end_src
 **** NO elixir
-+ [[file:../modules/lang/elixir/README.org][elixir]] =+lsp= - TODO
++ elixir =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;elixir            ; erlang done right
 #+end_src
@@ -2382,27 +3084,27 @@ WTF is this?
        ;;elm               ; care for a cup of TEA?
 #+end_src
 **** YES emacs-lisp
-+ [[file:../modules/lang/emacs-lisp/README.org][emacs-lisp]] - TODO
++ emacs-lisp - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        emacs-lisp        ; drown in parentheses
 #+end_src
 **** NO erlang
-+ [[file:../modules/lang/erlang/README.org][erlang]] =+lsp= - TODO
++ erlang =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;erlang            ; an elegant language for a more civilized age
 #+end_src
 **** NO ess
-+ [[file:../modules/lang/ess/README.org][ess]] =+lsp= - TODO
++ ess =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;ess               ; emacs speaks statistics
 #+end_src
 **** NO factor
-+ [[file:../modules/lang/factor/README.org][factor]] - TODO
++ factor - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;factor
 #+end_src
 **** NO faust
-+ [[file:../modules/lang/faust/README.org][faust]] - TODO
++ faust - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;faust             ; dsp, but you get to keep your soul
 #+end_src
@@ -2411,33 +3113,33 @@ WTF is this?
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
 #+end_src
 **** NO F#
-+ [[file:../modules/lang/fsharp/README.org][fsharp]] =+lsp= - TODO
++ fsharp =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (fsharp            ; ML stands for Microsoft's Language
       ;;  +lsp
       ;; )
 #+end_src
 **** NO F*
-+ [[file:../modules/lang/fstar/README.org][fstar]] - F* support
++ fstar - F* support
 #+begin_src emacs-lisp :tangle ./init.el
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
 #+end_src
 **** YES gdscript
-+ [[file:../modules/lang/gdscript/README.org][gdscript]] =+lsp= - TODO
++ gdscript =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (gdscript          ; the language you waited for
         +lsp
        )
 #+end_src
 **** NO go
-+ [[file:../modules/lang/go/README.org][go]] =+lsp= - TODO
++ go =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;(go          ; the hipster dialect
        ;; +lsp
        ;; )
 #+end_src
 **** NO haskell
-+ [[file:../modules/lang/haskell/README.org][haskell]] =+lsp= - TODO
++ haskell =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (haskell     ; a language that's lazier than I am
        ;; +lsp
@@ -2449,7 +3151,7 @@ WTF is this?
        ;;hy                ; readability of scheme w/ speed of python
 #+end_src
 **** NO idris
-+ [[file:../modules/lang/idris/README.org][idris]] - TODO
++ idris - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;idris             ; a language you can depend on
 #+end_src
@@ -2461,31 +3163,31 @@ WTF is this?
        ;; )
 #+end_src
 **** YES javascript
-+ [[file:../modules/lang/javascript/README.org][javascript]] =+lsp= - JavaScript, TypeScript, and CoffeeScript support
++ javascript =+lsp= - JavaScript, TypeScript, and CoffeeScript support
 #+begin_src emacs-lisp :tangle ./init.el
        (javascript        ; all(hope(abandon(ye(who(enter(here))))))
         +slp
         )
 #+end_src
 **** YES json
-+ [[file:../modules/lang/json/README.org][json]] =+lsp= - TODO
++ json =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (json              ; At least it ain't XML
         +lsp
         )
 #+end_src
 **** NO julia
-+ [[file:../modules/lang/julia/README.org][julia]] =+lsp= - TODO
++ julia =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;julia             ; a better, faster MATLAB
 #+end_src
 **** NO kotlin
-+ [[file:../modules/lang/kotlin/README.org][kotlin]] =+lsp= - TODO
++ kotlin =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;kotlin            ; a better, slicker Java(Script)
 #+end_src
 **** YES latex
-+ [[file:../modules/lang/latex/README.org][latex]] =+latexmk +cdlatex +fold +lsp= - TODO
++ latex =+latexmk +cdlatex +fold +lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        latex             ; writing papers in Emacs has never been so fun
 #+end_src
@@ -2495,37 +3197,37 @@ WTF is this?
        ;;lean              ; for folks with too much to prove
 #+end_src
 **** NO ledger
-+ [[file:../modules/lang/ledger/README.org][ledger]] - TODO
++ ledger - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;ledger            ; be audit you can be
 #+end_src
 **** NO lua
-+ [[file:../modules/lang/lua/README.org][lua]] =+fennel +moonscript= - TODO
++ lua =+fennel +moonscript= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;lua               ; one-based indices? one-based indices
 #+end_src
 **** YES markdown
-+ [[file:../modules/lang/markdown/README.org][markdown]] =+grip= - TODO
++ markdown =+grip= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        markdown          ; writing docs for people to ignore
 #+end_src
 **** NO nim
-+ [[file:../modules/lang/nim/README.org][nim]] - TODO
++ nim - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;nim               ; python + lisp at the speed of c
 #+end_src
 **** NO nix
-+ [[file:../modules/lang/nix/README.org][nix]] - TODO
++ nix - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;nix               ; I hereby declare "nix geht mehr!"
 #+end_src
 **** NO ocaml
-+ [[file:../modules/lang/ocaml/README.org][ocaml]] =+lsp= - TODO
++ ocaml =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;ocaml             ; an objective camel
 #+end_src
 **** YES org
-+ [[file:../modules/lang/org/README.org][org]] =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
++ org =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (org              ; organize your plain life in plain text
        ;; +brain
@@ -2544,7 +3246,7 @@ WTF is this?
         )
 #+end_src
 **** NO php
-+ [[file:../modules/lang/php/README.org][php]] =+hack +lsp= - TODO
++ php =+hack +lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;php               ; perl's insecure younger brother
 #+end_src
@@ -2559,7 +3261,7 @@ WTF is this?
        ;;purescript        ; javascript, but functional
 #+end_src
 **** YES python
-+ [[file:../modules/lang/python/README.org][python]] =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
++ python =+cython +lsp +pyright +pyenv +conda +poetry= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        (python            ; beautiful is better than ugly
         +lsp
@@ -2571,17 +3273,17 @@ WTF is this?
        ;;qt                ; the 'cutest' gui framework ever
 #+end_src
 **** NO racket
-+ [[file:../modules/lang/racket/README.org][racket]] =+lsp +xp= - TODO
++ racket =+lsp +xp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;racket            ; a DSL for DSLs
 #+end_src
 **** NO raku
-+ [[file:../modules/lang/raku/README.org][raku]] - TODO
++ raku - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;raku              ; the artist formerly known as perl6
 #+end_src
 **** NO rest (emacs REST client)
-+ [[file:../modules/lang/rest/README.org][rest]] - TODO
++ rest - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;rest              ; Emacs as a REST client
 #+end_src
@@ -2591,26 +3293,26 @@ WTF is this?
        ;; rst               ; ReST in peace
 #+end_src
 **** NO ruby
-+ [[file:../modules/lang/ruby/README.org][ruby]] =+lsp +rvm +rbenv +rails +chruby=
++ ruby =+lsp +rvm +rbenv +rails +chruby=
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (ruby      ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;; +rails
        ;; )
 #+end_src
 **** NO rust
-+ [[file:../modules/lang/rust/README.org][rust]] =+lsp= - TODO
++ rust =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO scala
-+ [[file:../modules/lang/scala/README.org][scala]] =+lsp= - TODO
++ scala =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;scala             ; java, but good
 #+end_src
 **** NO scheme
-+ [[file:../modules/lang/scheme/README.org][scheme]] =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
++ scheme =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (scheme    ; a fully conniving family of lisps
        ;; +chez
@@ -2625,7 +3327,7 @@ WTF is this?
        ;; )
 #+end_src
 **** NO sh
-+ [[file:../modules/lang/sh/README.org][sh]] =+fish +lsp +powershell= - TODO
++ sh =+fish +lsp +powershell= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (sh                ; she sells {ba,z,fi}sh shells on the C xor
       ;;  +lsp
@@ -2633,12 +3335,12 @@ WTF is this?
       ;; )
 #+end_src
 **** NO sml
-+ [[file:../modules/lang/sml/README.org][sml]] - TODO
++ sml - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;sml
 #+end_src
 **** NO solidity
-+ [[file:../modules/lang/solidity/README.org][solidity]] - TODO
++ solidity - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;solidity          ; do you need a blockchain? No.
 #+end_src
@@ -2660,20 +3362,20 @@ WTF is this?
         )
 #+end_src
 **** NO yaml
-+ [[file:../modules/lang/yaml/README.org][yaml]] =+lsp= - TODO
++ yaml =+lsp= - TODO
 #+begin_src emacs-lisp :tangle ./init.el
       ;; (yaml              ; JSON, but readable
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO zig
-+ [[file:../modules/lang/zig/README.org][zig]] =+lsp= - Zig support.
++ zig =+lsp= - Zig support.
 #+begin_src emacs-lisp :tangle ./init.el
        ;;zig               ; C, but simpler
 #+end_src
 *** email
-+ [[file:../modules/email/mu4e/README.org][mu4e]] =+org +gmail= - TODO
-+ [[file:../modules/email/notmuch/README.org][notmuch]] - TODO
++ mu4e =+org +gmail= - TODO
++ notmuch - TODO
 + wanderlust =+gmail= - TODO
 
 #+begin_src emacs-lisp :tangle ./init.el
@@ -2697,34 +3399,34 @@ loaded last*, before =:config= modules.
        :app
 #+end_src
 **** YES calendar
-+ [[file:../modules/app/calendar/README.org][calendar]] - TODO
++ calendar - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        calendar
 #+end_src
 **** NO emms - emacs multimeadia management system?
-+ [[file:../modules/app/emms/README.org][emms]] - TODO
++ emms - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;emms
 #+end_src
 **** NO everywhere
-+ [[file:../modules/app/everywhere/README.org][everywhere]] - TODO
++ everywhere - TODO
 #+begin_src emacs-lisp :tangle ./init.el
        ;;everywhere        ; *leave* Emacs!? You must be joking
 #+end_src
 **** NO irc
-+ [[file:../modules/app/irc/README.org][irc]] - how neckbeards socialize
++ irc - how neckbeards socialize
 #+begin_src emacs-lisp :tangle ./init.el
        ;;irc               ; how neckbeards socialize
 #+end_src
 **** NO rss
-+ [[file:../modules/app/rss/README.org][rss]] =+org= - an RSS client in Emacs
++ rss =+org= - an RSS client in Emacs
 #+begin_src emacs-lisp :tangle ./init.el
        ;; (rss         ; emacs as an RSS reader
        ;; +org
        ;; )
 #+end_src
 **** NO twitter
-+ [[file:../modules/app/twitter/README.org][twitter]] - A twitter client for Emacs
++ twitter - A twitter client for Emacs
 #+begin_src emacs-lisp :tangle ./init.el
        ;;twitter           ; twitter client https://twitter.com/vnought
 #+end_src
@@ -2732,9 +3434,10 @@ loaded last*, before =:config= modules.
 Modules that configure Emacs one way or another, or focus on making it easier
 for you to customize it yourself. It is best to load these last.
 
-+ [[file:../modules/config/literate/README.org][literate]] - For users with literate configs. This will tangle+compile a
++ literate - For users with literate configs. This will tangle+compile a
   config.org in your ~doom-private-dir~ when it changes.
-+ [[file:../modules/config/default/README.org][default]] =+bindings +smartparens= - The default module sets reasonable defaults
+
++ default =+bindings +smartparens= - The default module sets reasonable defaults
   for Emacs. It also provides a Spacemacs-inspired keybinding scheme and a
   smartparens config. Use it as a reference for your own modules.
 
@@ -2850,6 +3553,7 @@ You can also try =gd= (or =C-c c d=) to jump to their definition and see how
 they are implemented.
 *** Looks
 **** Fonts
+***** info
 Doom exposes five (optional) variables for controlling fonts in Doom.
 
 Here are the three important ones:
@@ -2864,8 +3568,9 @@ Here are the three important ones:
 
 They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font
 string. You generally only need these two:
-
-#+begin_src emacs-lisp :tangle ./config.el
+***** old code
+: last working code
+#+begin_src emacs-lisp
 ;; start -------------------------------------------------- looks / fonts config
 (setq doom-font (font-spec :family "Source Code Pro"
                            :size 32
@@ -2874,6 +3579,22 @@ string. You generally only need these two:
 
       doom-variable-pitch-font (font-spec :family "Fira Sans"
                                           :size 32
+                               )
+)
+;; end -------------------------------------------------- looks / fonts config
+#+end_src
+***** code
+: new code
+#+begin_src emacs-lisp :tangle ./config.el
+;; start -------------------------------------------------- looks / fonts config
+(setq doom-font (font-spec :family "Cascadia Code"
+                           :size 32
+                           :weight 'light
+                )
+
+      doom-variable-pitch-font (font-spec :family "Source Sans 3"
+                                          :size 32
+                                          :weight 'light
                                )
 )
 ;; end -------------------------------------------------- looks / fonts config
@@ -3059,6 +3780,256 @@ Removes annoying exit confirmation message
 ;; end -------------------------------- fixes / remove exit confirmation message
 #+end_src
 *** Org
+**** agenda
+***** super agenda
+****** TODO refine the agenda groups
+Look for patterns in how I use the agenda. Mark missing features or
+configuration in this section.
+****** code
+Using Jakub Neander(Zaiste Programming) agenda for now
+
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ----------------------------------------------------- org / super agenda
+(after! org-agenda
+  (use-package! org-super-agenda
+   :init
+   (setq org-super-agenda-groups
+         '(
+           (:name "today"
+                  :time-grid t
+                  :scheduled today)
+           (:name "due today"
+                  :deadline today)
+           (:name "overdue"
+                  :deadline past)
+           (:name "due soon"
+                  :deadline future)
+           )
+   )
+   :config
+   (org-super-agenda-mode) ;; enable mode
+  )
+)
+;; end ----------------------------------------------------- org / super agenda
+#+end_src
+****** documentation
+******* github link
+https://github.com/alphapapa/org-super-agenda
+******* example agenda groups
+
+#+begin_src elisp
+(let ((org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Today"  ; Optionally specify section name
+                :time-grid t  ; Items that appear on the time grid
+                :todo "TODAY")  ; Items that have this TODO keyword
+         (:name "Important"
+                ;; Single arguments given alone
+                :tag "bills"
+                :priority "A")
+         ;; Set order of multiple groups at once
+         (:order-multi (2 (:name "Shopping in town"
+          ;; Boolean AND group matches items that match all subgroups
+                           :and (:tag "shopping"
+                                 :tag "@town"))
+                          (:name "Food-related"
+                                 ;; Multiple args given in list with implicit OR
+                                 :tag ("food" "dinner"))
+                          (:name "Personal"
+                                 :habit t
+                                 :tag "personal")
+                          (:name "Space-related (non-moon-or-planet-related)"
+                         ;; Regexps match case-insensitively on the entire entry
+                                 :and (:regexp ("space" "NASA")
+                         ;; Boolean NOT also has implicit OR between selectors
+                                       :not (:regexp "moon" :tag "planet")))))
+         ;; Groups supply their own section names when none are given
+         (:todo "WAITING" :order 8)  ; Set order of this section
+         (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+                ;; Show this group at the end of the agenda (since it has the
+                ;; highest number). If you specified this group last, items
+                ;; with these todo keywords that e.g. have priority A would be
+                ;; displayed in that group instead, because items are grouped
+                ;; out in the order the groups are listed.
+                :order 9)
+         (:priority<= "B"
+                      ;; Show this section after "Today" and "Important", because
+                      ;; their order is unspecified, defaulting to 0. Sections
+                      ;; are displayed lowest-number-first.
+                      :order 1)
+         ;; After the last group, the agenda will display items that didn't
+         ;; match any of these groups, with the default order position of 99
+         )))
+  (org-agenda nil "a"))
+#+end_src
+**** capture templates
+***** code
+
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+)
+#+end_src
+***** examples
+****** _
+from reddit post: Share your Org Capture Templates!
+https://www.reddit.com/r/emacs/comments/7zqc7b/share_your_org_capture_templates/
+******* sk8ingdom
+too big and messy to link here
+https://github.com/sk8ingdom/.emacs.d/blob/master/org-mode-config/org-capture-templates.el
+******* sugarbridalsentry
+#+begin_src elisp
+(setq org-capture-templates
+    '(("t" "Todo" entry (file "~/Work/Org/Refile.org")
+       "* TODO %?\n%U" :empty-lines 1)
+      ("T" "Todo with Clipboard" entry (file "~/Work/Org/Refile.org")
+       "* TODO %?\n%U\n   %c" :empty-lines 1)
+      ("n" "Note" entry (file "~/Work/Org/Refile.org")
+       "* NOTE %?\n%U" :empty-lines 1)
+      ("N" "Note with Clipboard" entry (file "~/Work/Org/Refile.org")
+       "* NOTE %?\n%U\n   %c" :empty-lines 1)
+      ("e" "Event" entry (file+headline "~/Work/Org/Events.org" "Transient")
+       "* EVENT %?\n%U" :empty-lines 1)
+      ("E" "Event With Clipboard" entry (file+headline "~/Work/Org/Events.org" "Transient")
+       "* EVENT %?\n%U\n   %c" :empty-lines 1))
+    )
+#+end_src
+******* yantar92
+#+begin_src elisp
+("P" "Research project" entry (file "~/Org/inbox.org")
+	 "* TODO %^{Project title} :%^G:\n:PROPERTIES:\n:CREATED: %U\n:END:\n%^{Project description}\n** TODO Literature review\n** TODO %?\n** TODO Summary\n** TODO Reports\n** Ideas\n" :clock-in t :clock-resume t)
+	("e" "Email" entry (file "~/Org/inbox.org")
+	 "* TODO %? email |- %:from: %:subject :EMAIL:\n:PROPERTIES:\n:CREATED: %U\n:EMAIL-SOURCE: %l\n:END:\n%U\n" :clock-in t :clock-resume t)
+	("b" "Link from browser" entry (file "~/Org/inbox.org")
+	 "* TODO %? |- (%:description) :BOOKMARK:\n:PROPERTIES:\n:CREATED: %U\n:Source: %:link\n:END:\n%i\n" :clock-in t :clock-resume t)
+	("s" "Selection from browser" entry (file "~/Org/inbox.org")
+	 "* TODO %? :BOOKMARK:\n%(replace-regexp-in-string \"\n.*\" \"\" \"%i\")\n:PROPERTIES:\n:CREATED: %U\n:Source: %:link\n:END:\n%i\n" :clock-in t :clock-resume t)
+	("h" "Habit" entry (file "~/Org/inbox.org")
+	 "* NEXT %?\nSCHEDULED: <%<%Y-%m-%d %a .+1d>>\n:PROPERTIES:\n:CREATED: %U\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:LOGGING: DONE(!)\n:ARCHIVE: %%s_archive::* Habits\n:END:\n%U\n")
+#+end_src
+******* truthling
+#+begin_src elisp
+(setq org-capture-templates
+        '(("t" "TODO" entry (file+headline as/gtd "Collect")
+        "* TODO %? %^G \n  %U" :empty-lines 1)
+        ("s" "Scheduled TODO" entry (file+headline as/gtd "Collect")
+        "* TODO %? %^G \nSCHEDULED: %^t\n  %U" :empty-lines 1)
+        ("d" "Deadline" entry (file+headline as/gtd "Collect")
+            "* TODO %? %^G \n  DEADLINE: %^t" :empty-lines 1)
+        ("p" "Priority" entry (file+headline as/gtd "Collect")
+        "* TODO [#A] %? %^G \n  SCHEDULED: %^t")
+        ("a" "Appointment" entry (file+headline as/gtd "Collect")
+        "* %? %^G \n  %^t")
+        ("l" "Link" entry (file+headline as/gtd "Collect")
+        "* TODO %a %? %^G\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+        ("n" "Note" entry (file+headline as/gtd "Notes")
+            "* %? %^G\n%U" :empty-lines 1)
+        ("j" "Journal" entry (file+datetree "/Users/andrew/org/agenda/journal.org")
+        "* %? %^G\nEntered on %U\n")))
+#+end_src
+******* Nebucatnetzer
+#+begin_src elisp
+("j" "Journal Entry" entry
+    (file+headline "~/notes/work/agenda/work.org" "Clock")
+    (file "~/notes/settings/templates/temp_clock_note.txt")
+    :empty-lines 1)
+("t" "Adds a Next entry" entry
+    (file+headline "~/notes/work/agenda/work.org" "Capture")
+    (file "~/notes/settings/templates/temp_work_todo.txt")
+    :clock-in t :clock-resume t :empty-lines 1)
+("p" "Small Project" entry
+    (file+headline "~/notes/work/agenda/work.org" "Capture")
+    (file "~/notes/settings/templates/temp_work_small_project.txt"))
+("m" "Meeting" entry (file+headline "~/notes/work/agenda/work.org" "Capture")
+    "* MEETING: with %?\n" :clock-in t :clock-resume t :empty-lines 1)
+#+end_src
+******* driftcrow
+my capture for ledger:
+#+begin_src elisp
+(setq org-capture-templates
+        (append '(("i" "Income Ledger Entry")
+
+                ("ig" "Income:Gifts" plain
+                (file ledger-journal-file)
+                "%(org-read-date) * receive %^{Received From} %^{For why}
+Assets:%^{Account|Personal|Home}  %^{Amount} %^{Currency|CNY|USD|JPY}
+Income:Gifts
+")
+                )
+                org-capture-templates))
+
+(setq org-capture-templates
+        (append '(("e" "Expense Ledger Entry ")
+
+                ("eg" "Expense:Gifts" plain
+                (file ledger-journal-file)
+                "%(org-read-date) * send %^{Send to} %^{For why}
+Expense:Gifts  %^{Amount}  %^{Currency|CNY|USD|JPY}
+Assets:%^{Account||Personal|Home}
+")
+                )
+                org-capture-templates))
+
+#+end_src
+****** spacebat (gist)
+https://gist.github.com/spacebat/097f3e7469edf2eaa6a9
+**** hide blank lines in folded view
+***** code
+
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- org / hide blank lines in folded view
+(after! org
+  (setq org-cycle-separator-lines 0)
+)
+;; end ------------------------------------ org / hide blank lines in folded view
+#+end_src
+**** images
+
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------- org / images
+(after! org
+  (setq org-image-actual-width nil)
+)
+;; end --------------------- org / images
+#+end_src
+**** org files location
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------------------- org files location
+(setq org-directory "~/Dropbox/org/")
+;; end --------------------------------------------------------- org files location
+#+end_src
+**** NO priorities
+I removed this package altogether
+
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp
+;; start ---------------------------------------------------- org / priorities
+(after! org
+  (setq
+   org-fancy-priorities-list '(
+                               "[A]" . "Iimportant & Urgent"
+                               "[B]" . "Un-Important & Urgent"
+                               "[C]" . "Important & Non-Urgent"
+                               "[D]" . "Un-Important & Non-Urgent"
+                              )
+   org-priority-faces '(
+     (?A :foreground "red" :weight bold)
+     (?B :foreground "green" :weight bold)
+     (?C :foreground "orange" :weight bold)
+     (?D :foreground "orange" :weight bold)
+    )
+   )
+)
+;; end ------------------------------------------------------ org / priorities
+#+end_src
+***** test
+****** [#A] stupid priority
+****** [#B] stupid priority
+****** [#C] stupid priority
+****** [#D] stupid priority
 **** startup
 ***** YES folded
 ****** code
@@ -3128,139 +4099,6 @@ the following lines anywhere in the buffer:
 /   #+STARTUP: noindent
 
   You can customize this variable.
-**** agenda
-***** super agenda
-
-#+begin_src emacs-lisp
-;; start --- org / super agenda
-(after! org
-)
-;; end ----------------------- org / super agenda
-**** TODOs states
-***** YES keywords
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------------------ org / TODOs states / keywords
-(after! org
-  (setq org-todo-keywords
-    (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
-            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
-            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
-            )
-    )
-  )
-)
-;; end -------------------------------------------- org / TODOs states / keywords
-#+end_src
-***** YES colors
-****** code
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------------------ org / TODOs states / colors
-(after! org
-  (setq org-todo-keyword-faces
-    (quote (
-            ("TODO" :foreground "#ff4500" :weight bold)
-            ("NEXT" :foreground "#4876ff" :weight bold)
-            ("DOING" :foreground "#ffd700" :weight bold)
-            ("SKIP" :foreground "#00eeee"      :weight bold)
-            ("DONE" :foreground "#32cd32" :weight bold)
-
-            ("WAITING"   :foreground "#ffd700"     :weight bold)
-            ("CANCELLED" :foreground "#ee82ee" :weight bold)
-
-            ("YES"   :foreground "#2E8E27"    :weight bold)
-            ("MAYBE" :foreground "#ff8700"  :weight bold)
-            ("NO"    :foreground "#8b0000"     :weight bold)
-           )
-    )
-  )
-)
-;; end --------------------------------------------- org / TODOs states / colors
-#+end_src
-****** BUG
-******* 1
-when a heading starts with DONE, CANCELLED and NO, AND there is no other
-character after, the org-bullet styling does not show, example:
-
-if it starts with BUG also
-******** DONE
-******** CANCELLED
-******** NO
-******** BUG
-******* 2
-the source blocks above are not rendered as source blocks
-******* 3
-Error during redisplay: (jit-lock-function 102367) signaled (error "No match 2
-in highlight (2 'org-headline-done prepend)")
-******* tests
-******** TODO asdf
-******** NEXT asdf
-******** DONE asdf
-******** WAITING asdf
-******** CANCELLED asdf
-******** YES asdf
-******** MAYBE asdf
-******** NO asdf
-***** YES bullets
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------------------ org / TODOs states / bullets
-(after! org-superstar
-  (setq org-superstar-special-todo-items t)
-  (setq org-superstar-todo-bullet-alist
-        '(
-          ("TODO" . ?⛶)
-          ("NEXT" . ?➔)
-          ("DOING" . ?🏃)
-          ("SKIP" . ?⮫)
-          ("DONE" . ?✓)
-
-          ("WAITING" . ?✋)
-          ("CANCELLED" . ?✘)
-
-          ("YES" . ?👍)
-          ("MAYBE" . ?🤷)
-          ("NO" . ?👎)
-         )
-  )
-)
-;; end -------------------------------------------- org / TODOs states / bullets
-#+end_src
-**** NO priorities
-I removed this package altogether
-
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp
-;; start --------------------------------------------------------- org / priorities
-(after! org
-  (setq
-   org-fancy-priorities-list '(
-                               "[A]" . "Iimportant & Urgent"
-                               "[B]" . "Un-Important & Urgent"
-                               "[C]" . "Important & Non-Urgent"
-                               "[D]" . "Un-Important & Non-Urgent"
-                              )
-   org-priority-faces '(
-     (?A :foreground "red" :weight bold)
-     (?B :foreground "green" :weight bold)
-     (?C :foreground "orange" :weight bold)
-     (?D :foreground "orange" :weight bold)
-    )
-   )
-)
-;; end ----------------------------------------------------------- org / priorities
-#+end_src
-***** test
-****** [#A] stupid priority
-****** [#B] stupid priority
-****** [#C] stupid priority
-****** [#D] stupid priority
 **** styles
 ***** ellipsis
 changes ... to an arrow(▼)
@@ -3764,42 +4602,146 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 )
 ;; end ----------------------------------------------- org-appear configuration
 #+end_src
-**** hide blank lines in folded view
-***** code
-
+**** TODOs states
+***** YES keywords
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
 #+begin_src emacs-lisp :tangle ./config.el
-;; start ---------------------------------- org / hide blank lines in folded view
+;; start ------------------------------------------ org / TODOs states / keywords
 (after! org
-  (setq org-cycle-separator-lines 0)
+  (setq org-todo-keywords
+    (quote (
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
+            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
+            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            )
+    )
+  )
 )
-;; end ------------------------------------ org / hide blank lines in folded view
+;; end -------------------------------------------- org / TODOs states / keywords
 #+end_src
-**** org files location
-If you use `org' and don't want your org files in the default location below,
-change `org-directory'. It must be set before org loads!
-
+***** YES colors
+****** code
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
 #+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------------------------------- org files location
-(setq org-directory "~/Dropbox/org/")
-;; end --------------------------------------------------------- org files location
+;; start ------------------------------------------ org / TODOs states / colors
+(after! org
+  (setq org-todo-keyword-faces
+    (quote (
+            ("TODO" :foreground "#ff4500" :weight bold)
+            ("NEXT" :foreground "#4876ff" :weight bold)
+            ("DOING" :foreground "#ffd700" :weight bold)
+            ("SKIP" :foreground "#00eeee"      :weight bold)
+            ("DONE" :foreground "#32cd32" :weight bold)
+
+            ("WAITING"   :foreground "#ffd700"     :weight bold)
+            ("CANCELLED" :foreground "#ee82ee" :weight bold)
+
+            ("YES"   :foreground "#2E8E27"    :weight bold)
+            ("MAYBE" :foreground "#ff8700"  :weight bold)
+            ("NO"    :foreground "#8b0000"     :weight bold)
+           )
+    )
+  )
+)
+;; end --------------------------------------------- org / TODOs states / colors
+#+end_src
+****** BUG
+******* 1
+when a heading starts with DONE, CANCELLED and NO, AND there is no other
+character after, the org-bullet styling does not show, example:
+
+if it starts with BUG also
+******** DONE
+******** CANCELLED
+******** NO
+******** BUG
+******* 2
+the source blocks above are not rendered as source blocks
+******* 3
+Error during redisplay: (jit-lock-function 102367) signaled (error "No match 2
+in highlight (2 'org-headline-done prepend)")
+******* tests
+******** TODO asdf
+******** NEXT asdf
+******** DONE asdf
+******** WAITING asdf
+******** CANCELLED asdf
+******** YES asdf
+******** MAYBE asdf
+******** NO asdf
+***** YES bullets
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------ org / TODOs states / bullets
+(after! org-superstar
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist
+        '(
+          ("TODO" . ?⛶)
+          ("NEXT" . ?➔)
+          ("DOING" . ?🏃)
+          ("SKIP" . ?⮫)
+          ("DONE" . ?✓)
+
+          ("WAITING" . ?✋)
+          ("CANCELLED" . ?✘)
+
+          ("YES" . ?👍)
+          ("MAYBE" . ?🤷)
+          ("NO" . ?👎)
+         )
+  )
+)
+;; end -------------------------------------------- org / TODOs states / bullets
 #+end_src
 **** roam
+***** code
 adds the location of the org-roam folder
 
-#+begin_src emacs-lisp :tangle ./config.el
-;; start --------------------------------------------------- org-roam files location
-(setq org-roam-directory "~/Dropbox/org/roam")
-(setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
-;; end ----------------------------------------------------- org-roam files location
-#+end_src
-**** images
+=file-truename= is used to eliminate symbolic links
 
 #+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------- org / images
-(after! org
-  (setq org-image-actual-width nil)
+;; start --------------------------------------------- org-roam files location
+
+(setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
+
+;;(org-roam-db-autosync-mode)
+
+(setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+
+;; include a column for tags up to 10 character widths wide
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)
+      )
 )
-;; end --------------------- org / images
+
+;; workaround (void-function ucs-normalize-NFD-string)
+(after! org
+  (require 'ucs-normalize)
+)
+;; end ---------------------------------------------- org-roam files location
+#+end_src
+***** bug
+Error in private config: config.el, (void-function org-roam-db-autosync-mode)
+
+workaround : (require 'ucs-normalize)
+**** transclusion
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------------------------------ org / transclusion
+(use-package! org-transclusion
+  :after org
+  ;; :init
+  ;; (map!
+  ;;  :map global-map "<f12>" #'org-transclusion-add
+  ;;  :leader
+  ;;  :prefix "n"
+  ;;  :desc "Org Transclusion Mode" "t" #'org-transclusion-mode)
+)
+;; start ------------------------------------------------------ org / transclusion
 #+end_src
 *** UI
 **** Interface
@@ -3841,7 +4783,7 @@ DistantForeground: unspecified
 
   This face was introduced, or its default value was changed, in
   version 28.1 of Emacs.
-***** YES yascroll
+***** NO yascroll
 ****** link
 https://github.com/emacsorphanage/yascroll
 ****** description
@@ -3850,7 +4792,7 @@ scrollbar that shows only when the screen is moving
 .. #+begin_src emacs-lisp
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start ---------------------------------- UI / Interface / Scrollbar
-(global-yascroll-bar-mode t)
+;;(global-yascroll-bar-mode t)
 ;; end ---------------------------------- UI / Interface / Scrollbar
 #+end_src
 **** lines
@@ -3884,29 +4826,24 @@ move the cursor to other lines.
 Otherwise, they are restricted to the current line.
 
 This applies to h, SPC, f, F, t, T, ~.
-***** Evil Better Visual Line
+***** NO Evil Better Visual Line
 ****** site
 https://github.com/YourFin/evil-better-visual-line
 ****** code
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start ---------------------------------- UI / lines / Evil Better Visual Line
-(after! evil
-  (evil-better-visual-line-on)
-)
+;; (after! evil
+;;   (evil-better-visual-line-on)
+;; )
 ;; end ------------------------------------ UI / lines / Evil Better Visual Line
 #+end_src
-****** bug
-Error (use-package): Failed to parse package evil-better-visual-line: Wrong type argument: symbolp, (evil-better-visual-line-on)
-
-**** which key
-***** on the right side
+**** YES which key
+***** YES bigger
 ****** code
-I can't do it...
-
-... #+begin_src emacs-lisp 
+... #+begin_src emacs-lisp
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start ---------------------------------- UI / which key / on the right side
-(after! which-key
+;;(after! which-key
 ;; (which-key-setup-side-window-right)
 
 ;; (setq which-key-popup-type 'side-window)
@@ -3918,8 +4855,7 @@ I can't do it...
 (setq which-key-idle-delay 0)
 
 (setq which-key-prefix-prefix "📁" )
-
-)
+;;)
 ;; end ------------------------------------ UI / which key / on the right side
 #+end_src
 **** NO centered-window-mode
@@ -3970,24 +4906,24 @@ the problem with it is that it applies those margins everywhere
           (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
 ;; end -------------------------------- Checkers / Grammar / Langtool
 #+end_src
-***** writegood
+***** NO writegood
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start -------------------------------- Checkers / Grammar / writegood
 ;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
-(use-package! writegood-mode
-  :hook
-  (org-mode markdown-mode
-            rst-mode
-            asciidoc-mode
-            latex-mode
-            LaTeX-mode)
-  :config
-  (map! :localleader
-        :map writegood-mode-map
-        "g" #'writegood-grade-level
-        "r" #'writegood-reading-ease
-  )
-)
+;; (use-package! writegood-mode
+;;   :hook
+;;   (org-mode markdown-mode
+;;             rst-mode
+;;             asciidoc-mode
+;;             latex-mode
+;;             LaTeX-mode)
+;;   :config
+;;   (map! :localleader
+;;         :map writegood-mode-map
+;;         "g" #'writegood-grade-level
+;;         "r" #'writegood-reading-ease
+;;   )
+;; )
 ;; end -------------------------------- Checkers / Grammar / writegood
 #+end_src
 *** Keybindings
@@ -4085,7 +5021,7 @@ release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! pinned-package)
 #+end_src
 
-***** single package
+***** multiple package
 
 ...or multiple packages
 
@@ -4125,6 +5061,38 @@ release. The `unpin!' macro allows you to unpin single packages...
 )
 ;; end ----------------------------------------------------------- org / org-appear
 #+end_src
+**** YES org-super-agenda
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ---------------------------------------------- org / org-super-agenda
+(package!
+  org-super-agenda
+)
+;; end ---------------------------------------------- org / org-super-agenda
+#+end_src
+**** YES org-transclusion
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ---------------------------------------------- org / transclusion
+;; ~/.doom.d/package.el
+(package! org-transclusion)
+;; end ---------------------------------------------- org / transclusion
+#+end_src
+**** YES org-ref
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ---------------------------------------------- org / ref
+;; ~/.doom.d/package.el
+(package! org-ref)
+;; end ---------------------------------------------- org / ref
+#+end_src
+**** unpin org packages
+#+begin_src emacs-lisp :tangle ./packages.el
+(unpin!
+  org
+  org-roam
+)
+#+end_src
 *** UI
 **** NO centered-window-mode
 Keep your text centered when there's only one window.
@@ -4136,18 +5104,33 @@ Keep your text centered when there's only one window.
 )
 ;; end --------------------------------------------------------- UI / centered-window-mode
 #+end_src
-**** YES yascroll
+**** NO yascroll
 a better scrollbar
 
 ... #+begin_src emacs-lisp
 #+begin_src emacs-lisp :tangle ./packages.el
 ;; start ------------------------------------------------------- UI / yascroll
-(package!
-  yascroll
-)
+;; (package!
+;;   yascroll
+;; )
 ;; end ------------------------------------------------------- UI / yascroll
 #+end_src
-**** YES evil-better-visual-line
+**** NO evil-better-visual-line
+creates a lot of lag
+
 #+begin_src emacs-lisp :tangle ./packages.el
-(package! evil-better-visual-line)
+;;(package!
+;;  evil-better-visual-line
+;;)
 #+end_src
+*** Checkers
+**** Grammar
+***** writegood
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! writegood-mode
+  :disable t
+)
+#+end_src
+
+
+

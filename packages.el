@@ -42,10 +42,37 @@
 )
 ;; end ----------------------------------------------------------- org / org-appear
 
-;; start ------------------------------------------------------- UI / yascroll
+;; start ---------------------------------------------- org / org-super-agenda
 (package!
-  yascroll
+  org-super-agenda
 )
+;; end ---------------------------------------------- org / org-super-agenda
+
+;; start ---------------------------------------------- org / transclusion
+;; ~/.doom.d/package.el
+(package! org-transclusion)
+;; end ---------------------------------------------- org / transclusion
+
+;; start ---------------------------------------------- org / ref
+;; ~/.doom.d/package.el
+(package! org-ref)
+;; end ---------------------------------------------- org / ref
+
+(unpin!
+  org
+  org-roam
+)
+
+;; start ------------------------------------------------------- UI / yascroll
+;; (package!
+;;   yascroll
+;; )
 ;; end ------------------------------------------------------- UI / yascroll
 
-(package! evil-better-visual-line)
+;;(package!
+;;  evil-better-visual-line
+;;)
+
+(package! writegood-mode
+  :disable t
+)

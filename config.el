@@ -10,13 +10,14 @@
 ;; end personal information
 
 ;; start -------------------------------------------------- looks / fonts config
-(setq doom-font (font-spec :family "Source Code Pro"
+(setq doom-font (font-spec :family "Cascadia Code"
                            :size 32
-                           :weight 'medium
+                           :weight 'light
                 )
 
-      doom-variable-pitch-font (font-spec :family "Fira Sans"
+      doom-variable-pitch-font (font-spec :family "Source Sans 3"
                                           :size 32
+                                          :weight 'light
                                )
 )
 ;; end -------------------------------------------------- looks / fonts config
@@ -39,6 +40,44 @@
 ;; start ------------------------------ fixes / remove exit confirmation message
 (setq confirm-kill-emacs nil)
 ;; end -------------------------------- fixes / remove exit confirmation message
+
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-folded t)
+)
+;; end ----------------------------------------------- org / startup / folded
+
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-indented nil)
+)
+;; end ----------------------------------------------- org / startup / folded
+
+;; start ----------------------------------------------------- org / super agenda
+(after! org-agenda
+  (use-package! org-super-agenda
+   :init
+   (setq org-super-agenda-groups
+         '(
+           (:name "today"
+                  :time-grid t
+                  :scheduled today)
+           (:name "due today"
+                  :deadline today)
+           (:name "overdue"
+                  :deadline past)
+           (:name "due soon"
+                  :deadline future)
+           )
+   )
+   :config
+   (org-super-agenda-mode) ;; enable mode
+  )
+)
+;; end ----------------------------------------------------- org / super agenda
+
+(after! org
+)
 
 ;; start ------------------------------------------ org / TODOs states / keywords
 (after! org
@@ -159,18 +198,6 @@
 )
 ;; end ----------------------------------------------- org-appear configuration
 
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-folded t)
-)
-;; end ----------------------------------------------- org / startup / folded
-
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-indented nil)
-)
-;; end ----------------------------------------------- org / startup / folded
-
 ;; start ---------------------------------- org / hide blank lines in folded view
 (after! org
   (setq org-cycle-separator-lines 0)
@@ -181,10 +208,26 @@
 (setq org-directory "~/Dropbox/org/")
 ;; end --------------------------------------------------------- org files location
 
-;; start --------------------------------------------------- org-roam files location
-(setq org-roam-directory "~/Dropbox/org/roam")
+;; start --------------------------------------------- org-roam files location
+
+(setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
+
+;;(org-roam-db-autosync-mode)
+
 (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
-;; end ----------------------------------------------------- org-roam files location
+
+;; include a column for tags up to 10 character widths wide
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)
+      )
+)
+
+;; workaround (void-function ucs-normalize-NFD-string)
+(after! org
+  (require 'ucs-normalize)
+)
+;; end ---------------------------------------------- org-roam files location
 
 ;; start ------------------- org / images
 (after! org
@@ -192,18 +235,30 @@
 )
 ;; end --------------------- org / images
 
+;; start ------------------------------------------------------ org / transclusion
+(use-package! org-transclusion
+  :after org
+  ;; :init
+  ;; (map!
+  ;;  :map global-map "<f12>" #'org-transclusion-add
+  ;;  :leader
+  ;;  :prefix "n"
+  ;;  :desc "Org Transclusion Mode" "t" #'org-transclusion-mode)
+)
+;; start ------------------------------------------------------ org / transclusion
+
 ;; start ---------------------------------- UI / Interface / Scrollbar
-(global-yascroll-bar-mode t)
+;;(global-yascroll-bar-mode t)
 ;; end ---------------------------------- UI / Interface / Scrollbar
 
 ;; start ---------------------------------- UI / lines / Evil Better Visual Line
-(after! evil
-  (evil-better-visual-line-on)
-)
+;; (after! evil
+;;   (evil-better-visual-line-on)
+;; )
 ;; end ------------------------------------ UI / lines / Evil Better Visual Line
 
 ;; start ---------------------------------- UI / which key / on the right side
-(after! which-key
+;;(after! which-key
 ;; (which-key-setup-side-window-right)
 
 ;; (setq which-key-popup-type 'side-window)
@@ -215,8 +270,7 @@
 (setq which-key-idle-delay 0)
 
 (setq which-key-prefix-prefix "📁" )
-
-)
+;;)
 ;; end ------------------------------------ UI / which key / on the right side
 
 ;; start ------------------------------------------------------ UI / margins
@@ -246,18 +300,18 @@
 
 ;; start -------------------------------- Checkers / Grammar / writegood
 ;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
-(use-package! writegood-mode
-  :hook
-  (org-mode markdown-mode
-            rst-mode
-            asciidoc-mode
-            latex-mode
-            LaTeX-mode)
-  :config
-  (map! :localleader
-        :map writegood-mode-map
-        "g" #'writegood-grade-level
-        "r" #'writegood-reading-ease
-  )
-)
+;; (use-package! writegood-mode
+;;   :hook
+;;   (org-mode markdown-mode
+;;             rst-mode
+;;             asciidoc-mode
+;;             latex-mode
+;;             LaTeX-mode)
+;;   :config
+;;   (map! :localleader
+;;         :map writegood-mode-map
+;;         "g" #'writegood-grade-level
+;;         "r" #'writegood-reading-ease
+;;   )
+;; )
 ;; end -------------------------------- Checkers / Grammar / writegood
