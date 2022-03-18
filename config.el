@@ -2,6 +2,25 @@
 
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+;; start ------------------------------ Checkers / Grammar / Langtool
+(use-package! langtool
+  :commands (langtool-check
+             langtool-check-done
+             langtool-show-message-at-point
+             langtool-correct-buffer)
+  :init (setq langtool-default-language "pt-BR")
+  :config
+  (unless (or langtool-bin
+              langtool-language-tool-jar
+              langtool-java-classpath)
+    (cond (IS-LINUX
+          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
+;; end -------------------------------- Checkers / Grammar / Langtool
+
+;; start ------------------------------ fixes / remove exit confirmation message
+(setq confirm-kill-emacs nil)
+;; end -------------------------------- fixes / remove exit confirmation message
+
 ;; start personal information
 (setq
       user-full-name "João Luís Teixeira Pinto"
@@ -37,22 +56,6 @@
 (setq display-line-numbers-type 'relative)
 ;; end line numbers config ----------------------------- end line numbers config
 
-;; start ------------------------------ fixes / remove exit confirmation message
-(setq confirm-kill-emacs nil)
-;; end -------------------------------- fixes / remove exit confirmation message
-
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-folded t)
-)
-;; end ----------------------------------------------- org / startup / folded
-
-;; start --------------------------------------------- org / startup / folded
-(after! org
-  (setq org-startup-indented nil)
-)
-;; end ----------------------------------------------- org / startup / folded
-
 ;; start ----------------------------------------------------- org / super agenda
 (after! org-agenda
   (use-package! org-super-agenda
@@ -79,62 +82,33 @@
 (after! org
 )
 
-;; start ------------------------------------------ org / TODOs states / keywords
+;; start ---------------------------------- org / hide blank lines in folded view
 (after! org
-  (setq org-todo-keywords
-    (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
-            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
-            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
-            )
-    )
-  )
+  (setq org-cycle-separator-lines 0)
 )
-;; end -------------------------------------------- org / TODOs states / keywords
+;; end ------------------------------------ org / hide blank lines in folded view
 
-;; start ------------------------------------------ org / TODOs states / colors
+;; start ------------------- org / images
 (after! org
-  (setq org-todo-keyword-faces
-    (quote (
-            ("TODO" :foreground "#ff4500" :weight bold)
-            ("NEXT" :foreground "#4876ff" :weight bold)
-            ("DOING" :foreground "#ffd700" :weight bold)
-            ("SKIP" :foreground "#00eeee"      :weight bold)
-            ("DONE" :foreground "#32cd32" :weight bold)
-
-            ("WAITING"   :foreground "#ffd700"     :weight bold)
-            ("CANCELLED" :foreground "#ee82ee" :weight bold)
-
-            ("YES"   :foreground "#2E8E27"    :weight bold)
-            ("MAYBE" :foreground "#ff8700"  :weight bold)
-            ("NO"    :foreground "#8b0000"     :weight bold)
-           )
-    )
-  )
+  (setq org-image-actual-width nil)
 )
-;; end --------------------------------------------- org / TODOs states / colors
+;; end --------------------- org / images
 
-;; start ------------------------------------------ org / TODOs states / bullets
-(after! org-superstar
-  (setq org-superstar-special-todo-items t)
-  (setq org-superstar-todo-bullet-alist
-        '(
-          ("TODO" . ?⛶)
-          ("NEXT" . ?➔)
-          ("DOING" . ?🏃)
-          ("SKIP" . ?⮫)
-          ("DONE" . ?✓)
+;; start ------------------------------------------------------- org files location
+(setq org-directory "~/Dropbox/org/")
+;; end --------------------------------------------------------- org files location
 
-          ("WAITING" . ?✋)
-          ("CANCELLED" . ?✘)
-
-          ("YES" . ?👍)
-          ("MAYBE" . ?🤷)
-          ("NO" . ?👎)
-         )
-  )
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-folded t)
 )
-;; end -------------------------------------------- org / TODOs states / bullets
+;; end ----------------------------------------------- org / startup / folded
+
+;; start --------------------------------------------- org / startup / folded
+(after! org
+  (setq org-startup-indented nil)
+)
+;; end ----------------------------------------------- org / startup / folded
 
 ;; start ---------------------------------------------- org / styles / ellipsis
 (after! org
@@ -198,42 +172,100 @@
 )
 ;; end ----------------------------------------------- org-appear configuration
 
-;; start ---------------------------------- org / hide blank lines in folded view
+;; start ------------------------------------------ org / TODOs states / keywords
 (after! org
-  (setq org-cycle-separator-lines 0)
+  (setq org-todo-keywords
+    (quote (
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
+            (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
+            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            )
+    )
+  )
 )
-;; end ------------------------------------ org / hide blank lines in folded view
+;; end -------------------------------------------- org / TODOs states / keywords
 
-;; start ------------------------------------------------------- org files location
-(setq org-directory "~/Dropbox/org/")
-;; end --------------------------------------------------------- org files location
+;; start ------------------------------------------ org / TODOs states / colors
+(after! org
+  (setq org-todo-keyword-faces
+    (quote (
+            ("TODO" :foreground "#ff4500" :weight bold)
+            ("NEXT" :foreground "#4876ff" :weight bold)
+            ("DOING" :foreground "#ffd700" :weight bold)
+            ("SKIP" :foreground "#00eeee"      :weight bold)
+            ("DONE" :foreground "#32cd32" :weight bold)
+
+            ("WAITING"   :foreground "#ffd700"     :weight bold)
+            ("CANCELLED" :foreground "#ee82ee" :weight bold)
+
+            ("YES"   :foreground "#2E8E27"    :weight bold)
+            ("MAYBE" :foreground "#ff8700"  :weight bold)
+            ("NO"    :foreground "#8b0000"     :weight bold)
+           )
+    )
+  )
+)
+;; end --------------------------------------------- org / TODOs states / colors
+
+;; start ------------------------------------------ org / TODOs states / bullets
+(after! org-superstar
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist
+        '(
+          ("TODO" . ?⛶)
+          ("NEXT" . ?➔)
+          ("DOING" . ?🏃)
+          ("SKIP" . ?⮫)
+          ("DONE" . ?✓)
+
+          ("WAITING" . ?✋)
+          ("CANCELLED" . ?✘)
+
+          ("YES" . ?👍)
+          ("MAYBE" . ?🤷)
+          ("NO" . ?👎)
+         )
+  )
+)
+;; end -------------------------------------------- org / TODOs states / bullets
 
 ;; start --------------------------------------------- org-roam files location
+(use-package! org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
+  (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+  (org-roam-completion-everywhere t)
 
-(setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
-
-;;(org-roam-db-autosync-mode)
-
-(setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+  (org-roam-capture-templates
+    '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y-%m-%d,%H:%M:%S>-${slug}.org"
+                         "#+title: ${title}\n")
+      :unnarrowed t)
+    )
+  )
+  :config
+  ;; not working
+  ;;(org-roam-setup)
+)
 
 ;; include a column for tags up to 10 character widths wide
-(setq org-roam-node-display-template
-      (concat "${title:*} "
-              (propertize "${tags:10}" 'face 'org-tag)
-      )
-)
+;; not working with vertico
+;; (setq org-roam-node-display-template
+;;       (concat "${title:*} "
+;;               (propertize "${tags:10}" 'face 'org-tag)
+;;       )
+;; )
 
 ;; workaround (void-function ucs-normalize-NFD-string)
-(after! org
-  (require 'ucs-normalize)
-)
-;; end ---------------------------------------------- org-roam files location
+;; (after! org
+;;   (require 'ucs-normalize)
+;; )
 
-;; start ------------------- org / images
-(after! org
-  (setq org-image-actual-width nil)
-)
-;; end --------------------- org / images
+;; end ---------------------------------------------- org-roam files location
 
 ;; start ------------------------------------------------------ org / transclusion
 (use-package! org-transclusion
@@ -272,46 +304,3 @@
 (setq which-key-prefix-prefix "📁" )
 ;;)
 ;; end ------------------------------------ UI / which key / on the right side
-
-;; start ------------------------------------------------------ UI / margins
-(setq-default
-  left-margin-width  5
-  right-margin-width 5
-)
-(set-window-buffer nil
-                   (current-buffer)
-) ; Use them now.
-;; end -------------------------------------------------------- UI / margins
-
-;; start ------------------------------ Checkers / Grammar / Langtool
-(use-package! langtool
-  :commands (langtool-check
-             langtool-check-done
-             langtool-show-message-at-point
-             langtool-correct-buffer)
-  :init (setq langtool-default-language "pt-BR")
-  :config
-  (unless (or langtool-bin
-              langtool-language-tool-jar
-              langtool-java-classpath)
-    (cond (IS-LINUX
-          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
-;; end -------------------------------- Checkers / Grammar / Langtool
-
-;; start -------------------------------- Checkers / Grammar / writegood
-;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
-;; (use-package! writegood-mode
-;;   :hook
-;;   (org-mode markdown-mode
-;;             rst-mode
-;;             asciidoc-mode
-;;             latex-mode
-;;             LaTeX-mode)
-;;   :config
-;;   (map! :localleader
-;;         :map writegood-mode-map
-;;         "g" #'writegood-grade-level
-;;         "r" #'writegood-reading-ease
-;;   )
-;; )
-;; end -------------------------------- Checkers / Grammar / writegood

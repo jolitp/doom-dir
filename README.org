@@ -127,7 +127,16 @@ ivy or helm, etc
 ****** 11 Keeping Your Emacs Packages Up To Date
 ****** 12 How to Cut Emacs Start Up Time in Half!
 ***** Emacs Tips
-****** 1 How to Show Reminders for Org Mode Tasks
+****** SKIP 1 How to Show Reminders for Org Mode Tasks
+******* NO org alert
+System notifications of org agenda items
+https://github.com/spegoraro/org-alert
+
+- no way of configuring how much time before the notification will play
+******* NO org wild notifier
+- dont fire reliably
+******* NO org notify
+cant install on doom
 ****** 2 How to Create Your Own Color Theme
 ****** 3 How to Use File and Directory Local Variables
 ****** 4 How to Give Presentations with Org Mode
@@ -189,7 +198,16 @@ ivy or helm, etc
 ***** Effective Window Management in Emacs
 ****** 1 Declutter Your Buffer Lists in Emacs with Perspective.el
 ***** Build a Second Brain in Emacs
+https://www.youtube.com/playlist?list=PLEoMzSkcN8oN3x3XaZQ-AXFKv52LZzjqD
 ****** 1 Getting Started with Org Roam - Build a Second Brain in Emacs
+******* _
+******* DONE question: how to change the name of files that it generates
+change the default template
+******* question: how to create a new note with the selection in evil mode
+******* question: how to create a note inside a specific folder inside the org roam folder
+for example a MOC folder and a note inside that
+
+maybe I can create a template and put a folder at the beginning of the filename
 ****** 2 Capturing Notes Efficiently in Emacs with Org Roam
 ****** 3 Org Roam: The Best Way to Keep a Journal in Emacs
 ****** 4 5 Org Roam Hacks for Better Productivity in Emacs
@@ -1177,10 +1195,39 @@ https://github.com/nobiot/org-transclusion
 ** org-roam-ui
 A graphical frontend for exploring your org-roam Zettelkasten
 https://github.com/org-roam/org-roam-ui
+**  org-clock-csv
+Export Emacs org-mode clock entries to CSV format.
+https://github.com/atheriel/org-clock-csv
+**  org-clock-convenience
+Convenience functions to work with emacs org mode clocking
+
+My aim is to do as much of the clocking from the agenda buffer without ever
+having to leave it, except to open a new task.
+
+https://github.com/dfeich/org-clock-convenience
 ** anki-editor
 Emacs minor mode for making Anki cards with Org
 https://github.com/louietan/anki-editor
-**  ednc
+**  org-clock-budget
+Budget your time with org!
+https://github.com/Fuco1/org-clock-budget
+**  org-mru-clock
+timer_clock Effortlessly clock in/out of org-mode tasks, with completion and
+persistent history
+https://github.com/unhammer/org-mru-clock
+**  counsel-org-clock
+Counsel (Ivy) interface for org-clock
+https://github.com/akirak/counsel-org-clock
+**  clocker.el
+Note taker and org-clock-in enforcer
+https://github.com/roman/clocker.el
+** org-clock-split
+Split org-mode CLOCK entry while preserving time.
+https://github.com/justintaft/org-clock-split
+**  org-clock-helpers
+Past clock insertion helpers
+https://github.com/mskorzhinskiy/org-clock-helpers#past-clock-insertion-helpers
+** ednc (The Emacs Desktop Notification Center)
 The Emacs Desktop Notification Center
 https://github.com/sinic/ednc
 ** alert
@@ -1210,6 +1257,9 @@ recipe
  :repo "progfolio/doct"
  :fetcher github)
 #+end_src
+*** fixes
+**** Method to combine doct with org-roam templates?
+https://github.com/progfolio/doct/issues/18
 ** dirvish
 Dired can be a nice file manager.
 https://github.com/alexluigit/dirvish
@@ -1739,6 +1789,7 @@ https://superuser.com/questions/307751/setting-default-emacs-window-margins/6451
 **** TODO rebind TAB when in visual mode to no more insert snippet
 *** TODO add and customize showing whitespace characters
 *** TODO smooth scrolling
+*** TODO ? how can I make a window colored and another (unfocused) window grayscale?
 *** TODO change behavior of M-q, instead of separating lines to a given width
 make it join everything in one single line
 
@@ -1823,7 +1874,7 @@ Headlines without IDs will not be considered Org-roam nodes.
 Org IDs can be added to files or headlines via the interactive command =M-x
 org-id-get-create=.
 ****** 5.2 Links between Nodes
-We link between nodes using Org’s standard ID link (e.g. id:foo).
+We link between nodes using Org’s standard ID link (e.g. \id:\foo).
 
 While only ID links will be considered during the computation of links between
 nodes, Org-roam caches all other links in the documents for external use.
@@ -2482,18 +2533,21 @@ directory (for easy access to its source code).
        :input
 #+end_src
 **** NO chinese
-+ chinese - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+***** code
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;chinese
 #+end_src
 **** NO japanese
-+ japanese - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+***** code
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;japanese
 #+end_src
 **** NO layout
-+ layout =+azerty +bepo= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+***** code
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(layout            ; auie,ctsrnm is the superior home row
        ;; +azerty
        ;; +bepo
@@ -2502,7 +2556,6 @@ directory (for easy access to its source code).
 *** completion
 Modules that provide new interfaces or frameworks for completion, including code
 completion.
-
 **** completion start
 #+begin_src emacs-lisp :tangle ./init.el
        :completion
@@ -2517,7 +2570,8 @@ completion.
 #+end_src
 **** NO helm
 + helm =+fuzzy +childframe= - *Another* search engine for love and life
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(helm              ; the *other* search engine for love and life
        ;; +fuzzy
        ;; +childframe
@@ -2525,13 +2579,15 @@ completion.
 #+end_src
 **** NO ido
 + ido - The /other/ *other* search engine for love and life
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ido               ; the other *other* search engine...
 #+end_src
 **** NO ivy
 + ivy =+fuzzy +prescient +childframe +icons= - /The/ search engine for love and
   life
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(ivy              ; a search engine for love and life
        ;; +fuzzy
        ;; +childframe
@@ -2555,7 +2611,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO deft
 + deft - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; deft              ; notational velocity for Emacs
 #+end_src
 **** YES doom
@@ -2594,7 +2651,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO indent-guides
 + indent-guides - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; indent-guides     ; highlighted indent columns
 #+end_src
 **** NO ligatures
@@ -2608,7 +2666,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
   Iosevka font (see below).
 + =+pragmata-pro= Enable =Pragmata Pro= ligatures. This requires the [[https://www.fsd.it/shop/fonts/pragmatapro/][Pragmata
   Pro font]].
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (ligatures         ; ligatures and symbols to make your code pretty again
        ;; +extra
        ;; +fira
@@ -2619,7 +2678,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO minimap
 + minimap - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; minimap           ; show a map of the code on the side
 #+end_src
 **** YES modeline
@@ -2631,22 +2691,26 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO nav-flash
 + nav-flash - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;nav-flash         ; blink cursor line after big motions
 #+end_src
 **** NO neotree
 + neotree - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;neotree           ; a project drawer, like NERDTree for vim
 #+end_src
 **** NO ophints
 + ophints - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; ophints           ; highlight the region an operation acts on
 #+end_src
 **** NO popup
 + popup =+all +defaults= - Makes temporary/disposable windows less intrusive
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (popup            ; tame sudden yet inevitable temporary windows
       ;;  +defaults
       ;;  +all
@@ -2654,12 +2718,14 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO tabs
 + tabs - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; tabs              ; a tab bar for Emacs
 #+end_src
 **** NO treemacs
 + treemacs - =+lsp= - A tree layout file explorer for Emacs
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (treemacs          ; a project drawer, like neotree but cooler
       ;;  +lsp
       ;;  )
@@ -2676,7 +2742,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO vi-tilde-fringe
 + vi-tilde-fringe - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
 #+end_src
 **** YES window-select
@@ -2688,7 +2755,8 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+end_src
 **** NO workspaces
 + workspaces - Isolated workspaces
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; workspaces        ; tab emulation, persistence & separate workspaces
 #+end_src
 **** YES zen
@@ -2712,51 +2780,60 @@ Modules that affect and augment your ability to manipulate or insert text.
 #+end_src
 **** NO file-templates
 + file-templates - Auto-inserted templates in blank new files
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; file-templates    ; auto-snippets for empty files
 #+end_src
 **** NO fold
 + fold - universal code folding
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; fold                ; (nigh) universal code folding
 #+end_src
 **** NO format
 + format =+onsave= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(format             ; automated prettiness
        ;; +onsave
        ;; )
 #+end_src
 **** NO god
 + god - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;god               ; run Emacs commands without modifier keys
 #+end_src
 **** NO lispy
 + lispy - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;lispy             ; vim for lisp, for people who don't like vim
 #+end_src
 **** NO multiple-cursors
 + multiple-cursors - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;multiple-cursors  ; editing in many places at once
 #+end_src
 **** NO objed
 + objed =+manual= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(objed             ; text object editing for the innocent
        ;; +manual
        ;; )
 #+end_src
 **** NO parinfer
 + parinfer - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;parinfer          ; turn lisp into python, sort of
 #+end_src
 **** NO rotate-text
 + rotate-text - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;rotate-text       ; cycle region at point between text candidates
 #+end_src
 **** YES snippets
@@ -2766,7 +2843,8 @@ Modules that affect and augment your ability to manipulate or insert text.
 #+end_src
 **** NO word-wrap
 + word-wrap - soft wrapping with language-aware indent
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;word-wrap         ; soft wrapping with language-aware indent
 #+end_src
 *** Emacs
@@ -2785,7 +2863,8 @@ Modules that reconfigure or augment packages or features built into Emacs.
 #+end_src
 **** NO electric
 + electric - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; electric          ; smarter, keyword-based electric-indent
 #+end_src
 **** YES ibuffer
@@ -2816,22 +2895,26 @@ Modules that offer terminal emulation.
 #+end_src
 **** NO eshell
 + eshell - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;eshell            ; the elisp shell that works everywhere
 #+end_src
 **** NO shell
 + shell - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;shell             ; simple shell REPL for Emacs
 #+end_src
 **** NO term
 + term - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;term              ; basic terminal emulator for Emacs
 #+end_src
 **** NO vterm
 + vterm - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;vterm             ; the best terminal emulation in Emacs
 #+end_src
 *** Checkers
@@ -2841,14 +2924,16 @@ Modules that offer terminal emulation.
 #+end_src
 **** NO syntax
 + syntax =+childframe= - Live error/warning highlights
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (syntax              ; tasing you for every semicolon you forget
       ;; +childframe
       ;; )
 #+end_src
 **** NO spell
 + spell =+aspell +flyspell +enchant +everywhere +hunspell= - Spell checking
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (spell              ; tasing you for misspelling mispelling
       ;; +flyspell
       ;; )
@@ -2866,57 +2951,67 @@ Small modules that give Emacs access to external tools & services.
 #+end_src
 **** NO ansible
 + ansible - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ansible
 #+end_src
 **** NO biblio
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;biblio            ; Writes a PhD for you (citation needed)
 #+end_src
 **** NO debugger
 + debugger =+lsp= - A (nigh-)universal debugger in Emacs
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (debugger          ; FIXME stepping through code, to help you add bugs
        ;; +lsp
        ;; )
 #+end_src
 **** NO direnv
 + direnv - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;direnv
 #+end_src
 **** NO docker
 + docker =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (docker
        ;; +lsp
        ;; )
 #+end_src
 **** NO editorconfig
 + editorconfig - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;editorconfig      ; let someone else argue about tabs vs spaces
 #+end_src
 **** NO ein - jupyper notebooks
 + ein - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ein               ; tame Jupyter notebooks with emacs
 #+end_src
 **** NO eval
 + eval =+overlay= - REPL & code evaluation support for a variety of languages
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (eval      ; run code, run (also, repls)
       ;;  +overlay
       ;;  )
 #+end_src
 **** NO gist
 + gist - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;gist              ; interacting with github gists
 #+end_src
 **** NO lookup
 + lookup =+dictionary +docsets +offline= - Universal jump-to & documentation lookup backend
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (lookup              ; navigate your code and its documentation
        ;; +dictionary
        ;; +docsets
@@ -2941,12 +3036,8 @@ Small modules that give Emacs access to external tools & services.
 #+end_src
 **** NO make
 + make - TODO
-#+begin_src emacs-lisp :tangle ./init.el
-       ;;make              ; run make tasks from Emacs
-#+end_src
-**** NO pass
-+ pass =+auth= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (pass              ; password manager for nerds
        ;; +auth
        ;; )
@@ -2958,7 +3049,8 @@ Small modules that give Emacs access to external tools & services.
 #+end_src
 **** NO prodigy
 + prodigy - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;prodigy           ; FIXME managing external services & code builders
 #+end_src
 **** YES rgb
@@ -2968,22 +3060,20 @@ Small modules that give Emacs access to external tools & services.
 #+end_src
 **** NO taskrunner
 + taskrunner - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;taskrunner        ; taskrunner for all your projects
 #+end_src
 **** NO terraform
 + terraform - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;terraform         ; infrastructure as code
 #+end_src
 **** NO tmux
 + tmux - TODO
-#+begin_src emacs-lisp :tangle ./init.el
-       ;;tmux              ; an API for interacting with tmux
-#+end_src
-**** NO upload
-+ upload - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;upload            ; map local to remote projects via ssh/ftp
 #+end_src
 
@@ -2993,7 +3083,8 @@ Modules to improve integration into your OS, system, or devices.
 + macos - Improve Emacs' compatibility with macOS
 + tty =+osc= - Improves the terminal Emacs experience.
 
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        :os
 
        (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -3011,44 +3102,52 @@ Modules that bring support for a language or group of languages to Emacs.
 #+end_src
 **** NO Agda
 + agda =+local= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;agda              ; types of types of types of types...
 #+end_src
 **** NO Beancount
 + beancount =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;beancount         ; mind the GAAP
 #+end_src
 **** NO C/C++
 + cc =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (cc                ; C > C++ == 1
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO Clojure
 + clojure =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;clojure           ; java with a lisp
 #+end_src
 **** NO common-lisp
 + common-lisp - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
 #+end_src
 **** NO coq
 + coq - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;coq               ; proofs-as-programs
 #+end_src
 **** NO crystal
 + crystal - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;crystal           ; ruby at the speed of c
 #+end_src
 **** NO C#
 + csharp =+lsp +unity= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
         ;; (csharp            ; unity, .NET, and mono shenanigans
         ;; +lsp
         ;; +unity
@@ -3056,7 +3155,8 @@ Modules that bring support for a language or group of languages to Emacs.
 #+end_src
 **** NO dart / flutter
 + dart =+lsp +flutter=
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(dart              ; paint ui and not much else
        ;; +lsp
        ;; +flutter
@@ -3069,18 +3169,21 @@ Modules that bring support for a language or group of languages to Emacs.
 #+end_src
 **** NO elixir
 + elixir =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;elixir            ; erlang done right
 #+end_src
 **** NO dhall
 WTF is this?
 
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;dhall
 #+end_src
 **** NO elm
 + elm =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;elm               ; care for a cup of TEA?
 #+end_src
 **** YES emacs-lisp
@@ -3090,38 +3193,45 @@ WTF is this?
 #+end_src
 **** NO erlang
 + erlang =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;erlang            ; an elegant language for a more civilized age
 #+end_src
 **** NO ess
 + ess =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ess               ; emacs speaks statistics
 #+end_src
 **** NO factor
 + factor - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;factor
 #+end_src
 **** NO faust
 + faust - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;faust             ; dsp, but you get to keep your soul
 #+end_src
 **** NO fortran
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
 #+end_src
 **** NO F#
 + fsharp =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (fsharp            ; ML stands for Microsoft's Language
       ;;  +lsp
       ;; )
 #+end_src
 **** NO F*
 + fstar - F* support
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
 #+end_src
 **** YES gdscript
@@ -3133,31 +3243,36 @@ WTF is this?
 #+end_src
 **** NO go
 + go =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;(go          ; the hipster dialect
        ;; +lsp
        ;; )
 #+end_src
 **** NO haskell
 + haskell =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (haskell     ; a language that's lazier than I am
        ;; +lsp
        ;; )
 #+end_src
 **** NO hy
 + hy - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;hy                ; readability of scheme w/ speed of python
 #+end_src
 **** NO idris
 + idris - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;idris             ; a language you can depend on
 #+end_src
 **** NO java
 + java =+meghanada +eclim +lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (java           ; the poster child for carpal tunnel syndrome
        ;; +meghanada
        ;; )
@@ -3178,12 +3293,14 @@ WTF is this?
 #+end_src
 **** NO julia
 + julia =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;julia             ; a better, faster MATLAB
 #+end_src
 **** NO kotlin
 + kotlin =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;kotlin            ; a better, slicker Java(Script)
 #+end_src
 **** YES latex
@@ -3193,17 +3310,20 @@ WTF is this?
 #+end_src
 **** NO lean
 + lean - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;lean              ; for folks with too much to prove
 #+end_src
 **** NO ledger
 + ledger - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ledger            ; be audit you can be
 #+end_src
 **** NO lua
 + lua =+fennel +moonscript= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;lua               ; one-based indices? one-based indices
 #+end_src
 **** YES markdown
@@ -3213,21 +3333,50 @@ WTF is this?
 #+end_src
 **** NO nim
 + nim - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;nim               ; python + lisp at the speed of c
 #+end_src
 **** NO nix
 + nix - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;nix               ; I hereby declare "nix geht mehr!"
 #+end_src
 **** NO ocaml
 + ocaml =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;ocaml             ; an objective camel
 #+end_src
 **** YES org
-+ org =+brain +dragndrop +gnuplot +hugo +ipython +journal +jupyter +noter +pandoc +pomodoro +present +pretty +roam= - TODO
+***** Module Flags
++ =+brain= Enables [[https://github.com/Kungsgeten/org-brain][org-brain]] integration.
++ =+dragndrop= Enables drag-and-drop support for images and files; inserts
+  inline previews for images and an icon+link for other media types.
++ =+gnuplot= Installs gnuplot & gnuplot-mode, which enables rendering images
+  from gnuplot src blocks or plotting tables with ~org-plot/gnuplot~ (bound to
+  =SPC m b p=, by default).
++ =+hugo= Enables integration with [[https://gohugo.io][hugo]] to export from Emacs well-formed
+  ([[https://github.com/russross/blackfriday][blackfriday]]) markdown.
++ =+ipython= (**DEPRECATED**) Enables ipython integration for babel.
++ =+journal= Enables [[https://github.com/bastibe/org-journal][org-journal]] integration.
++ =+jupyter= Enables Jupyter integration for babel.
++ =+noter= Enables org-noter integration. Keeps notes in sync with a document.
+  Requires [[https://github.com/politza/pdf-tools][pdf-tools]] (=:tools pdf=) or [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Document-View.html][DocView]] or [[https://github.com/wasamasa/nov.el][nov.el]] to be enabled.
++ =+pandoc= Enables pandoc integration into the Org exporter.
++ =+pomodoro= Enables a pomodoro timer for clocking time on tasks.
++ =+present= Enables integration with reveal.js, beamer and org-tree-slide, so
+  Emacs can be used for presentations. It automatically downloads [[https://github.com/hakimel/reveal.js][reveal.js]].
++ =+pretty= Enables pretty unicode symbols for bullets and priorities, and
+  better syntax highlighting for latex. Keep in mind: this can be expensive. If
+  org becomes too slow, it'd be wise to disable this flag.
++ =+roam= Enables integration with [[https://github.com/org-roam/org-roam-v1][org-roam v1]]. This requires ~sqlite3~ to be
+  installed on your system. Incompatible with =+roam2=.
++ =+roam2= Enables integration with [[https://github.com/org-roam/org-roam][org-roam v2]]. This requires ~sqlite3~ to be
+  installed on your system. Incompatible with =+roam=.
+
+***** code
 #+begin_src emacs-lisp :tangle ./init.el
        (org              ; organize your plain life in plain text
        ;; +brain
@@ -3242,22 +3391,25 @@ WTF is this?
         +pomodoro
         +present
         +pretty
-        +roam
+        +roam2
         )
 #+end_src
 **** NO php
 + php =+hack +lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;php               ; perl's insecure younger brother
 #+end_src
 **** NO plantuml
 + plantuml - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;plantuml          ; diagrams for confusing people more
 #+end_src
 **** NO purescript
 + purescript =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;purescript        ; javascript, but functional
 #+end_src
 **** YES python
@@ -3269,51 +3421,60 @@ WTF is this?
 #+end_src
 **** NO qt
 + qt - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;qt                ; the 'cutest' gui framework ever
 #+end_src
 **** NO racket
 + racket =+lsp +xp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;racket            ; a DSL for DSLs
 #+end_src
 **** NO raku
 + raku - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;raku              ; the artist formerly known as perl6
 #+end_src
 **** NO rest (emacs REST client)
 + rest - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;rest              ; Emacs as a REST client
 #+end_src
 **** NO rst
 + rst - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; rst               ; ReST in peace
 #+end_src
 **** NO ruby
 + ruby =+lsp +rvm +rbenv +rails +chruby=
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (ruby      ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;; +rails
        ;; )
 #+end_src
 **** NO rust
 + rust =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO scala
 + scala =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;scala             ; java, but good
 #+end_src
 **** NO scheme
 + scheme =+chez +chibi +chicken +gambit +gauche +guile +kawa +mit +racket= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (scheme    ; a fully conniving family of lisps
        ;; +chez
        ;; +chibi
@@ -3328,7 +3489,8 @@ WTF is this?
 #+end_src
 **** NO sh
 + sh =+fish +lsp +powershell= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (sh                ; she sells {ba,z,fi}sh shells on the C xor
       ;;  +lsp
       ;;  +fish
@@ -3336,22 +3498,26 @@ WTF is this?
 #+end_src
 **** NO sml
 + sml - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;sml
 #+end_src
 **** NO solidity
 + solidity - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;solidity          ; do you need a blockchain? No.
 #+end_src
 **** NO swift
 + swift =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;swift             ; who asked for emoji variables?
 #+end_src
 **** NO terra
 + terra - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;terra             ; Earth and Moon in alignment for performance.
 #+end_src
 **** YES web (html / css)
@@ -3363,14 +3529,16 @@ WTF is this?
 #+end_src
 **** NO yaml
 + yaml =+lsp= - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
       ;; (yaml              ; JSON, but readable
       ;;  +lsp
       ;;  )
 #+end_src
 **** NO zig
 + zig =+lsp= - Zig support.
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;zig               ; C, but simpler
 #+end_src
 *** email
@@ -3378,7 +3546,8 @@ WTF is this?
 + notmuch - TODO
 + wanderlust =+gmail= - TODO
 
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        :email
        ;; (mu4e
        ;; +org
@@ -3405,29 +3574,34 @@ loaded last*, before =:config= modules.
 #+end_src
 **** NO emms - emacs multimeadia management system?
 + emms - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;emms
 #+end_src
 **** NO everywhere
 + everywhere - TODO
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;everywhere        ; *leave* Emacs!? You must be joking
 #+end_src
 **** NO irc
 + irc - how neckbeards socialize
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;irc               ; how neckbeards socialize
 #+end_src
 **** NO rss
 + rss =+org= - an RSS client in Emacs
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;; (rss         ; emacs as an RSS reader
        ;; +org
        ;; )
 #+end_src
 **** NO twitter
 + twitter - A twitter client for Emacs
-#+begin_src emacs-lisp :tangle ./init.el
+... #+begin_src emacs-lisp :tangle ./init.el
+#+begin_src emacs-lisp :tangle no
        ;;twitter           ; twitter client https://twitter.com/vnought
 #+end_src
 *** config
@@ -3516,8 +3690,60 @@ sync= after modifying this file!
 #+begin_src emacs-lisp :tangle ./config.el
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 #+end_src
+*** Checkers
+**** Grammar
+***** Langtool
+.. #+begin_src elisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------ Checkers / Grammar / Langtool
+(use-package! langtool
+  :commands (langtool-check
+             langtool-check-done
+             langtool-show-message-at-point
+             langtool-correct-buffer)
+  :init (setq langtool-default-language "pt-BR")
+  :config
+  (unless (or langtool-bin
+              langtool-language-tool-jar
+              langtool-java-classpath)
+    (cond (IS-LINUX
+          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
+;; end -------------------------------- Checkers / Grammar / Langtool
+#+end_src
+***** NO writegood
+... #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp :tangle no
+;; start -------------------------------- Checkers / Grammar / writegood
+;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
+;; (use-package! writegood-mode
+;;   :hook
+;;   (org-mode markdown-mode
+;;             rst-mode
+;;             asciidoc-mode
+;;             latex-mode
+;;             LaTeX-mode)
+;;   :config
+;;   (map! :localleader
+;;         :map writegood-mode-map
+;;         "g" #'writegood-grade-level
+;;         "r" #'writegood-reading-ease
+;;   )
+;; )
+;; end -------------------------------- Checkers / Grammar / writegood
+#+end_src
+*** Fixes
+**** YES Remove exit confirmation message
+Removes annoying exit confirmation message
+
+... #+begin_src emacs-lisp :tangle ./config.el
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ------------------------------ fixes / remove exit confirmation message
+(setq confirm-kill-emacs nil)
+;; end -------------------------------- fixes / remove exit confirmation message
+#+end_src
 *** Info
-**** _
+**** name and email
 Some functionality uses this to identify you, e.g. GPG configuration, email
 clients, file templates and snippets.
 
@@ -3684,7 +3910,7 @@ contain ‘mark’ feature.
 Garantees that /italics/ and *bold* shows correctly in org mode, maybe unnecessary.
 
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
@@ -3768,17 +3994,6 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 ;; end line numbers config ----------------------------- end line numbers config
 #+end_src
 
-*** Fixes
-**** YES Remove exit confirmation message
-Removes annoying exit confirmation message
-
-... #+begin_src emacs-lisp :tangle ./config.el
-... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------ fixes / remove exit confirmation message
-(setq confirm-kill-emacs nil)
-;; end -------------------------------- fixes / remove exit confirmation message
-#+end_src
 *** Org
 **** agenda
 ***** super agenda
@@ -3992,6 +4207,23 @@ https://gist.github.com/spacebat/097f3e7469edf2eaa6a9
 )
 ;; end --------------------- org / images
 #+end_src
+**** NO notify
+I don't know how to install this
+.. #+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp :tangle no
+;; start ------------------------------------------------ org / notify
+;; (use-package! org
+;;   :ensure org-plus-contrib
+;; )
+
+;; (use-package! org-notify
+;;   :ensure nil
+;;   :after org
+;;   :config
+;;   (org-notify-start)
+;; )
+;; end -------------------------------------------------- org / notiify
+#+end_src
 **** org files location
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!
@@ -4005,7 +4237,7 @@ change `org-directory'. It must be set before org loads!
 I removed this package altogether
 
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; start ---------------------------------------------------- org / priorities
 (after! org
   (setq
@@ -4705,24 +4937,41 @@ adds the location of the org-roam folder
 
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start --------------------------------------------- org-roam files location
+(use-package! org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
+  (setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+  (org-roam-completion-everywhere t)
 
-(setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
-
-;;(org-roam-db-autosync-mode)
-
-(setq org-roam-dailies-directory "~/Dropbox/org/roam/daily")
+  (org-roam-capture-templates
+    '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y-%m-%d,%H:%M:%S>-${slug}.org"
+                         "#+title: ${title}\n")
+      :unnarrowed t)
+    )
+  )
+  :config
+  ;; not working
+  ;;(org-roam-setup)
+)
 
 ;; include a column for tags up to 10 character widths wide
-(setq org-roam-node-display-template
-      (concat "${title:*} "
-              (propertize "${tags:10}" 'face 'org-tag)
-      )
-)
+;; not working with vertico
+;; (setq org-roam-node-display-template
+;;       (concat "${title:*} "
+;;               (propertize "${tags:10}" 'face 'org-tag)
+;;       )
+;; )
 
 ;; workaround (void-function ucs-normalize-NFD-string)
-(after! org
-  (require 'ucs-normalize)
-)
+;; (after! org
+;;   (require 'ucs-normalize)
+;; )
+
 ;; end ---------------------------------------------- org-roam files location
 #+end_src
 ***** bug
@@ -4861,9 +5110,8 @@ https://github.com/YourFin/evil-better-visual-line
 **** NO centered-window-mode
 didn't work
 
-... #+begin_src emacs-lisp
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; start ------------------------------------------------------ UI / centered-window-mode
 (use-package! centered-window-mode
   :init (centered-window-mode)
@@ -4873,58 +5121,17 @@ didn't work
 **** MAYBE add margins on both sides
 the problem with it is that it applies those margins everywhere
 
-... #+begin_src emacs-lisp
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp :tangle ./config.el
+#+begin_src emacs-lisp :tangle no
 ;; start ------------------------------------------------------ UI / margins
-(setq-default
-  left-margin-width  5
-  right-margin-width 5
-)
-(set-window-buffer nil
-                   (current-buffer)
-) ; Use them now.
-;; end -------------------------------------------------------- UI / margins
-#+end_src
-*** Checkers
-**** Grammar
-***** Langtool
-.. #+begin_src elisp
-#+begin_src emacs-lisp :tangle ./config.el
-;; start ------------------------------ Checkers / Grammar / Langtool
-(use-package! langtool
-  :commands (langtool-check
-             langtool-check-done
-             langtool-show-message-at-point
-             langtool-correct-buffer)
-  :init (setq langtool-default-language "pt-BR")
-  :config
-  (unless (or langtool-bin
-              langtool-language-tool-jar
-              langtool-java-classpath)
-    (cond (IS-LINUX
-          (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))))
-;; end -------------------------------- Checkers / Grammar / Langtool
-#+end_src
-***** NO writegood
-#+begin_src emacs-lisp :tangle ./config.el
-;; start -------------------------------- Checkers / Grammar / writegood
-;; Detects weasel words, passive voice and duplicates. Proselint would be a better choice.
-;; (use-package! writegood-mode
-;;   :hook
-;;   (org-mode markdown-mode
-;;             rst-mode
-;;             asciidoc-mode
-;;             latex-mode
-;;             LaTeX-mode)
-;;   :config
-;;   (map! :localleader
-;;         :map writegood-mode-map
-;;         "g" #'writegood-grade-level
-;;         "r" #'writegood-reading-ease
-;;   )
+;; (setq-default
+;;   left-margin-width  5
+;;   right-margin-width 5
 ;; )
-;; end -------------------------------- Checkers / Grammar / writegood
+;; (set-window-buffer nil
+;;                    (current-buffer)
+;; ) ; Use them now.
+;; end -------------------------------------------------------- UI / margins
 #+end_src
 *** Keybindings
 ** packages.el
@@ -5038,13 +5245,14 @@ release. The `unpin!' macro allows you to unpin single packages...
 #+end_src
 
 *** NO benchmark startup time
-#+begin_src emacs-lisp :tangle ./packages.el
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
 ;;(package! benchmark-init)
 #+end_src
 *** org
 **** NO org-fancy-priorities
-... #+begin_src elisp
-#+begin_src emacs-lisp :tangle ./packages.el
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
 ;; start ------------------------------------------------ org / org-fancy-priorities
 (package!
   org-fancy-priorities
@@ -5086,18 +5294,27 @@ release. The `unpin!' macro allows you to unpin single packages...
 (package! org-ref)
 ;; end ---------------------------------------------- org / ref
 #+end_src
-**** unpin org packages
-#+begin_src emacs-lisp :tangle ./packages.el
-(unpin!
-  org
-  org-roam
-)
+**** NO unpin org packages
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
+;; (unpin!
+;;   org
+;;   org-roam
+;; )
+#+end_src
+**** NO org-notify
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
+;; start ---------------------------------------------- org / notify
+;(package! org-plus-contrib)
+;; end ---------------------------------------------- org / notify
 #+end_src
 *** UI
 **** NO centered-window-mode
 Keep your text centered when there's only one window.
 ...#+begin_src emacs-lisp :tangle ./packages.el
-#+begin_src emacs-lisp
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; start ------------------------------------------------------- UI / centered-window-mode
 (package!
   centered-window-mode
@@ -5108,7 +5325,8 @@ Keep your text centered when there's only one window.
 a better scrollbar
 
 ... #+begin_src emacs-lisp
-#+begin_src emacs-lisp :tangle ./packages.el
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
 ;; start ------------------------------------------------------- UI / yascroll
 ;; (package!
 ;;   yascroll
@@ -5118,19 +5336,18 @@ a better scrollbar
 **** NO evil-better-visual-line
 creates a lot of lag
 
-#+begin_src emacs-lisp :tangle ./packages.el
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
 ;;(package!
 ;;  evil-better-visual-line
 ;;)
 #+end_src
 *** Checkers
 **** Grammar
-***** writegood
-#+begin_src emacs-lisp :tangle ./packages.el
-(package! writegood-mode
-  :disable t
-)
+***** NO writegood
+... #+begin_src emacs-lisp :tangle ./packages.el
+#+begin_src emacs-lisp :tangle no
+;; (package! writegood-mode
+;;   :disable t
+;; )
 #+end_src
-
-
-
