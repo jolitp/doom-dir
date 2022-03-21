@@ -94,6 +94,12 @@
 )
 ;; end --------------------- org / images
 
+(after! org
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+)
+
 ;; start ------------------------------------------------------- org files location
 (setq org-directory "~/Dropbox/org/")
 ;; end --------------------------------------------------------- org files location
@@ -176,7 +182,7 @@
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|" "SKIP(s)" "DONE(D)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -229,7 +235,7 @@
 )
 ;; end -------------------------------------------- org / TODOs states / bullets
 
-;; start --------------------------------------------- org-roam files location
+;; start --------------------------------------------- org / roam
 (use-package! org-roam
   :ensure t
   :init
@@ -243,29 +249,22 @@
     '(("d" "default" plain
       "%?"
       :if-new (file+head "%<%Y-%m-%d,%H:%M:%S>-${slug}.org"
-                         "#+title: ${title}\n")
+                         "#+title: ${title}\n#+date: %U\n")
       :unnarrowed t)
     )
   )
-  :config
-  ;; not working
-  ;;(org-roam-setup)
+
+  (setq org-roam-dailies-capture-templates
+    '(("d" "default" plain
+       "* %<%H:%M>: %?"
+       :if-new (file+head
+               "%<%Y-%m-%d>.org"
+               "#+title: %<%Y-%m-%d>\n")
+      )
+    )
+  )
 )
-
-;; include a column for tags up to 10 character widths wide
-;; not working with vertico
-;; (setq org-roam-node-display-template
-;;       (concat "${title:*} "
-;;               (propertize "${tags:10}" 'face 'org-tag)
-;;       )
-;; )
-
-;; workaround (void-function ucs-normalize-NFD-string)
-;; (after! org
-;;   (require 'ucs-normalize)
-;; )
-
-;; end ---------------------------------------------- org-roam files location
+;; end --------------------------------------------- org / roam
 
 ;; start ------------------------------------------------------ org / transclusion
 (use-package! org-transclusion
@@ -278,6 +277,17 @@
   ;;  :desc "Org Transclusion Mode" "t" #'org-transclusion-mode)
 )
 ;; start ------------------------------------------------------ org / transclusion
+
+(setq projectile-indexing-method 'alien) ;; default value
+(setq projectile-auto-discover t)        ;; default value
+(setq projectile-sort-order 'recentf)
+
+(setq projectile-project-search-path '(
+                                       ("~/Dropbox" . 10)
+                                       ("~/Config" . 3)
+;;                                       ("~/github" . 1) ;; depth = 1
+                                      )
+)
 
 ;; start ---------------------------------- UI / Interface / Scrollbar
 ;;(global-yascroll-bar-mode t)

@@ -87,6 +87,15 @@ symbols in lisp stat with a ='= like:
 #+begin_src elisp
 (a 'symbol)
 #+end_src
+** lisp learning resources
+*** It is not hard to read Lisp code
+https://yoo2080.wordpress.com/2014/07/04/it-is-not-hard-to-read-lisp-code/
+** Parinfer
+https://shaunlebron.github.io/parinfer/
+** Inspiring a future Clojure editor with forgotten Lisp UX - Shaun Lebron
+https://www.youtube.com/watch?v=K0Tsa3smr1w&t=532s
+** Don't make a habit of putting close-parentheses on lines by themselves; Lisp programmers find this disconcerting.
+https://www.reddit.com/r/emacs/comments/f6q4yx/dont_make_a_habit_of_putting_closeparentheses_on/
 * content about Emacs configs to check out
 ** David Wilson (system crafters)
 *** youtube
@@ -225,9 +234,286 @@ maybe I can create a template and put a folder at the beginning of the filename
 ****** 1 The Basics of Emacs Configuration
 ****** 2 The 6 Emacs Settings Every User Should Consider
 *** github
+**** home
 https://github.com/daviwil
+**** dotfiles
 https://github.com/daviwil/dotfiles
+***** Emacs.org
+https://github.com/daviwil/dotfiles/blob/master/Emacs.org
+****** /home/daviwil/.dotfiles Emacs Configuration
+https://config.daviwil.com/emacs
+******* Rebind C-u
+Since I let evil-mode take over C-u for buffer scrolling, I need to re-bind the
+universal-argument command to another key sequence. I'm choosing C-M-u for this
+purpose.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-M-u") 'universal-argument)
+#+end_src
+******* Set Margins for Modes
+#+begin_src emacs-lisp
+;; (defun dw/center-buffer-with-margins ()
+;;   (let ((margin-size (/ (- (frame-width) 80) 3)))
+;;     (set-window-margins nil margin-size margin-size)))
+
+(defun dw/org-mode-visual-fill ()
+  (setq visual-fill-column-width 110
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :defer t
+  :hook (org-mode . dw/org-mode-visual-fill))
+#+end_src
+******* org mode
+#+begin_src emacs-lisp
+;; TODO: Mode this to another section
+(setq-default fill-column 80)
+
+;; Turn on indentation and auto-fill mode for Org files
+(defun dw/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil)
+  (diminish org-indent-mode))
+
+;; Make sure Straight pulls Org from Guix
+(when dw/is-guix-system
+  (straight-use-package '(org :type built-in)))
+
+(use-package org
+  :defer t
+  :hook (org-mode . dw/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 2
+        org-hide-block-startup nil
+        org-src-preserve-indentation nil
+        org-startup-folded 'content
+        org-cycle-separator-lines 2)
+
+  (setq org-modules
+    '(org-crypt
+        org-habit
+        org-bookmark
+        org-eshell
+        org-irc))
+
+  (setq org-refile-targets '((nil :maxlevel . 1)
+                             (org-agenda-files :maxlevel . 1)))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
+
+  (evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+  (evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+
+  (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+  (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+      (ledger . t)))
+
+  (push '("conf-unix" . conf-unix) org-src-lang-modes)
+
+  ;; NOTE: Subsequent sections are still part of this use-package block!
+#+end_src
+******* org mode Fonts and Bullets
+#+begin_src emacs-lisp
+(use-package org-superstar
+  :if (not dw/is-termux)
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Replace list hyphen with dot
+;; (font-lock-add-keywords 'org-mode
+;;                         '(("^ *\\([-]\\) "
+;;                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+;; Increase the size of various headings
+(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'medium :height (cdr face)))
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; Get rid of the background on column views
+(set-face-attribute 'org-column nil :background nil)
+(set-face-attribute 'org-column-title nil :background nil)
+
+;; TODO: Others to consider
+;; '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+;; '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-property-value ((t (:inherit fixed-pitch))) t)
+;; '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+;; '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+;; '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+#+end_src
+******* org mode Block Templates
+These templates enable you to type things like <el and then hit Tab to expand the template. More documentation can be found at the Org Mode Easy Templates documentation page.
+
+#+begin_src emacs-lisp
+;; This is needed as of Org 9.2
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+(add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("go" . "src go"))
+(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+(add-to-list 'org-structure-template-alist '("json" . "src json"))
+#+end_src
+
+documentation (outdated? in web.archive.org!)
+http://web.archive.org/web/20190924105433/https://orgmode.org/manual/Easy-templates.html
+******* Pomodoro
+#+begin_src emacs-lisp
+(use-package org-pomodoro
+  :after org
+  :config
+  (setq org-pomodoro-start-sound "~/.dotfiles/.emacs.d/sounds/focus_bell.wav")
+  (setq org-pomodoro-short-break-sound "~/.dotfiles/.emacs.d/sounds/three_beeps.wav")
+  (setq org-pomodoro-long-break-sound "~/.dotfiles/.emacs.d/sounds/three_beeps.wav")
+  (setq org-pomodoro-finished-sound "~/.dotfiles/.emacs.d/sounds/meditation_bell.wav")
+
+  (dw/leader-key-def
+    "op"  '(org-pomodoro :which-key "pomodoro")))
+#+end_src
+******* Searching org files with ripgrep
+#+begin_src emacs-lisp
+(defun dw/search-org-files ()
+  (interactive)
+  (counsel-rg "" "~/Notes" nil "Search Notes: "))
+#+end_src
+******* End use-package org-mode
+#+begin_src emacs-lisp
+;; This ends the use-package org-mode block
+)
+#+end_src
+******* Update Table of Contents on Save
+It's nice to have a table of contents section for long literate configuration
+files (like this one!) so I use org-make-toc to automatically update the ToC in
+any header with a property named TOC.
+
+#+begin_src emacs-lisp
+(use-package org-make-toc
+  :hook (org-mode . org-make-toc-mode))
+#+end_src
+******* Org Roam
+#+begin_src emacs-lisp
+(use-package org-roam
+  :straight t
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory "~/Notes/Roam/")
+  (org-roam-completion-everywhere t)
+  (org-roam-completion-system 'default)
+  (org-roam-capture-templates
+    '(("d" "default" plain
+       #'org-roam-capture--get-point
+       "%?"
+       :file-name "%<%Y%m%d%H%M%S>-${slug}"
+       :head "#+title: ${title}\n"
+       :unnarrowed t)
+      ("ll" "link note" plain
+       #'org-roam-capture--get-point
+       "* %^{Link}"
+       :file-name "Inbox"
+       :olp ("Links")
+       :unnarrowed t
+       :immediate-finish)
+      ("lt" "link task" entry
+       #'org-roam-capture--get-point
+       "* TODO %^{Link}"
+       :file-name "Inbox"
+       :olp ("Tasks")
+       :unnarrowed t
+       :immediate-finish)))
+  (org-roam-dailies-directory "Journal/")
+  (org-roam-dailies-capture-templates
+    '(("d" "default" entry
+       #'org-roam-capture--get-point
+       "* %?"
+       :file-name "Journal/%<%Y-%m-%d>"
+       :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+      ("t" "Task" entry
+       #'org-roam-capture--get-point
+       "* TODO %?\n  %U\n  %a\n  %i"
+       :file-name "Journal/%<%Y-%m-%d>"
+       :olp ("Tasks")
+       :empty-lines 1
+       :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+      ("j" "journal" entry
+       #'org-roam-capture--get-point
+       "* %<%I:%M %p> - Journal  :journal:\n\n%?\n\n"
+       :file-name "Journal/%<%Y-%m-%d>"
+       :olp ("Log")
+       :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+      ("l" "log entry" entry
+       #'org-roam-capture--get-point
+       "* %<%I:%M %p> - %?"
+       :file-name "Journal/%<%Y-%m-%d>"
+       :olp ("Log")
+       :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+      ("m" "meeting" entry
+       #'org-roam-capture--get-point
+       "* %<%I:%M %p> - %^{Meeting Title}  :meetings:\n\n%?\n\n"
+       :file-name "Journal/%<%Y-%m-%d>"
+       :olp ("Log")
+       :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")))
+  :bind (:map org-roam-mode-map
+          (("C-c n l"   . org-roam)
+           ("C-c n f"   . org-roam-find-file)
+           ("C-c n d"   . org-roam-dailies-find-date)
+           ("C-c n c"   . org-roam-dailies-capture-today)
+           ("C-c n C r" . org-roam-dailies-capture-tomorrow)
+           ("C-c n t"   . org-roam-dailies-find-today)
+           ("C-c n y"   . org-roam-dailies-find-yesterday)
+           ("C-c n r"   . org-roam-dailies-find-tomorrow)
+           ("C-c n g"   . org-roam-graph))
+         :map org-mode-map
+         (("C-c n i" . org-roam-insert))
+         (("C-c n I" . org-roam-insert-immediate))))
+#+end_src
+****** Org Mode Workflow
+https://config.daviwil.com/workflow
+**** emacs from scratch
 https://github.com/daviwil/emacs-from-scratch
+**** system crafters
 https://github.com/SystemCrafters
 **** System Crafter Configurations
 https://github.com/SystemCrafters/crafter-configs
@@ -1192,13 +1478,23 @@ Toggle visibility of hidden Org mode element parts upon entering and leaving an
 element
 ** DONE org-transclusion
 https://github.com/nobiot/org-transclusion
+** org-mime
+org-mime can be used to send HTML email using Org-mode HTML export.
+https://github.com/org-mime/org-mime
 ** org-roam-ui
 A graphical frontend for exploring your org-roam Zettelkasten
 https://github.com/org-roam/org-roam-ui
-**  org-clock-csv
+** super-save
+Save Emacs buffers when they lose focus
+https://github.com/bbatsov/super-save
+** org-clock-csv
 Export Emacs org-mode clock entries to CSV format.
 https://github.com/atheriel/org-clock-csv
-**  org-clock-convenience
+** bufler.el
+A butler for your buffers. Group buffers into workspaces with programmable
+rules, and easily switch to and manipulate them.
+https://github.com/alphapapa/bufler.el
+** org-clock-convenience
 Convenience functions to work with emacs org mode clocking
 
 My aim is to do as much of the clocking from the agenda buffer without ever
@@ -1208,23 +1504,23 @@ https://github.com/dfeich/org-clock-convenience
 ** anki-editor
 Emacs minor mode for making Anki cards with Org
 https://github.com/louietan/anki-editor
-**  org-clock-budget
+** org-clock-budget
 Budget your time with org!
 https://github.com/Fuco1/org-clock-budget
-**  org-mru-clock
-timer_clock Effortlessly clock in/out of org-mode tasks, with completion and
-persistent history
-https://github.com/unhammer/org-mru-clock
-**  counsel-org-clock
-Counsel (Ivy) interface for org-clock
-https://github.com/akirak/counsel-org-clock
-**  clocker.el
+** org-mru-clock
+timr_clock Effortlessly clock in/out of org-mode tasks, with completion and
+peristent history
+htts://github.com/unhammer/org-mru-clock
+** counsel-org-clock
+Cousel (Ivy) interface for org-clock
+htts://github.com/akirak/counsel-org-clock
+** clocker.el
 Note taker and org-clock-in enforcer
 https://github.com/roman/clocker.el
 ** org-clock-split
 Split org-mode CLOCK entry while preserving time.
 https://github.com/justintaft/org-clock-split
-**  org-clock-helpers
+** org-clock-helpers
 Past clock insertion helpers
 https://github.com/mskorzhinskiy/org-clock-helpers#past-clock-insertion-helpers
 ** ednc (The Emacs Desktop Notification Center)
@@ -1603,6 +1899,27 @@ Probably far from perfect, but the following is inspired by
 (add-hook 'post-command-hook
 	  'org-show-emphasis-markers-at-point nil t)
 #+end_src
+** Awesome Emacs
+a community driven list of useful Emacs packages, utilities and libraries
+https://github.com/emacs-tw/awesome-emacs
+** howardabrams dot-files
+My Emacs initialization code and standard scripts I use for client and servers alike.
+https://github.com/howardabrams/dot-files
+** daedreth UncleDavesEmacs
+https://github.com/daedreth/UncleDavesEmacs/blob/master/config.org
+** dakrone dakrone-dotfiles
+misc configuration files
+https://github.com/dakrone/dakrone-dotfiles
+** jinnovation .emacs.d
+Configs of an Emacs enthusiast
+https://github.com/jinnovation/.emacs.d
+** writequit's config
+This file takes a page out of the book of Hardcore Freestyle Emacs, in which a
+single org-file can be tangled to create all the necessary dotfiles required for
+my everyday computer usage.
+
+This file was last exported: 2015-12-12 14:45
+https://writequit.org/org/
 ** Making org-mode pretty with icons
 https://thibautbenjamin.github.io/emacs/org-icons
 ** Doom Emacs Configuration
@@ -1633,6 +1950,11 @@ https://orgmode.org/worg/org-hacks.html
 https://github.com/caisah/emacs.dz
 ** awesome-emacs
 https://github.com/emacs-tw/awesome-emacs
+** Towards a Vim-like Emacs
+** evil-guide
+Draft of a guide for using emacs with evil
+https://github.com/noctuid/evil-guide
+https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 * config emacs by purpose
 ** edit org files to become pdf files
 ** write literate configuration in org mode then tangle to the respective config files
@@ -1707,7 +2029,11 @@ https://www.emacswiki.org/emacs/download/character-fold%2b.el
 *** TODO remove writegood passive voice warnings
 *** TODO get a message on top of cursor when in a word that is not right
 as in have wrong syntax or grammar
+*** TODO make it so that sentences are separated by 2 spaces
 *** TODO get spell checking working in portuguese
+*** TODO ? how can I recreate the behavior of comment regions that I had in VS code for any type of code file?
+#region folding for VS Code
+https://marketplace.visualstudio.com/items?itemName=maptz.regionfolder
 ** TODO + changes to org mode
 *** DONE add org roam
 *** DONE hide synthax markers in org mode
@@ -1731,6 +2057,7 @@ ex:
 - [ ]
 - [-]
 - [X]
+*** TODO ? can I make the TOC inside a heading?
 *** TODO ? how to make my own expanding code blocks?
 like =<= for source block, I want =<el= for elisp for example
 *** TODO ? can I make the changed bullet, like the TODOs, a different color?
@@ -4207,6 +4534,18 @@ https://gist.github.com/spacebat/097f3e7469edf2eaa6a9
 )
 ;; end --------------------- org / images
 #+end_src
+**** log completed tasks
+put the completed date of a task (from TODO to DONE) into the COMPLETED drawer,
+also shows the completed dates in the agenda view
+***** code
+... #+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+)
+#+end_src
 **** NO notify
 I don't know how to install this
 .. #+begin_src emacs-lisp :tangle ./config.el
@@ -4343,7 +4682,7 @@ changes ... to an arrow(▼)
 )
 ;; end ------------------------------------------------ org / styles / ellipsis
 #+end_src
-***** headers (fail)
+***** NO headers (fail)
 ****** _
 BUG : defface: Wrong number of arguments: (3 . 3), 2
 
@@ -4363,7 +4702,7 @@ sets the header color to this order:
 10. (0) black/gray
 
 ****** example from stack exchange (fail)
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (progn
   (defface org-level-9 ;; originally copied from org-level-8
     (org-compatible-face
@@ -4514,7 +4853,7 @@ information.
 ****** changes the 1st headers color (fail)
 ... #+begin_src emacs-lisp :tangle ./config.el
 ... #+begin_src emacs-lisp
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; NEW CHANGE!!!
 (after! org
   (defface org-level-1
@@ -4547,7 +4886,7 @@ information.
 leave it for later
 
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; CHANGES!!!
 (after! org
   ;; (setq org-level-color-stars-only t)
@@ -4590,7 +4929,7 @@ leave it for later
 ****** complete answer (fail)
 ... #+begin_src elisp
 ... #+begin_src emacs-lisp :tangle ./config.el
-#+begin_src elisp
+#+begin_src elisp :tangle no
 (progn
   (progn
     (face-spec-set 'org-level-5 ;; originally copied from org-level-8
@@ -4843,7 +5182,7 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "SKIP(s)" "|" "DONE(D)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|" "SKIP(s)" "DONE(D)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -4936,7 +5275,7 @@ adds the location of the org-roam folder
 =file-truename= is used to eliminate symbolic links
 
 #+begin_src emacs-lisp :tangle ./config.el
-;; start --------------------------------------------- org-roam files location
+;; start --------------------------------------------- org / roam
 (use-package! org-roam
   :ensure t
   :init
@@ -4950,30 +5289,133 @@ adds the location of the org-roam folder
     '(("d" "default" plain
       "%?"
       :if-new (file+head "%<%Y-%m-%d,%H:%M:%S>-${slug}.org"
-                         "#+title: ${title}\n")
+                         "#+title: ${title}\n#+date: %U\n")
       :unnarrowed t)
     )
   )
-  :config
-  ;; not working
-  ;;(org-roam-setup)
+
+  (setq org-roam-dailies-capture-templates
+    '(("d" "default" plain
+       "* %<%H:%M>: %?"
+       :if-new (file+head
+               "%<%Y-%m-%d>.org"
+               "#+title: %<%Y-%m-%d>\n")
+      )
+    )
+  )
 )
-
-;; include a column for tags up to 10 character widths wide
-;; not working with vertico
-;; (setq org-roam-node-display-template
-;;       (concat "${title:*} "
-;;               (propertize "${tags:10}" 'face 'org-tag)
-;;       )
-;; )
-
-;; workaround (void-function ucs-normalize-NFD-string)
-;; (after! org
-;;   (require 'ucs-normalize)
-;; )
-
-;; end ---------------------------------------------- org-roam files location
+;; end --------------------------------------------- org / roam
 #+end_src
+****** format time string docs
+format-time-string is a function defined in C source code.
+
+Signature
+(format-time-string FORMAT-STRING &optional TIME ZONE)
+
+Documentation
+Use FORMAT-STRING to format the time value TIME.
+
+A time value that is omitted or nil stands for the current time,
+a number stands for that many seconds, an integer pair (TICKS . HZ)
+stands for TICKS/HZ seconds, and an integer list (HI LO US PS) stands
+for HI*2**16 + LO + US/10**6 + PS/10**12 seconds.  This function
+treats seconds as time since the epoch of 1970-01-01 00:00:00 UTC.
+
+The optional ZONE is omitted or nil for Emacs local time, t for
+Universal Time, wall for system wall clock time, or a string as in
+the TZ environment variable.  It can also be a list (as from
+current-time-zone) or an integer (as from decode-time) applied
+without consideration for daylight saving time.
+
+The value is a copy of FORMAT-STRING, but with certain constructs replaced
+by text that describes the specified date and time in TIME:
+
+%Y is the year, %y year without century, %C the century.
+%G is the year corresponding to the ISO week, %g year corresponding
+ to the ISO week, without century.
+%m is the numeric month.
+%b and %h are the locale's abbreviated month name, %B the full name.
+ (%h is not supported on MS-Windows.)
+%d is the day of the month, zero-padded, %e is blank-padded.
+%u is the numeric day of week from 1 (Monday) to 7, %w from 0 (Sunday) to 6.
+%a is the locale's abbreviated name of the day of week, %A the full name.
+%U is the week number starting on Sunday, %W starting on Monday,
+ %V the week number according to ISO 8601.
+%j is the day of the year.
+
+%H is the hour on a 24-hour clock, %I is on a 12-hour clock, %k is like %H
+ only blank-padded, %l is like %I blank-padded.
+%p is the locale's equivalent of either AM or PM.
+%q is the calendar quarter (1–4).
+%M is the minute (00-59).
+%S is the second (00-59; 00-60 on platforms with leap seconds)
+%s is the number of seconds since 1970-01-01 00:00:00 +0000.
+%N is the nanosecond, %6N the microsecond, %3N the millisecond, etc.
+%Z is the time zone abbreviation, %z is the numeric form.
+
+%c is the locale's date and time format.
+%x is the locale's "preferred" date format.
+%D is like "%m/%d/%y".
+%F is the ISO 8601 date format (like "%+4Y-%m-%d").
+
+%R is like "%H:%M", %T is like "%H:%M:%S", %r is like "%I:%M:%S %p".
+%X is the locale's "preferred" time format.
+
+Finally, %n is a newline, %t is a tab, %% is a literal %, and
+unrecognized %-sequences stand for themselves.
+
+A %-sequence can contain optional flags, field width, and a modifier
+(in that order) after the %.  The flags are:
+
+- Do not pad the field.
+_ Pad with spaces.
+0 Pad with zeros.
++ Pad with zeros and put + before nonnegative year numbers with >4 digits.
+^ Use upper case characters if possible.
+# Use opposite case characters if possible.
+
+A field width N is an unsigned decimal integer with a leading digit
+nonzero.  %NX is like %X, but takes up at least N positions.  The
+field width is (on GNU/Linux and some other systems) in measured in
+bytes, not characters.  It depends on the locale what the width (in
+characters) %NX will end up being, especially when there are non-ASCII
+characters in %X.
+
+The modifiers are:
+
+E Use the locale's alternative version.
+O Use the locale's number symbols.
+
+For example, to produce full ISO 8601 format, use "%FT%T%z".
+
+View in manual
+
+Demos
+
+#+BEGIN_SRC elisp
+(format-time-string "%Y-%m-%d %H:%M:%S %z")
+#+END_SRC
+
+References
+C code is not yet loaded.
+
+Find all references
+
+Debugging
+Enable tracing
+
+Aliases
+gmm-format-time-string (obsolete since 26.1)
+org-format-time-string (obsolete since 9.6)
+
+Source Code
+C code is not yet loaded.
+
+Set C source directory
+
+Symbol Properties
+side-effect-free
+  t
 ***** bug
 Error in private config: config.el, (void-function org-roam-db-autosync-mode)
 
@@ -4992,6 +5434,35 @@ workaround : (require 'ucs-normalize)
 )
 ;; start ------------------------------------------------------ org / transclusion
 #+end_src
+*** Projects
+**** YES projectile
+
+... #+begin_src elisp
+#+begin_src emacs-lisp :tangle ./config.el
+(setq projectile-indexing-method 'alien) ;; default value
+(setq projectile-auto-discover t)        ;; default value
+(setq projectile-sort-order 'recentf)
+
+(setq projectile-project-search-path '(
+                                       ("~/Dropbox" . 10)
+                                       ("~/Config" . 3)
+;;                                       ("~/github" . 1) ;; depth = 1
+                                      )
+)
+#+end_src
+***** docs for projectile-project-search-path
+projectile-project-search-path is a variable defined in ‘projectile.el’.
+
+Its value is nil
+
+List of folders where projectile is automatically going to look for projects.
+You can think of something like $PATH, but for projects instead of executables.
+Examples of such paths might be ~/projects, ~/work, (~/github . 1) etc.
+
+For elements of form (DIRECTORY . DEPTH), DIRECTORY has to be a
+directory and DEPTH an integer that specifies the depth at which to
+look for projects.  A DEPTH of 0 means check DIRECTORY.  A depth of 1
+means check all the subdirectories of DIRECTORY.  Etc.
 *** UI
 **** Interface
 ***** NO scroll bar
@@ -5250,9 +5721,8 @@ release. The `unpin!' macro allows you to unpin single packages...
 ;;(package! benchmark-init)
 #+end_src
 *** org
-**** NO org-fancy-priorities
-... #+begin_src emacs-lisp :tangle ./packages.el
-#+begin_src emacs-lisp :tangle no
+**** NO disable org-fancy-priorities
+#+begin_src emacs-lisp :tangle ./packages.el
 ;; start ------------------------------------------------ org / org-fancy-priorities
 (package!
   org-fancy-priorities
@@ -5351,3 +5821,5 @@ creates a lot of lag
 ;;   :disable t
 ;; )
 #+end_src
+
+#+print_bibliography: no
