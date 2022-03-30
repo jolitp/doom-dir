@@ -82,6 +82,10 @@
 (after! org
 )
 
+;; start ---------------------------------- org / DOCT: Declarative Org Capture Templates
+;; don't have any templates in mind at the monment
+;; end ---------------------------------- org / DOCT: Declarative Org Capture Templates
+
 ;; start ---------------------------------- org / hide blank lines in folded view
 (after! org
   (setq org-cycle-separator-lines 0)
@@ -182,7 +186,7 @@
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|" "SKIP(s)" "DONE(D)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|""DONE(D)" "SKIP(s)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -266,6 +270,28 @@
 )
 ;; end --------------------------------------------- org / roam
 
+;; start --------------------------- org / roam ui
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    ;;:after org-roam ;; or :after org
+    :after org         ;; or :after org
+
+;; normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;; a hookable mode anymore, you're advised to pick something yourself
+;; if you don't care about startup time, use
+;;    :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq
+          org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+;;          org-roam-ui-open-on-start t
+    )
+)
+;; end --------------------------- org / roam ui
+
 ;; start ------------------------------------------------------ org / transclusion
 (use-package! org-transclusion
   :after org
@@ -314,3 +340,14 @@
 (setq which-key-prefix-prefix "📁" )
 ;;)
 ;; end ------------------------------------ UI / which key / on the right side
+
+;; start ---------------------------------- Reading / spray
+()
+
+(use-package! spray
+  :config
+  (setq spray-wpm 120)
+  (setq spray-height 250) ; default 400
+;;  (setq spray-ramp 2)
+)
+;; end ---------------------------------- Reading / spray

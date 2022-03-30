@@ -1,5 +1,6 @@
 #+TITLE: Doom Emacs config
 #+AUTHOR: João Luís Teixeira Pinto
+#+print_bibliography: no
 * Doom Emacs config
 ** _
 This file is a literate configuration of my Doom Emacs config.
@@ -96,6 +97,40 @@ https://shaunlebron.github.io/parinfer/
 https://www.youtube.com/watch?v=K0Tsa3smr1w&t=532s
 ** Don't make a habit of putting close-parentheses on lines by themselves; Lisp programmers find this disconcerting.
 https://www.reddit.com/r/emacs/comments/f6q4yx/dont_make_a_habit_of_putting_closeparentheses_on/
+* config emacs by purpose
+** edit org files to become pdf files
+** write literate configuration in org mode then tangle to the respective config files
+** take notes in org mode from books, videos, sites, etc.
+** organize life with org mode
+*** use the agenda
+*** have specific TODOs for important stuff
+**** bills due dates
+**** medicine depleting dates
+**** university due dates
+**** recurring tasks
+*** capture
+**** thoughts
+**** dreams
+**** TODOs
+** develop a personal knowledge management system (PKMS)
+*** a reference place for the things I learn
+** programming environment for different languages and technologies
+*** gdscript
+*** python
+*** web / mobile apps
+**** html
+**** css
+**** javascript
+**** vue
+**** svelte
+**** nativescript
+**** webassembly
+*** rust
+*** C/C++
+*** docker
+*** shell
+**** zsh
+**** fish
 * content about Emacs configs to check out
 ** David Wilson (system crafters)
 *** youtube
@@ -1473,93 +1508,94 @@ https://www.youtube.com/playlist?list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj
 ****** 22 An Introduction to Emacs Lisp
 ****** 23 IRC With ERC
 * intresting packages to check out
-** DONE org-appear
-Toggle visibility of hidden Org mode element parts upon entering and leaving an
-element
-** DONE org-transclusion
-https://github.com/nobiot/org-transclusion
-** org-mime
-org-mime can be used to send HTML email using Org-mode HTML export.
-https://github.com/org-mime/org-mime
-** org-roam-ui
+** NO spinner.el
+Emacs mode-line spinner for operations in progress
+https://github.com/Malabarba/spinner.el
+
+looks like it is meant for package authors
+** done _
+*** DONE org-roam-ui
 A graphical frontend for exploring your org-roam Zettelkasten
 https://github.com/org-roam/org-roam-ui
-** super-save
-Save Emacs buffers when they lose focus
-https://github.com/bbatsov/super-save
-** org-clock-csv
-Export Emacs org-mode clock entries to CSV format.
-https://github.com/atheriel/org-clock-csv
-** bufler.el
-A butler for your buffers. Group buffers into workspaces with programmable
-rules, and easily switch to and manipulate them.
-https://github.com/alphapapa/bufler.el
-** org-clock-convenience
-Convenience functions to work with emacs org mode clocking
-
-My aim is to do as much of the clocking from the agenda buffer without ever
-having to leave it, except to open a new task.
-
-https://github.com/dfeich/org-clock-convenience
-** anki-editor
-Emacs minor mode for making Anki cards with Org
-https://github.com/louietan/anki-editor
-** org-clock-budget
-Budget your time with org!
-https://github.com/Fuco1/org-clock-budget
-** org-mru-clock
-timr_clock Effortlessly clock in/out of org-mode tasks, with completion and
-peristent history
-htts://github.com/unhammer/org-mru-clock
-** counsel-org-clock
-Cousel (Ivy) interface for org-clock
-htts://github.com/akirak/counsel-org-clock
-** clocker.el
-Note taker and org-clock-in enforcer
-https://github.com/roman/clocker.el
-** org-clock-split
-Split org-mode CLOCK entry while preserving time.
-https://github.com/justintaft/org-clock-split
-** org-clock-helpers
-Past clock insertion helpers
-https://github.com/mskorzhinskiy/org-clock-helpers#past-clock-insertion-helpers
-** ednc (The Emacs Desktop Notification Center)
-The Emacs Desktop Notification Center
-https://github.com/sinic/ednc
-** alert
-A Growl-like alerts notifier for Emacs
-https://github.com/jwiegley/alert
-** notdeft
-NotDeft note manager for Emacs
-
-Notdeft is a fork of Deft that uses an external search engine and indexer.
-
-https://github.com/hasu/notdeft
-** Git time machine
-https://gitlab.com/pidu/git-timemachine
-** crux
-A Collection of Ridiculously Useful eXtensions for Emacs
-
-https://github.com/bbatsov/crux
-** HideShow (built-in package)
-https://www.emacswiki.org/emacs/HideShow
-** DOCT: Declarative Org Capture Templates
-*** github
+*** DONE org-appear
+Toggle visibility of hidden Org mode element parts upon entering and leaving an
+element
+*** DONE org-transclusion
+https://github.com/nobiot/org-transclusion
+*** DONE org-super-agenda
+** + org
+*** DONE DOCT: Declarative Org Capture Templates
+**** github
 https://github.com/progfolio/doct
-*** melpa
+**** melpa
 recipe
 #+begin_src elisp
 (doct
  :repo "progfolio/doct"
  :fetcher github)
 #+end_src
-*** fixes
-**** Method to combine doct with org-roam templates?
+**** fixes
+***** Method to combine doct with org-roam templates?
 https://github.com/progfolio/doct/issues/18
-** dirvish
-Dired can be a nice file manager.
-https://github.com/alexluigit/dirvish
-** [#C] writefreely.el
+*** [#C] org-mime
+org-mime can be used to send HTML email using Org-mode HTML export.
+https://github.com/org-mime/org-mime
+*** org-clock-csv
+Export Emacs org-mode clock entries to CSV format.
+https://github.com/atheriel/org-clock-csv
+*** org-clock-split
+Split org-mode CLOCK entry while preserving time.
+https://github.com/justintaft/org-clock-split
+*** org-clock-helpers
+Past clock insertion helpers
+https://github.com/mskorzhinskiy/org-clock-helpers#past-clock-insertion-helpers
+*** org-clock-convenience
+Convenience functions to work with emacs org mode clocking
+
+My aim is to do as much of the clocking from the agenda buffer without ever
+having to leave it, except to open a new task.
+
+https://github.com/dfeich/org-clock-convenience
+*** org-clock-budget
+Budget your time with org!
+https://github.com/Fuco1/org-clock-budget
+*** counsel-org-clock
+Cousel (Ivy) interface for org-clock
+htts://github.com/akirak/counsel-org-clock
+*** alert
+A Growl-like alerts notifier for Emacs
+https://github.com/jwiegley/alert
+*** org-noter
+included with doom?
+https://github.com/weirdNox/org-noter
+*** org-mru-clock
+timr_clock Effortlessly clock in/out of org-mode tasks, with completion and
+peristent history
+
+https://github.com/unhammer/org-mru-clock
+*** org-transclusion
+Emacs package to enable transclusion with Org Mode
+https://github.com/nobiot/org-transclusion
+*** org-fc (spaced repetition)
+Spaced Repetition System for Emacs org-mode
+
+https://www.leonrische.me/fc/index.html
+https://github.com/l3kn/org-fc
+*** yasnippet-org-mode
+A YASnippet bundle for Emacs org-mode. A collection of yasnippet files
+
+https://github.com/RickMoynihan/yasnippet-org-mode
+*** org-babel-examples
+Examples using emacs org mode babel inline source code with different backend
+languages
+https://github.com/dfeich/org-babel-examples
+*** clocker.el
+Note taker and org-clock-in enforcer
+https://github.com/roman/clocker.el
+*** anki-editor
+Emacs minor mode for making Anki cards with Org
+https://github.com/louietan/anki-editor
+*** writefreely.el
 *Frictionless* blogging with Org Mode. No setup required.
 
 https://github.com/dangom/writefreely.el
@@ -1569,69 +1605,197 @@ to any instance of the federated blogging platform write freely. No account nor
 registration is required for anonymous posts in the platform.
 
 https://writefreely.org/
-** Calfw - A calendar framework for Emacs
-https://github.com/kiwanami/emacs-calfw
-** vertico-posframe
+*** anki-editor
+Emacs minor mode for making Anki cards with Org
+https://github.com/louietan/anki-editor
+*** org-protocol-capture-html
+Capture HTML from the browser selection into Emacs as org-mode content
+https://github.com/alphapapa/org-protocol-capture-html
+*** org-mind-map
+This is an emacs package that creates graphviz directed graphs.
+https://github.com/the-ted/org-mind-map
+*** org-graph-view
+View Org buffers as a clickable, graphical mind-map
+https://github.com/alphapapa/org-graph-view
+*** org-ql
+An Org-mode query language, including search commands and saved views
+https://github.com/alphapapa/org-ql
+*** ob-mermaid
+Generate mermaid diagrams within Emacs org-mode babel
+https://github.com/arnm/ob-mermaid
+*** org-clock-convenience
+Convenience functions to work with emacs org mode clocking
+https://github.com/dfeich/org-clock-convenience
+*** org-kanban
+Simple approach to kanban with emacs' org-mode
+https://github.com/hagmonk/org-kanban
+*** org-dashboard
+Visual summary of progress in projects and tasks for Emacs Org Mode
+https://github.com/bard/org-dashboard
+*** org-special-block-extras
+A number of new custom blocks and link types for Emacs' Org-mode ^_^
+https://github.com/alhassy/org-special-block-extras
+*** org-d20
+Emacs minor mode for tabletop roleplaying games that use a d20
+https://github.com/spwhitton/org-d20
+*** org-remark
+Highlight and annotate any text file with using Org mode
+https://github.com/nobiot/org-remark
+*** org-fragtog
+Automatically toggle Org mode LaTeX fragment previews as the cursor enters and exits them
+https://github.com/io12/org-fragtog
+*** org-recur
+Simple recurring org-mode tasks
+https://github.com/m-cat/org-recur
+*** org-menu
+A discoverable menu for Emacs org-mode using transient
+https://github.com/sheijk/org-menu
+*** emacs-org-transform-tree-table
+Transform an org-mode outline and its properties to a table format (org-table,
+CSV)
+https://github.com/jplindstrom/emacs-org-transform-tree-table
+** + buffers
+*** bufler.el
+A butler for your buffers. Group buffers into workspaces with programmable
+rules, and easily switch to and manipulate them.
+https://github.com/alphapapa/bufler.el
+*** super-save
+Save Emacs buffers when they lose focus
+https://github.com/bbatsov/super-save
+*** emacs-solaire-mode
+If only certain buffers could be so grossly incandescent.
+https://github.com/hlissner/emacs-solaire-mode
+
+already installed in Doom Emacs
+** + git
+*** Git time machine
+https://gitlab.com/pidu/git-timemachine
+** + languages
+*** vue-mode
+Emacs major mode for vue.js based on mmm-mode.
+https://github.com/AdamNiederer/vue-mode
+*** android-mode
+Emacs minor mode for Android application development
+https://github.com/remvee/android-mode
+*** polymode
+Framework for Multiple Major Modes in Emacs (core library)
+https://github.com/polymode/polymode
+*** cargo.el
+Emacs Minor Mode for Cargo, Rust's Package Manager.
+https://github.com/kwrooijen/cargo.el
+*** magic-latex-buffer
+Magical syntax highlighting for LaTeX-mode buffers
+https://github.com/zk-phi/magic-latex-buffer
+*** svelte-mode
+Emacs major mode for Svelte.
+https://github.com/leafOfTree/svelte-mode
+*** love-minor-mode
+An Emacs minor mode for LÖVE
+https://github.com/ejmr/love-minor-mode
+*** wat-mode
+An Emacs major mode for WebAssembly's text format
+https://github.com/devonsparks/wat-mode
+*** ink-mode
+An Emacs major mode for the interactive fiction scripting language Ink, by Inkle Studios.
+https://github.com/Kungsgeten/ink-mode
+*** rust-playground
+GNU/Emacs mode that setup local playground for code snippets in Rust language.
+https://github.com/grafov/rust-playground
+*** dotnet.el
+dotnet CLI minor mode for Emacs
+https://github.com/julienXX/dotnet.el
+*** journalctl-mode
+Major mode to view journalctl's output in Emacs
+https://github.com/SebastianMeisel/journalctl-mode
+*** snapshot-timemachine
+Emacs-mode to step through (Btrfs, ZFS, ...) snapshots of files
+https://github.com/mrBliss/snapshot-timemachine
+** + vim / evil
+*** evil-tutor
+Vimtutor adapted to Emacs+Evil and wrapped in a major mode.
+https://github.com/syl20bnr/evil-tutor
+*** evil-textobj-tree-sitter Tree-sitter powered textobjects for evil mode in Emacs
+https://github.com/meain/evil-textobj-tree-sitter
+** + util
+*** crux
+A Collection of Ridiculously Useful eXtensions for Emacs
+
+https://github.com/bbatsov/crux
+** + text editing
+*** filldent.el
+Fill or indent depending on mode
+https://github.com/duckwork/filldent.el
+*** HideShow (built-in package)
+https://www.emacswiki.org/emacs/HideShow
+*** region-occurrences-highlighter
+This emacs package implements a local minor mode that highlights occurrences of
+the current selected region.
+https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter
+*** origami.el
+A folding minor mode for Emacs
+https://github.com/gregsexton/origami.el
+*** lsp-origami
+lsp-mode heart origami.el
+https://github.com/emacs-lsp/lsp-origami
+*** highlight-sexp
+A GNU/Emacs minor mode that highlights s-exp at the current position.
+https://github.com/daimrod/highlight-sexp
+*** electric-operator
+An emacs minor mode to automatically add spacing around operators
+https://github.com/davidshepherd7/electric-operator
+*** auto-dictionary-mode
+Emacs: automatic dictionary switcher for flyspell
+https://github.com/nschum/auto-dictionary-mode
+*** indent-control
+Generic control the indentation level for each mode.
+https://github.com/jcs-elpa/indent-control
+*** emmet-mode
+Unofficial Emmet's support for emacs
+https://github.com/emacsmirror/emmet-mode
+*** speed-of-thought-lisp
+Write elisp at the speed of thought. Emacs minor mode with abbrevs and keybinds.
+https://github.com/Malabarba/speed-of-thought-lisp
+*** guess-language.el
+Emacs minor mode that detects the language you're typing in. Automatically
+switches spell checker. Supports multiple languages per document.
+https://github.com/tmalsburg/guess-language.el
+*** yasnippet-latex-mode
+Collection of latex-mode snippets for yasnippet in Emacs
+https://github.com/shanecelis/yasnippet-latex-mode
+*** synosaurus (thesaurus)
+An extensible thesaurus mode for emacs
+https://github.com/hpdeifel/synosaurus
+
+Quite old and unmaintained (2 years)
+
+the backends work with German and English, no Portuguese option
+*** dtrt-indent
+A minor mode that guesses the indentation offset originally used for creating
+source code files and transparently adjusts the corresponding settings in Emacs,
+making it more convenient to edit foreign files.
+https://github.com/jscheid/dtrt-indent
+*** siege-mode
+An emacs minor mode to surround the region with smart delimiters interactively.
+https://github.com/tslilc/siege-mode
+*** aggressive-indent-mode
+Emacs minor mode that keeps your code always indented. More reliable than
+electric-indent-mode.
+
+https://github.com/Malabarba/aggressive-indent-mode
+** + visuals
+*** vertico-posframe
 vertico-posframe is an vertico extension, which lets vertico use posframe to
 show its candidate menu.
 
 https://github.com/tumashu/vertico-posframe
 
 https://elpa.gnu.org/packages/vertico-posframe.html
-** org-super-agenda
-** org-noter
-included with doom?
-https://github.com/weirdNox/org-noter
-** transcription-mode
-Emacs mode for editing transcripts.
-https://github.com/skeeto/transcription-mode
-** Ace Jump Mode
-https://github.com/winterTTr/ace-jump-mode
-** vue-mode
-Emacs major mode for vue.js based on mmm-mode.
-https://github.com/AdamNiederer/vue-mode
-** android-mode
-Emacs minor mode for Android application development
-https://github.com/remvee/android-mode
-** filldent.el
-Fill or indent depending on mode
-https://github.com/duckwork/filldent.el
-** region-occurrences-highlighter
-This emacs package implements a local minor mode that highlights occurrences of
-the current selected region.
-https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter
-** anki-editor
-Emacs minor mode for making Anki cards with Org
-https://github.com/louietan/anki-editor
-** origami.el
-A folding minor mode for Emacs
-https://github.com/gregsexton/origami.el
-** lsp-origami
-lsp-mode heart origami.el
-https://github.com/emacs-lsp/lsp-origami
-** diffview-mode
-View diffs side-by-side in Emacs
-https://github.com/mgalgs/diffview-mode
-** highlight-sexp
-A GNU/Emacs minor mode that highlights s-exp at the current position.
-https://github.com/daimrod/highlight-sexp
-** siege-mode
-An emacs minor mode to surround the region with smart delimiters interactively.
-https://github.com/tslilc/siege-mode
-** polymode
-Framework for Multiple Major Modes in Emacs (core library)
-https://github.com/polymode/polymode
-** Highlight-Indentation-for-Emacs
+*** Highlight-Indentation-for-Emacs
 Minor modes to highlight indentation guides in emacs.
 
 different than =highligh-indent=, this one colors up the first coluomn of characters
 https://github.com/antonj/Highlight-Indentation-for-Emacs
-** aggressive-indent-mode
-Emacs minor mode that keeps your code always indented. More reliable than
-electric-indent-mode.
-
-https://github.com/Malabarba/aggressive-indent-mode
-** highlight-indent-guides
+*** highlight-indent-guides
 Emacs minor mode to highlight indentation
 
 https://github.com/DarthFennec/highlight-indent-guides
@@ -1639,54 +1803,14 @@ https://github.com/DarthFennec/highlight-indent-guides
 this only shows a thin line
 
 (not showing on org babel blocks)
-** cargo.el
-Emacs Minor Mode for Cargo, Rust's Package Manager.
-https://github.com/kwrooijen/cargo.el
-** yasnippet-org-mode
-A YASnippet bundle for Emacs org-mode. A collection of yasnippet files
-
-https://github.com/RickMoynihan/yasnippet-org-mode
-** org-babel-examples
-Examples using emacs org mode babel inline source code with different backend
-languages
-https://github.com/dfeich/org-babel-examples
-** ztree
-Directory tree comparison mode for Emacs
-https://github.com/fourier/ztree
-** engine-mode
-Minor mode for defining and querying search engines through Emacs.
-https://github.com/hrs/engine-mode
-** org-transclusion
-Emacs package to enable transclusion with Org Mode
-https://github.com/nobiot/org-transclusion
-** org-fc
-Spaced Repetition System for Emacs org-mode
-
-https://www.leonrische.me/fc/index.html
-https://github.com/l3kn/org-fc
-**  pamparam
-Simple and fast flashcards for Emacs
-https://github.com/abo-abo/pamparam
-** emacs-bash-completion
-Add programmable bash completion to Emacs shell-mode
-https://github.com/szermatt/emacs-bash-completion
-** color-identifiers-mode
-Emacs minor mode to highlight each source code identifier uniquely based on its name
-https://github.com/ankurdave/color-identifiers-mode
-** selectric-mode
-keyboard Make your Emacs sound like a proper typewriter.
-https://github.com/rbanffy/selectric-mode
-** typewriter-mode.el
-Typewriter sound effect for Emacs
-https://github.com/tungd/typewriter-mode.el
-** emacs-modern-fringes
+*** emacs-modern-fringes
 Replaces the ugly looking default emacs fringe bitmaps and replaces them with
 better, modern looking ones.
 https://github.com/SpecialBomb/emacs-modern-fringes
-** tracker-mode
-a music tracker/sequencer for emacs
-https://github.com/defaultxr/tracker-mode
-** modern-cpp-font-lock
+*** color-identifiers-mode
+Emacs minor mode to highlight each source code identifier uniquely based on its name
+https://github.com/ankurdave/color-identifiers-mode
+*** modern-cpp-font-lock
 C++ font-lock for Emacs
 https://github.com/ludwigpacifici/modern-cpp-font-lock
 
@@ -1695,167 +1819,116 @@ I'm putting it here not because I want to use it, but to study it.
 It does font locking for a specific major mode.
 
 I want to do something similar in the future.
-** org-protocol-capture-html
-Capture HTML from the browser selection into Emacs as org-mode content
-https://github.com/alphapapa/org-protocol-capture-html
-** ob-mermaid
-Generate mermaid diagrams within Emacs org-mode babel
-https://github.com/arnm/ob-mermaid
-** org-mind-map
-This is an emacs package that creates graphviz directed graphs.
-https://github.com/the-ted/org-mind-map
-** org-graph-view
-View Org buffers as a clickable, graphical mind-map
-https://github.com/alphapapa/org-graph-view
-** spinner.el
-Emacs mode-line spinner for operations in progress
-https://github.com/Malabarba/spinner.el
-** org-ql
-An Org-mode query language, including search commands and saved views
-https://github.com/alphapapa/org-ql
-** svelte-mode
-Emacs major mode for Svelte.
-https://github.com/leafOfTree/svelte-mode
-** emacs-solaire-mode
-If only certain buffers could be so grossly incandescent.
-https://github.com/hlissner/emacs-solaire-mode
+*** selectric-mode
+keyboard Make your Emacs sound like a proper typewriter.
+https://github.com/rbanffy/selectric-mode
+*** perfect-margin
+[emacs] auto center emacs windows, work with minimap and/or linum-mode
+https://github.com/mpwang/perfect-margin
+*** typewriter-mode.el
+Typewriter sound effect for Emacs
+https://github.com/tungd/typewriter-mode.el
+*** prettify-utils.el
+Helper functions for emacs' prettify-symbols-mode
+https://github.com/Ilazki/prettify-utils.el/blob/master/prettify-utils.el
+*** power-mode.el
+Imbue Emacs with power!
+https://github.com/elizagamedev/power-mode.el
 
-already installed in Doom Emacs
-** electric-operator
-An emacs minor mode to automatically add spacing around operators
-https://github.com/davidshepherd7/electric-operator
-** org-clock-convenience
-Convenience functions to work with emacs org mode clocking
-https://github.com/dfeich/org-clock-convenience
-** auto-dictionary-mode
-Emacs: automatic dictionary switcher for flyspell
-https://github.com/nschum/auto-dictionary-mode
-** magic-latex-buffer
-Magical syntax highlighting for LaTeX-mode buffers
-https://github.com/zk-phi/magic-latex-buffer
-** yasnippet-latex-mode
-Collection of latex-mode snippets for yasnippet in Emacs
-https://github.com/shanecelis/yasnippet-latex-mode
-** synosaurus
-An extensible thesaurus mode for emacs
-https://github.com/hpdeifel/synosaurus
+particles and screen shake while you type
+*** mode-line-stats
+A bunch of easy to set up stats for the Emacs mode-line.
+https://github.com/Idorobots/mode-line-stats
+*** mlscroll
+Lightweight scrollbar for the Emacs mode line
+https://github.com/jdtsmith/mlscroll
+*** too-long-lines-mode
+A global minor mode to hide lines that are too long and make emacs slow.
+https://github.com/rakete/too-long-lines-mode
+** + productivity
+*** Calfw - A calendar framework for Emacs
+A calendar framework for Emacs
+https://github.com/kiwanami/emacs-calfw
+**** calfw-howm.el
+Display howm schedules (http://howm.sourceforge.jp/index.html)
+**** calfw-ical.el
+Display schedules of the iCalendar format, such as the google calendar.
+**** calfw-org.el
+Display org schedules (http://orgmode.org/)
+**** calfw-cal.el
+Display diary schedules.
 
-Quite old and unmaintained (2 years)
+*** pamparam (flashcards)
+Simple and fast flashcards for Emacs
+https://github.com/abo-abo/pamparam
+*** engine-mode
+Minor mode for defining and querying search engines through Emacs.
+https://github.com/hrs/engine-mode
+*** transcription-mode
+Emacs mode for editing transcripts.
+https://github.com/skeeto/transcription-mode
+** not-deft
+NotDeft note manager for Emacs
 
-the backends work with German and English, no Portuguese option
-** ink-mode
-An Emacs major mode for the interactive fiction scripting language Ink, by Inkle Studios.
-https://github.com/Kungsgeten/ink-mode
-** dotnet.el
-dotnet CLI minor mode for Emacs
-https://github.com/julienXX/dotnet.el
-** love-minor-mode
-An Emacs minor mode for LÖVE
-https://github.com/ejmr/love-minor-mode
-** org-kanban
-Simple approach to kanban with emacs' org-mode
-https://github.com/hagmonk/org-kanban
-** journalctl-mode
-Major mode to view journalctl's output in Emacs
-https://github.com/SebastianMeisel/journalctl-mode
-** evil-tutor
-Vimtutor adapted to Emacs+Evil and wrapped in a major mode.
-https://github.com/syl20bnr/evil-tutor
-** org-dashboard
-Visual summary of progress in projects and tasks for Emacs Org Mode
-https://github.com/bard/org-dashboard
-** org-special-block-extras
-A number of new custom blocks and link types for Emacs' Org-mode ^_^
-https://github.com/alhassy/org-special-block-extras
-** evil-textobj-tree-sitter
-Tree-sitter powered textobjects for evil mode in Emacs
-https://github.com/meain/evil-textobj-tree-sitter
-** org-d20
-Emacs minor mode for tabletop roleplaying games that use a d20
-https://github.com/spwhitton/org-d20
+Notdeft is a fork of Deft that uses an external search engine and indexer.
+
+https://github.com/hasu/notdeft
+** ov.el
+Simple way to manipulate overlay for Emacs.
+https://github.com/emacsorphanage/ov
+**  color-theme-buffer-local
+This emacs lisp package lets you set a color-theme on a per-buffer basis.
+https://github.com/vic/color-theme-buffer-local
+** spray.el
+A speed reading mode for Emacs
+https://github.com/emacsmirror/spray
+** novel-mode
+Emacs "Screen Reader"
+https://github.com/TLINDEN/novel-mode
+** dirvish
+Dired can be a nice file manager.
+https://github.com/alexluigit/dirvish
+** ztree
+Directory tree comparison mode for Emacs
+https://github.com/fourier/ztree
+** ednc (The Emacs Desktop Notification Center)
+The Emacs Desktop Notification Center
+https://github.com/sinic/ednc
+** md-roam
+Use Org-roam with markdown files by adding Md-roam as a plug-in. Mix org and
+markdown files in a single Org-roam database.
+https://github.com/nobiot/md-roam
+** delve
+Delve into your org-roam zettelkasten
+https://github.com/publicimageltd/delve
+** Ace Jump Mode (replaces avy/evil-snipe?)
+a quick cursor jump mode for emacs
+https://github.com/winterTTr/ace-jump-mode
+
+** diffview-mode
+View diffs side-by-side in Emacs
+https://github.com/mgalgs/diffview-mode
+** emacs-bash-completion
+Add programmable bash completion to Emacs shell-mode
+https://github.com/szermatt/emacs-bash-completion
+** tracker-mode
+a music tracker/sequencer for emacs
+https://github.com/defaultxr/tracker-mode
 ** manage-minor-mode
 Manage your minor-mode on the dedicated interface buffer. Emacs.
 https://github.com/emacsorphanage/manage-minor-mode
 ** manage-minor-mode-table
 Manage minor-modes in table.
 https://github.com/jcs-elpa/manage-minor-mode-table
-** snapshot-timemachine
-Emacs-mode to step through (Btrfs, ZFS, ...) snapshots of files
-https://github.com/mrBliss/snapshot-timemachine
-** literate-programming-examples
-A collection of literate programming examples using Emacs Org mode; these
-examples are directly usable (copy and start hacking), and/or can serve as
-educational literate programs. Clojure will be the preferred language.
-https://github.com/limist/literate-programming-examples
-** rust-playground
-GNU/Emacs mode that setup local playground for code snippets in Rust language.
-https://github.com/grafov/rust-playground
-** perfect-margin
-[emacs] auto center emacs windows, work with minimap and/or linum-mode
-https://github.com/mpwang/perfect-margin
 ** wakib-keys
 Emacs mode that moves to modern keybindings
 https://github.com/darkstego/wakib-keys
 
 workaround CUA mode
-** prettify-utils.el
-Helper functions for emacs' prettify-symbols-mode
-https://github.com/Ilazki/prettify-utils.el/blob/master/prettify-utils.el
-** speed-of-thought-lisp
-Write elisp at the speed of thought. Emacs minor mode with abbrevs and keybinds.
-https://github.com/Malabarba/speed-of-thought-lisp
-** org-remark
-Highlight and annotate any text file with using Org mode
-https://github.com/nobiot/org-remark
-** wat-mode
-An Emacs major mode for WebAssembly's text format
-https://github.com/devonsparks/wat-mode
-** power-mode.el
-Imbue Emacs with power!
-https://github.com/elizagamedev/power-mode.el
-
-particles and screen shake while you type
-** guess-language.el
-Emacs minor mode that detects the language you're typing in. Automatically
-switches spell checker. Supports multiple languages per document.
-https://github.com/tmalsburg/guess-language.el
-** mode-line-stats
-A bunch of easy to set up stats for the Emacs mode-line.
-https://github.com/Idorobots/mode-line-stats
 ** pdf-continuous-scroll-mode.el
 A minor mode for Emacs that implements a two-buffer hack to provide continuous
 scrolling in pdf-tools
 https://github.com/dalanicolai/pdf-continuous-scroll-mode.el
-** mlscroll
-Lightweight scrollbar for the Emacs mode line
-https://github.com/jdtsmith/mlscroll
-** org-fragtog
-Automatically toggle Org mode LaTeX fragment previews as the cursor enters and exits them
-https://github.com/io12/org-fragtog
-** org-recur
-Simple recurring org-mode tasks
-https://github.com/m-cat/org-recur
-** org-menu
-A discoverable menu for Emacs org-mode using transient
-https://github.com/sheijk/org-menu
-** too-long-lines-mode
-A global minor mode to hide lines that are too long and make emacs slow.
-https://github.com/rakete/too-long-lines-mode
-** dtrt-indent
-A minor mode that guesses the indentation offset originally used for creating
-source code files and transparently adjusts the corresponding settings in Emacs,
-making it more convenient to edit foreign files.
-https://github.com/jscheid/dtrt-indent
-** emacs-org-transform-tree-table
-Transform an org-mode outline and its properties to a table format (org-table,
-CSV)
-https://github.com/jplindstrom/emacs-org-transform-tree-table
-** indent-control
-Generic control the indentation level for each mode.
-https://github.com/jcs-elpa/indent-control
-** emmet-mode
-Unofficial Emmet's support for emacs
-https://github.com/emacsmirror/emmet-mode
 * configs from the net to check out
 ** DONE Temporarily show emphasis markers when the cursor is on it
 https://www.reddit.com/r/orgmode/comments/43uuck/temporarily_show_emphasis_markers_when_the_cursor/
@@ -1902,12 +1975,17 @@ Probably far from perfect, but the following is inspired by
 ** Awesome Emacs
 a community driven list of useful Emacs packages, utilities and libraries
 https://github.com/emacs-tw/awesome-emacs
+** literate-programming-examples
+A collection of literate programming examples using Emacs Org mode; these
+examples are directly usable (copy and start hacking), and/or can serve as
+educational literate programs. Clojure will be the preferred language.
+https://github.com/limist/literate-programming-examples
 ** howardabrams dot-files
 My Emacs initialization code and standard scripts I use for client and servers alike.
 https://github.com/howardabrams/dot-files
 ** daedreth UncleDavesEmacs
 https://github.com/daedreth/UncleDavesEmacs/blob/master/config.org
-** dakrone dakrone-dotfiles
+** dakrone dakrone dotfiles
 misc configuration files
 https://github.com/dakrone/dakrone-dotfiles
 ** jinnovation .emacs.d
@@ -1955,40 +2033,6 @@ https://github.com/emacs-tw/awesome-emacs
 Draft of a guide for using emacs with evil
 https://github.com/noctuid/evil-guide
 https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
-* config emacs by purpose
-** edit org files to become pdf files
-** write literate configuration in org mode then tangle to the respective config files
-** take notes in org mode from books, videos, sites, etc.
-** organize life with org mode
-*** use the agenda
-*** have specific TODOs for important stuff
-**** bills due dates
-**** medicine depleting dates
-**** university due dates
-**** recurring tasks
-*** capture
-**** thoughts
-**** dreams
-**** TODOs
-** develop a personal knowledge management system (PKMS)
-*** a reference place for the things I learn
-** programming environment for different languages and technologies
-*** gdscript
-*** python
-*** web / mobile apps
-**** html
-**** css
-**** javascript
-**** vue
-**** svelte
-**** nativescript
-**** webassembly
-*** rust
-*** C/C++
-*** docker
-*** shell
-**** zsh
-**** fish
 * configs TODOs
 ** TODO + hydras
 *** documentation
@@ -2184,7 +2228,7 @@ https://www.reddit.com/r/emacs/comments/lt51wy/how_to_diagnose_slow_emacs_at_run
 https://www.emacswiki.org/emacs/ProfileDotEmacs
 
 https://stardiviner.github.io/Blog/Emacs-slow-and-heavy-Profile,-Benchmark-your-Emacs,-and-speed-it-up.html
-* documentation
+* documentations
 ** org
 *** org-roam
 **** link
@@ -4515,6 +4559,12 @@ Assets:%^{Account||Personal|Home}
 #+end_src
 ****** spacebat (gist)
 https://gist.github.com/spacebat/097f3e7469edf2eaa6a9
+**** DOCT: Declarative Org Capture Templates
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- org / DOCT: Declarative Org Capture Templates
+;; don't have any templates in mind at the monment
+;; end ---------------------------------- org / DOCT: Declarative Org Capture Templates
+#+end_src
 **** hide blank lines in folded view
 ***** code
 
@@ -5182,7 +5232,7 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|" "SKIP(s)" "DONE(D)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|""DONE(D)" "SKIP(s)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
             (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
             )
@@ -5420,6 +5470,37 @@ side-effect-free
 Error in private config: config.el, (void-function org-roam-db-autosync-mode)
 
 workaround : (require 'ucs-normalize)
+**** roam ui
+***** code
+#+begin_src emacs-lisp :tangle ./config.el
+;; start --------------------------- org / roam ui
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    ;;:after org-roam ;; or :after org
+    :after org         ;; or :after org
+
+;; normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;; a hookable mode anymore, you're advised to pick something yourself
+;; if you don't care about startup time, use
+;;    :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq
+          org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+;;          org-roam-ui-open-on-start t
+    )
+)
+;; end --------------------------- org / roam ui
+#+end_src
+***** docs
+****** Usage
+Use =M-x org-roam-ui-mode= RET to enable the global mode.
+
+It will start a web server on http://127.0.0.1:35901/ and connect to it via a
+WebSocket for real-time updates.
 **** transclusion
 #+begin_src emacs-lisp :tangle ./config.el
 ;; start ------------------------------------------------------ org / transclusion
@@ -5604,6 +5685,35 @@ the problem with it is that it applies those margins everywhere
 ;; ) ; Use them now.
 ;; end -------------------------------------------------------- UI / margins
 #+end_src
+*** Reading
+**** spray
+***** code
+#+begin_src emacs-lisp :tangle ./config.el
+;; start ---------------------------------- Reading / spray
+()
+
+(use-package! spray
+  :config
+  (setq spray-wpm 120)
+  (setq spray-height 250) ; default 400
+;;  (setq spray-ramp 2)
+)
+;; end ---------------------------------- Reading / spray
+#+end_src
+***** Commands
+In spray-mode buffers, following commands are available.
+
+spray-start/stop (SPC)          -> pause or resume spraying
+
+spray-backward-word (h, <left>) -> pause and back to the last word
+
+spray-forward-word (l, <right>) -> inverse of spray-backward-word
+
+spray-faster (f)                -> increases speed
+
+spray-slower (s)                -> decreases speed
+
+spray-quit (q, <return>)        -> quit spray-mode
 *** Keybindings
 ** packages.el
 #+begin_src emacs-lisp :tangle ./packages.el
@@ -5630,7 +5740,6 @@ To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 #+end_src
 
 **** package from git
-
 To install a package directly from a remote git repo, you must specify a
 `:recipe'. You'll find documentation on what `:recipe' accepts here:
 https://github.com/raxod502/straight.el#the-recipe-format
@@ -5721,7 +5830,7 @@ release. The `unpin!' macro allows you to unpin single packages...
 ;;(package! benchmark-init)
 #+end_src
 *** org
-**** NO disable org-fancy-priorities
+**** YES disable org-fancy-priorities
 #+begin_src emacs-lisp :tangle ./packages.el
 ;; start ------------------------------------------------ org / org-fancy-priorities
 (package!
@@ -5764,20 +5873,35 @@ release. The `unpin!' macro allows you to unpin single packages...
 (package! org-ref)
 ;; end ---------------------------------------------- org / ref
 #+end_src
-**** NO unpin org packages
+**** YES org roam ui
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! org-roam-ui)
+#+end_src
+**** YES unpin org packages
 ... #+begin_src emacs-lisp :tangle ./packages.el
-#+begin_src emacs-lisp :tangle no
-;; (unpin!
-;;   org
-;;   org-roam
-;; )
+.... #+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle ./packages.el
+(unpin!
+  org
+  org-roam
+)
+#+end_src
+**** YES DOCT: Declarative Org Capture Templates
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! doct)
 #+end_src
 **** NO org-notify
 ... #+begin_src emacs-lisp :tangle ./packages.el
 #+begin_src emacs-lisp :tangle no
-;; start ---------------------------------------------- org / notify
+;; start ------------------------------------------------- org / notify
 ;(package! org-plus-contrib)
 ;; end ---------------------------------------------- org / notify
+#+end_src
+*** calfw callendar
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ------------------------------------------------ calfw
+(package! calfw)
+;; end ------------------------------------------------ calfw
 #+end_src
 *** UI
 **** NO centered-window-mode
@@ -5814,12 +5938,19 @@ creates a lot of lag
 #+end_src
 *** Checkers
 **** Grammar
-***** NO writegood
-... #+begin_src emacs-lisp :tangle ./packages.el
-#+begin_src emacs-lisp :tangle no
-;; (package! writegood-mode
-;;   :disable t
-;; )
+***** YES writegood
+... #+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! writegood-mode
+  :disable t
+)
 #+end_src
+*** Reading
+**** Spray
+A speed reading mode for Emacs
 
-#+print_bibliography: no
+#+begin_src emacs-lisp :tangle ./packages.el
+;; start ------------------------------------------------ spray
+(package! spray)
+;; end ------------------------------------------------ spray
+#+end_src

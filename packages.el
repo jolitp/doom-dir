@@ -55,3 +55,24 @@
 ;; ~/.doom.d/package.el
 (package! org-ref)
 ;; end ---------------------------------------------- org / ref
+
+(package! org-roam-ui)
+
+(unpin!
+  org
+  org-roam
+)
+
+(package! doct)
+
+;; start ------------------------------------------------ calfw
+(package! calfw)
+;; end ------------------------------------------------ calfw
+
+(package! writegood-mode
+  :disable t
+)
+
+;; start ------------------------------------------------ spray
+(package! spray)
+;; end ------------------------------------------------ spray
