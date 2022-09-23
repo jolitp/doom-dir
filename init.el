@@ -22,7 +22,7 @@
 
        doom-dashboard    ; a nifty splash screen for Emacs
 
-       doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       ;;doom-quit       ; DOOM quit-message prompts when you quit Emacs
 
        (emoji            ; 🙂
        ;; +ascii
@@ -67,9 +67,9 @@
         +icons
         )
 
-       (undo             ; persistent, smarter undo for your inevitable mistakes
-        +tree
-        )
+      ;; (undo             ; persistent, smarter undo for your inevitable mistakes
+      ;;  +tree
+      ;;  )
 
        vc                ; version-control and Emacs, sitting in a tree
 
@@ -113,6 +113,8 @@
         )
 
        latex             ; writing papers in Emacs has never been so fun
+
+       ledger            ; be audit you can be
 
        markdown          ; writing docs for people to ignore
 

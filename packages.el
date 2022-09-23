@@ -69,6 +69,11 @@
 (package! calfw)
 ;; end ------------------------------------------------ calfw
 
+;(package! another-package
+;  :recipe (:host github
+;           :repo "duckwork/fill-sentences-correctly.el")
+;)
+
 (package! writegood-mode
   :disable t
 )

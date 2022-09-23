@@ -21,6 +21,10 @@
 (setq confirm-kill-emacs nil)
 ;; end -------------------------------- fixes / remove exit confirmation message
 
+;; (setq sentence-end-double-space t)
+
+(setq max-lisp-eval-depth 10000)
+
 ;; start personal information
 (setq
       user-full-name "João Luís Teixeira Pinto"
@@ -186,9 +190,9 @@
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|""DONE(D)" "SKIP(s)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(D)" "|""DONE(d)" "SKIP(s)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
-            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            (sequence "|" "YES(Y)" "MAYBE(M)" "NO(N)")
             )
     )
   )
@@ -309,8 +313,12 @@
 (setq projectile-sort-order 'recentf)
 
 (setq projectile-project-search-path '(
-                                       ("~/Dropbox" . 10)
-                                       ("~/Config" . 3)
+                                       ;;("~/Dropbox" . 10)
+                                       ;;("~/Config" . 5)
+                                       ("~/Dropbox/docs/FINANCES/ledger/")
+                                       ("~/Dropbox/STUDY/books/_0_reading_now" . 3)
+                                       ("~/Dropbox/STUDY/UAM - letras" . 6)
+                                       ("~/dotfiles")
 ;;                                       ("~/github" . 1) ;; depth = 1
                                       )
 )

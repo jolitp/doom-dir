@@ -2996,10 +2996,10 @@ Aesthetic modules that affect the Emacs interface or user experience.
 #+begin_src emacs-lisp :tangle ./init.el
        doom-dashboard    ; a nifty splash screen for Emacs
 #+end_src
-**** YES doom-quit
+**** NO doom-quit
 + doom-quit - TODO
 #+begin_src emacs-lisp :tangle ./init.el
-       doom-quit       ; DOOM quit-message prompts when you quit Emacs
+       ;;doom-quit       ; DOOM quit-message prompts when you quit Emacs
 #+end_src
 **** YES emoji
 + emoji =+ascii +github +unicode= - Adds emoji support to Emacs
@@ -3245,12 +3245,12 @@ Modules that reconfigure or augment packages or features built into Emacs.
         +icons
         )
 #+end_src
-**** YES undo
+**** NO undo
 + undo =+tree= - A smarter, more intuitive & persistent undo history
 #+begin_src emacs-lisp :tangle ./init.el
-       (undo             ; persistent, smarter undo for your inevitable mistakes
-        +tree
-        )
+      ;; (undo             ; persistent, smarter undo for your inevitable mistakes
+      ;;  +tree
+      ;;  )
 #+end_src
 **** YES vc
 + vc - TODO
@@ -3685,11 +3685,12 @@ WTF is this?
 #+begin_src emacs-lisp :tangle no
        ;;lean              ; for folks with too much to prove
 #+end_src
-**** NO ledger
+**** YES ledger
 + ledger - TODO
 ... #+begin_src emacs-lisp :tangle ./init.el
-#+begin_src emacs-lisp :tangle no
-       ;;ledger            ; be audit you can be
+... #+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle ./init.el
+       ledger            ; be audit you can be
 #+end_src
 **** NO lua
 + lua =+fennel +moonscript= - TODO
@@ -4112,6 +4113,15 @@ Removes annoying exit confirmation message
 ;; start ------------------------------ fixes / remove exit confirmation message
 (setq confirm-kill-emacs nil)
 ;; end -------------------------------- fixes / remove exit confirmation message
+#+end_src
+**** NO format paragraphs with 2 spaces
+#+begin_src emacs-lisp :tangle ./config.el
+;; (setq sentence-end-double-space t)
+#+end_src
+**** YES fix error with stack overflow
+Emacs: nesting exceeds `max-lisp-eval-depth'
+#+begin_src emacs-lisp :tangle ./config.el
+(setq max-lisp-eval-depth 10000)
 #+end_src
 *** Info
 **** name and email
@@ -5232,9 +5242,9 @@ With =manual=, toggling must be enabled by calling =org-appear-manual-start=.
 (after! org
   (setq org-todo-keywords
     (quote (
-            (sequence "TODO(t)" "NEXT(n)" "DOING(d)" "|""DONE(D)" "SKIP(s)")
+            (sequence "TODO(t)" "NEXT(n)" "DOING(D)" "|""DONE(d)" "SKIP(s)")
             (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
-            (sequence "YES(Y)" "MAYBE(M)" "|" "NO(N)")
+            (sequence "|" "YES(Y)" "MAYBE(M)" "NO(N)")
             )
     )
   )
@@ -5525,8 +5535,12 @@ WebSocket for real-time updates.
 (setq projectile-sort-order 'recentf)
 
 (setq projectile-project-search-path '(
-                                       ("~/Dropbox" . 10)
-                                       ("~/Config" . 3)
+                                       ;;("~/Dropbox" . 10)
+                                       ;;("~/Config" . 5)
+                                       ("~/Dropbox/docs/FINANCES/ledger/")
+                                       ("~/Dropbox/STUDY/books/_0_reading_now" . 3)
+                                       ("~/Dropbox/STUDY/UAM - letras" . 6)
+                                       ("~/dotfiles")
 ;;                                       ("~/github" . 1) ;; depth = 1
                                       )
 )
@@ -5935,6 +5949,17 @@ creates a lot of lag
 ;;(package!
 ;;  evil-better-visual-line
 ;;)
+#+end_src
+*** editing
+**** fill-sentences-correctly
+(does the oposite I want)
+https://github.com/duckwork/fill-sentences-correctly.el
+
+#+begin_src emacs-lisp :tangle ./packages.el
+;(package! another-package
+;  :recipe (:host github
+;           :repo "duckwork/fill-sentences-correctly.el")
+;)
 #+end_src
 *** Checkers
 **** Grammar
